@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Product Admin Panel | Magpie Arts</title>
+  <style>
+    /* Same styles as before for admin panel plus category styling */
+    body {
+      font-family: 'Candara', Arial, sans-serif;
+      background: #f5f9ff;
+      margin: 0; padding: 20px;
+      color: #222;
+    }
+    h1 {
+      font-family: 'Roboto Serif', serif;
+      font-weight: 900; font-size: 2.5rem;
+      margin-bottom: 1.2rem;
+      color: #253060;
+    }
+    .admin-container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: #fff;
+      border-radius: 14px;
+      padding: 2rem;
+      box-shadow: 0 4px 25px rgba(100, 140, 255, 0.1);
+    }
+    form > div {
+      margin-bottom: 1rem;
+    }
+    label {
+      display: block;
+      margin-bottom: 0.4rem;
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: #0662b7;
+    }
+    input[type=text], input[type=number], select, textarea {
+      width: 100%;
+      padding: 0.55rem 0.7rem;
+      font-size: 1rem;
+      border-radius: 8px;
+      border: 1.8px solid #a5c3f7;
+      outline: none;
+      transition: border-color 0.25s;
+      font-family: Arial, sans-serif;
+    }
+    input[type=text]:focus, input[type=number]:focus, select:focus, textarea:focus {
+      border-color: #2979ff;
+      box-shadow: 0 0 8px rgba(41,121,255,0.4);
+    }
+    textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+    button {
+      padding: 0.7rem 1.6rem;
+      background: #2979ff;
+      border: none;
+      border-radius: 24px;
+      font-weight: 700;
+      color: white;
+      font-size: 1rem;
+      cursor: pointer;
+      letter-spacing: 0.05em;
+      transition: background 0.3s ease;
+      margin-top: 0.5rem;
+    }
+    button:hover {
+      background: #005ecb;
+    }
+    .products-list {
+      margin-top: 3rem;
+    }
+    .product-item {
+      border: 1.8px solid #d2e3fb;
+      border-radius: 14px;
+      padding: 1rem 1.5rem;
+      margin-bottom: 1.2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #fafdff;
+      user-select: none;
+    }
+    .product-info {
+      max-width: calc(100% - 140px);
+    }
+    .product-title {
+      font-weight: 700;
+      font-size: 1.25rem;
+      color: #1b3a8d;
+      margin-bottom: 0.1rem;
+    }
+    .product-desc {
+      color: #444;
+      font-size: 1rem;
+      margin-bottom: 0.3rem;
+    }
+    .product-meta {
+      font-size: 0.93rem;
+      color: #666;
+      font-family: Arial, sans-serif;
+    }
+    .product-category {
+      font-style: italic;
+      color: #295075;
+      margin-bottom: 0.4rem;
+    }
+    .product-actions button {
+      margin-left: 12px;
+      padding: 0.48rem 1.1rem;
+      border-radius: 14px;
+      border: none;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      font-size: 0.95rem;
+    }
+    .edit-btn {
+      background: #ffc107;
+      color: #2b2500;
+    }
+    .edit-btn:hover {
+      background: #e6ac00;
+    }
+    .delete-btn {
+      background: #e53935;
+      color: white;
+    }
+    .delete-btn:hover {
+      background: #b12622;
+    }
+  </style>
+</head>
+<body>
+  <div class="admin-container">
+    <h1>Product Management</h1>
+    <form id="productForm">
+      <input type="hidden" id="productIndex" value="" />
+      <div>
+        <label for="titleInput">Product Title</label>
+        <input type="text" id="titleInput" required placeholder="Enter product title" />
+      </div>
+      <div>
+        <label for="descInput">Description</label>
+        <textarea id="descInput" required placeholder="Enter product description"></textarea>
+      </div>
+      <div>
+        <label for="priceS1C16">Price Size 10x12 - 16 colors (Rs.)</label>
+        <input type="number" id="priceS1C16" min="0" required placeholder="e.g. 900" />
+      </div>
+      <div>
+        <label for="priceS1C20">Price Size 10x12 - 20 colors (Rs.)</label>
+        <input type="number" id="priceS1C20" min="0" required placeholder="e.g. 1000" />
+      </div>
+      <div>
+        <label for="priceS2C20">Price Size 18x20 - 20 colors (Rs.)</label>
+        <input type="number" id="priceS2C20" min="0" required placeholder="e.g. 1400" />
+      </div>
+      <div>
+        <label for="priceS2C24">Price Size 18x20 - 24 colors (Rs.)</label>
+        <input type="number" id="priceS2C24" min="0" required placeholder="e.g. 1500" />
+      </div>
+      <div>
+        <label for="imageInput">Image URL or Path</label>
+        <input type="text" id="imageInput" required placeholder="Enter image URL or relative path" />
+      </div>
+      <div>
+        <label for="categoryInput">Category</label>
+        <select id="categoryInput" required>
+          <option value="Devotion/Spiritual">Devotion/Spiritual</option>
+          <option value="Scenery/Wonders">Scenery/Wonders</option>
+          <option value="Custom">Custom</option>
+        </select>
+      </div>
+      <div>
+        <label>
+          <input type="checkbox" id="isCustomKitCheckbox" />
+          Is Custom Kit (requires photo upload on product page)
+        </label>
+      </div>
+      <button type="submit">Add / Update Product</button>
+    </form>
+    <div class="products-list" id="productsList">
+      <!-- Product items appear here -->
+    </div>
+  </div>
+  <script>
+    const form = document.getElementById('productForm');
+    const productsList = document.getElementById('productsList');
+    let products = [];
+    window.onload = () => {
+      const saved = localStorage.getItem('magpieProducts');
+      if (saved) {
+        products = JSON.parse(saved);
+        renderProducts();
+      }
+    };
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const index = document.getElementById('productIndex').value;
+      const title = document.getElementById('titleInput').value.trim();
+      const desc = document.getElementById('descInput').value.trim();
+      const priceS1C16 = Number(document.getElementById('priceS1C16').value);
+      const priceS1C20 = Number(document.getElementById('priceS1C20').value);
+      const priceS2C20 = Number(document.getElementById('priceS2C20').value);
+      const priceS2C24 = Number(document.getElementById('priceS2C24').value);
+      const image = document.getElementById('imageInput').value.trim();
+      const category = document.getElementById('categoryInput').value;
+      const isCustomKit = document.getElementById('isCustomKitCheckbox').checked;
+      const productData = {
+        title,
+        desc,
+        priceS1C16,
+        priceS1C20,
+        priceS2C20,
+        priceS2C24,
+        image,
+        category,
+        isCustomKit
+      };
+      if (index === '') {
+        products.push(productData);
+      } else {
+        products[parseInt(index)] = productData;
+      }
+      saveProducts();
+      renderProducts();
+      form.reset();
+      document.getElementById('productIndex').value = '';
+      form.querySelector('button[type="submit"]').textContent = 'Add / Update Product';
+      document.getElementById('isCustomKitCheckbox').checked = false;
+    });
+    function saveProducts() {
+      localStorage.setItem('magpieProducts', JSON.stringify(products));
+    }
+    function renderProducts() {
+      productsList.innerHTML = '';
+      products.forEach((prod, i) => {
+        const prodElem = document.createElement('div');
+        prodElem.className = 'product-item';
+        prodElem.innerHTML = `
+          <div class="product-info">
+            <div class="product-title">${prod.title}</div>
+            <div class="product-desc">${prod.desc}</div>
+            <div class="product-category"><strong>Category:</strong> ${prod.category}</div>
+            <div class="product-meta">
+              Size 10x12 16 colors: Rs. ${prod.priceS1C16.toLocaleString()} | 
+              10x12 20 colors: Rs. ${prod.priceS1C20.toLocaleString()}<br/>
+              Size 18x20 20 colors: Rs. ${prod.priceS2C20.toLocaleString()} | 
+              18x20 24 colors: Rs. ${prod.priceS2C24.toLocaleString()}
+            </div>
+            <div class="product-meta"><strong>Is Custom Kit:</strong> ${prod.isCustomKit ? "Yes" : "No"}</div>
+          </div>
+          <div>
+            <img src="${prod.image}" alt="${prod.title}" style="max-width:100px; border-radius:8px; margin-right:10px;" />
+          </div>
+          <div class="product-actions">
+            <button class="edit-btn" onclick="editProduct(${i})">Edit</button>
+            <button class="delete-btn" onclick="deleteProduct(${i})">Delete</button>
+          </div>
+        `;
+        productsList.appendChild(prodElem);
+      });
+    }
+    function editProduct(idx) {
+      const prod = products[idx];
+      document.getElementById('productIndex').value = idx;
+      document.getElementById('titleInput').value = prod.title;
+      document.getElementById('descInput').value = prod.desc;
+      document.getElementById('priceS1C16').value = prod.priceS1C16;
+      document.getElementById('priceS1C20').value = prod.priceS1C20;
+      document.getElementById('priceS2C20').value = prod.priceS2C20;
+      document.getElementById('priceS2C24').value = prod.priceS2C24;
+      document.getElementById('imageInput').value = prod.image;
+      document.getElementById('categoryInput').value = prod.category;
+      document.getElementById('isCustomKitCheckbox').checked = prod.isCustomKit || false;
+      form.querySelector('button[type="submit"]').textContent = 'Update Product';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    function deleteProduct(idx) {
+      if (confirm(`Are you sure you want to delete "${products[idx].title}"?`)) {
+        products.splice(idx, 1);
+        saveProducts();
+        renderProducts();
+      }
+    }
+  </script>
+</body>
+</html>

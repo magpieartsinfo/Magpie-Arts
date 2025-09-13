@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Shopping Cart | Magpie Arts</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 20px;
+    background: #f8fbff;
+    color: #222;
+  }
+  .logo-container {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  .logo-container img {
+    width: 150px;
+    height: auto;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(60, 90, 170, 0.15);
+    cursor: pointer;
+  }
+  .back-arrow-icon {
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 18px 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    outline: none;
+    box-shadow: none;
+    user-select: none;
+    width: 38px;
+    height: 38px;
+    position: relative;
+    left: 0;
+  }
+  .back-arrow-icon svg {
+    display: block;
+    transition: background 0.2s;
+  }
+  .back-arrow-icon:hover svg circle {
+    fill: #eaf5ff;
+  }
+  h1 {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  .cart-item {
+    display: flex;
+    gap: 20px;
+    border-bottom: 1px solid #ccc;
+    padding: 15px 0;
+    align-items: center;
+  }
+  .cart-item img {
+    width: 80px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 12px;
+  }
+  .details {
+    flex-grow: 1;
+  }
+  .title {
+    font-weight: bold;
+    font-size: 1.1rem;
+    margin: 0 0 5px 0;
+  }
+  .options {
+    color: gray;
+    font-size: 0.9rem;
+    margin-bottom: 5px;
+  }
+  .price {
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+  .quantity-control {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 8px;
+  }
+  .quantity-control button {
+    width: 28px;
+    height: 28px;
+    font-size: 18px;
+    border: none;
+    background: #e0e7ff;
+    cursor: pointer;
+    border-radius: 6px;
+    user-select: none;
+  }
+  .quantity-control span {
+    min-width: 24px;
+    text-align: center;
+    font-size: 14px;
+  }
+  .remove-btn {
+    font-size: 20px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: red;
+    font-weight: bold;
+    user-select: none;
+  }
+  #totalPrice {
+    text-align: right;
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-top: 20px;
+  }
+  #buyNowBtn {
+    display: block;
+    margin: 40px auto 30px;
+    padding: 14px 36px;
+    font-size: 1.25rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #1f39a5 0%, #2970f7 100%);
+    color: #fff;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(49, 74, 181, 0.5);
+    user-select: none;
+    transition: box-shadow 0.3s ease;
+  }
+  #buyNowBtn:hover {
+    box-shadow: 0 7px 20px rgba(49, 74, 181, 0.75);
+  }
+</style>
+</head>
+<body>
+  <div class="logo-container">
+    <a href="index.html" aria-label="Magpie Arts Home">
+      <img src="https://raw.githubusercontent.com/magpieartsinfo/magpiearts-assets/main/magpie-arts-site/images/logo.png" alt="Magpie Arts Logo" />
+    </a>
+  </div>
+  <button class="back-arrow-icon" title="Back" onclick="window.history.back()">
+    <svg width="38" height="38" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Back">
+      <circle cx="19" cy="19" r="19" fill="#eaf5ff" stroke="#a5c7ff"/>
+      <path d="M22.5 27L17 21.474l5.5-5.5" stroke="#2a60e4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
+  <h1>Your Cart</h1>
+  <div id="cartContainer"></div>
+  <div id="totalPrice"></div>
+  <button id="buyNowBtn">Buy Now</button>
+<script>
+  const cartContainer = document.getElementById('cartContainer');
+  const totalPriceElem = document.getElementById('totalPrice');
+  const buyNowBtn = document.getElementById('buyNowBtn');
+
+  // Load cart from localStorage or initialize empty array
+  let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+  // Ensure all cart items have correct isCustomKit boolean set for custom kits
+  cart = cart.map(item => ({
+    ...item,
+    isCustomKit: item.isCustomKit === true || item.isCustomKit === 'true' || false
+  }));
+
+  function saveCart() {
+    localStorage.setItem('cart', JSON.stringify(cart));
+  }
+
+  function renderCart() {
+    cartContainer.innerHTML = '';
+    if (cart.length === 0) {
+      cartContainer.innerHTML = '<p>Your cart is empty.</p>';
+      totalPriceElem.textContent = '';
+      buyNowBtn.style.display = 'none';
+      return;
+    }
+    buyNowBtn.style.display = 'block';
+    let total = 0;
+    cart.forEach((item, index) => {
+      const itemTotal = item.price * item.quantity;
+      total += itemTotal;
+      const div = document.createElement('div');
+      div.className = 'cart-item';
+      div.innerHTML = `
+        <img src="${item.image || ''}" alt="${item.title}">
+        <div class="details">
+          <div class="title">${item.title}</div>
+          <div class="options">Size: ${item.size || ''} | Palette: ${item.palette || ''}</div>
+          <div class="price">Price: Rs. ${item.price}</div>
+          <div class="quantity-control">
+            <button data-index="${index}" class="decrease">-</button>
+            <span>${item.quantity}</span>
+            <button data-index="${index}" class="increase">+</button>
+            <button data-index="${index}" class="remove-btn" title="Remove item">&times;</button>
+          </div>
+        </div>
+      `;
+      cartContainer.appendChild(div);
+    });
+    totalPriceElem.textContent = `Total: Rs. ${total.toLocaleString()}`;
+    attachEventListeners();
+  }
+
+  function attachEventListeners() {
+    document.querySelectorAll('.decrease').forEach(button => {
+      button.addEventListener('click', () => {
+        const index = Number(button.dataset.index);
+        if (cart[index].quantity > 1) {
+          cart[index].quantity--;
+          updateCart();
+        }
+      });
+    });
+
+    document.querySelectorAll('.increase').forEach(button => {
+      button.addEventListener('click', () => {
+        const index = Number(button.dataset.index);
+        cart[index].quantity++;
+        updateCart();
+      });
+    });
+
+    document.querySelectorAll('.remove-btn').forEach(button => {
+      button.addEventListener('click', () => {
+        const index = Number(button.dataset.index);
+        cart.splice(index, 1);
+        updateCart();
+      });
+    });
+  }
+
+  function updateCart() {
+    saveCart();
+    renderCart();
+  }
+
+  buyNowBtn.addEventListener('click', () => {
+    if (cart.length === 0) {
+      alert('Your cart is empty.');
+      return;
+    }
+    // Store cart in magpieCart key for checkout page to read
+    localStorage.setItem('magpieCart', JSON.stringify(cart));
+    // Clear any directOrder to avoid conflicts
+    sessionStorage.removeItem('directOrder');
+    window.location.href = 'checkout.html';
+  });
+
+  renderCart();
+</script>
+</body>
+</html>

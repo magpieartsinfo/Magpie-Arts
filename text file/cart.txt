@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Shopping Cart | Magpie Arts</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 20px;
+    background: #f8fbff;
+    color: #222;
+  }
+  h1 {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  .cart-item {
+    display: flex;
+    gap: 20px;
+    border-bottom: 1px solid #ccc;
+    padding: 15px 0;
+    align-items: center;
+  }
+  .cart-item img {
+    width: 80px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 12px;
+  }
+  .details {
+    flex-grow: 1;
+  }
+  .title {
+    font-weight: bold;
+    font-size: 1.1rem;
+    margin: 0 0 5px 0;
+  }
+  .options {
+    color: gray;
+    font-size: 0.9rem;
+    margin-bottom: 5px;
+  }
+  .price {
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+  .quantity-control button {
+    width: 30px;
+    height: 30px;
+    font-size: 18px;
+    border: none;
+    background: #e0e7ff;
+    cursor: pointer;
+    border-radius: 6px;
+  }
+  .quantity-control span {
+    margin: 0 10px;
+    font-size: 1rem;
+  }
+  .remove-btn {
+    font-size: 20px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: red;
+    font-weight: bold;
+  }
+  #totalPrice {
+    text-align: right;
+    font-size: 1.4rem;
+    font-weight: bold;
+    margin-top: 20px;
+  }
+  #buyNowBtn {
+    display: block;
+    margin: 30px auto;
+    padding: 12px 24px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    background: linear-gradient(135deg, #1f39a5 0%, #2970f7 100%);
+    color: white;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(50,115,255,0.6);
+  }
+  #buyNowBtn:hover {
+    box-shadow: 0 7px 20px rgba(50,115,255,0.8);
+  }
+</style>
+</head>
+<body>
+
+<h1>Your Cart</h1>
+<div id="cartContainer"></div>
+<div id="totalPrice"></div>
+<button id="buyNowBtn">Buy Now</button>
+
+<script>
+  const cartContainer = document.getElementById('cartContainer');
+  const totalPriceElem = document.getElementById('totalPrice');
+  const buyNowBtn = document.getElementById('buyNowBtn');
+
+  let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+  function renderCart() {
+    cartContainer.innerHTML = '';
+    if (cart.length === 0) {
+      cartContainer.innerHTML = '<p>Your cart is empty.</p>';
+      totalPriceElem.textContent = '';
+      buyNowBtn.style.display = 'none';
+      return;
+    }
+    buyNowBtn.style.display = 'block';
+    let total = 0;
+    cart.forEach((item, index) => {
+      const itemTotal = item.price * item.quantity;
+      total += itemTotal;
+      const div = document.createElement('div');
+      div.classList.add('cart-item');
+      div.innerHTML = `
+        <img src="${item.image}" alt="${item.title}">
+        <div class="details">
+          <div class="title">${item.title}</div>
+          <div class="options">Size: ${item.size} | Palette: ${item.palette}</div>
+          <div class="price">Price: Rs. ${item.price}</div>
+          <div class="quantity-control">
+            <button data-index="${index}" class="decrease">-</button>
+            <span>${item.quantity}</span>
+            <button data-index="${index}" class="increase">+</button>
+            <button data-index="${index}" class="remove-btn" title="Remove item">&times;</button>
+          </div>
+        </div>
+      `;
+      cartContainer.appendChild(div);
+    });
+    totalPriceElem.textContent = `Total: Rs. ${total.toLocaleString()}`;
+    attachEventListeners();
+  }
+
+  function attachEventListeners() {
+    document.querySelectorAll('.decrease').forEach((btn) => {
+      btn.onclick = () => updateQuantity(btn.dataset.index, -1);
+    });
+    document.querySelectorAll('.increase').forEach((btn) => {
+      btn.onclick = () => updateQuantity(btn.dataset.index, 1);
+    });
+    document.querySelectorAll('.remove-btn').forEach((btn) => {
+      btn.onclick = () => removeItem(btn.dataset.index);
+    });
+  }
+
+  function updateQuantity(index, change) {
+    index = Number(index);
+    cart[index].quantity += change;
+    if (cart[index].quantity < 1) cart[index].quantity = 1;
+    saveCart();
+    renderCart();
+  }
+
+  function removeItem(index) {
+    index = Number(index);
+    cart.splice(index, 1);
+    saveCart();
+    renderCart();
+  }
+
+  function saveCart() {
+    localStorage.setItem('cart', JSON.stringify(cart));
+  }
+
+  buyNowBtn.onclick = () => {
+    if (cart.length === 0) {
+      alert('Your cart is empty.');
+      return;
+    }
+    alert('Proceeding to checkout...'); 
+    // You can later redirect to a payment or confirmation page here.
+  };
+
+  renderCart();
+</script>
+
+</body>
+</html>

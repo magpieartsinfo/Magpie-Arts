@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Checkout | Magpie Arts</title>
+<style>
+/* ...existing css... */
+.back-arrow-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  margin-bottom: 14px;
+  margin-left: 8px;
+  cursor: pointer;
+  border-radius: 50%;
+  box-shadow: 0 1.5px 7px #d7d7d7;
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.back-arrow-btn:hover {
+  background: #e0eaff;
+}
+body {
+  font-family: Arial, sans-serif;
+  max-width: 500px;
+  margin: 25px auto;
+  background: #f8faff;
+  padding: 20px;
+}
+.logo-container {
+  text-align: center;
+  margin-bottom: 20px;
+}
+.logo-container img {
+  width: 150px;
+  border-radius: 12px;
+  box-shadow: 0 0 10px #abc;
+}
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+#cartDescription {
+  background: #eef5ff;
+  border-radius: 10px;
+  padding: 12px;
+  margin-bottom: 20px;
+  color: #1e3a8a;
+}
+#cartDescription ul {
+  margin-left: 20px;
+  padding: 0;
+  list-style-type: disc;
+}
+.cart-item {
+  margin-bottom: 8px;
+}
+form {
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 0 12px #ccc;
+}
+.form-group {
+  margin-bottom: 15px;
+}
+label {
+  font-weight: bold;
+}
+input, select, textarea {
+  width: 100%;
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #a9c4ff;
+  font-size: 1rem;
+}
+input:invalid,select:invalid {
+  border-color: red;
+}
+button[type="submit"] {
+  background: #3c59ff;
+  color: #fff;
+  border: none;
+  padding: 12px;
+  border-radius: 10px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  cursor: pointer;
+  width: 100%;
+}
+button[type="submit"]:hover {
+  background: #2a43c6;
+}
+textarea {
+  resize: vertical;
+  height: 80px;
+}
+#photoUploadContainer {
+  display: none;
+  margin-bottom: 15px;
+}
+</style>
+</head>
+<body>
+  <div class="logo-container">
+    <img src="https://raw.githubusercontent.com/magpieartsinfo/magpiearts-assets/main/magpie-arts-site/images/logo.png" alt="Magpie Arts Logo" />
+  </div>
+  <button class="back-arrow-btn" onclick="history.back()" aria-label="Go Back">
+    <!-- SVG for back arrow -->
+    <svg width="24" height="24" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6" stroke="#3c59ff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </button>
+
+  <h1>Checkout</h1>
+
+  <div id="cartDescription" aria-label="Order Summary">
+    <p><strong>Products in your order:</strong></p>
+    <ul id="cartList"></ul>
+  </div>
+
+  <form id="checkoutForm" novalidate autocomplete="off">
+
+    <div class="form-group">
+      <label for="emailPhone">Email <span style="color:red">*</span></label>
+      <input type="text" id="email" required />
+    </div>
+
+    <div class="form-group">
+      <label for="firstName">First Name <span style="color:red">*</span></label>
+      <input type="text" id="firstName" required />
+    </div>
+
+    <div class="form-group">
+      <label for="lastName">Last Name <span style="color:red">*</span></label>
+      <input type="text" id="lastName" required />
+    </div>
+
+    <div class="form-group">
+      <label for="address">Address <span style="color:red">*</span></label>
+      <input type="text" id="address" required />
+    </div>
+
+    <div class="form-group">
+      <label for="apartment">Apartment, suite, etc. (optional)</label>
+      <input type="text" id="apartment" />
+    </div>
+
+    <div class="form-group">
+      <label for="city">City <span style="color:red">*</span></label>
+      <input type="text" id="city" required />
+    </div>
+
+    <div class="form-group">
+      <label for="state">State <span style="color:red">*</span></label>
+      <select id="state" required>
+        <option value="">Select State</option>
+        <option>Gujarat</option>
+        <option>Maharashtra</option>
+        <option>Delhi</option>
+        <option>Rajasthan</option>
+        <option>Other</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="pincode">Pin Code <span style="color:red">*</span></label>
+      <input type="text" id="pincode" required />
+    </div>
+
+    <div class="form-group">
+      <label for="phone">Phone <span style="color:red">*</span></label>
+      <input type="text" id="phone" required />
+    </div>
+
+    <div class="form-group" id="photoUploadContainer">
+      <label for="photoUpload">Upload Photo <span style="color:red">*</span></label>
+      <input type="file" id="photoUpload" accept="image/*" />
+    </div>
+
+    <div class="form-group">
+      <label for="comments">Comments / Notes (optional)</label>
+      <textarea id="comments" placeholder="Any special instructions or messages"></textarea>
+    </div>
+
+    <button type="submit">Place Order</button>
+
+  </form>
+
+<script>
+function getCartItems() {
+  let cartItems = [];
+
+  // Try load single product order from sessionStorage (Buy Now)
+  try {
+    const directOrder = JSON.parse(sessionStorage.getItem("directOrder"));
+    if (directOrder && Object.keys(directOrder).length) {
+      cartItems = [directOrder];
+      sessionStorage.removeItem("directOrder"); // clear after reading
+      return cartItems;
+    }
+  } catch (e) {
+    console.warn("Error reading directOrder", e);
+  }
+
+  // Otherwise, try load cart from localStorage
+  try {
+    const storedCart = JSON.parse(localStorage.getItem("magpieCart"));
+    if (Array.isArray(storedCart) && storedCart.length) {
+      cartItems = storedCart;
+    }
+  } catch (e) {
+    console.warn("Error reading magpieCart", e);
+  }
+  return cartItems;
+}
+
+function shouldShowPhotoUpload(cartItems) {
+  if (!cartItems.length) return false;
+  return cartItems.some(item => {
+    // Detect by checking if title contains "Custom PIE Kit" case-insensitive
+    return /custom PIE kit/i.test(item.title);
+  });
+}
+
+const cartItems = getCartItems();
+const cartList = document.getElementById("cartList");
+const photoUploadContainer = document.getElementById("photoUploadContainer");
+const photoUploadInput = document.getElementById("photoUpload");
+
+function renderCart() {
+  if (!cartItems.length) {
+    cartList.innerHTML = "<li>No products in your order.</li>";
+    photoUploadContainer.style.display = "none";
+    return;
+  }
+  cartList.innerHTML = "";
+  cartItems.forEach(item => {
+    const li = document.createElement("li");
+    let options = [];
+    if (item.size) options.push(item.size);
+    if (item.palette) options.push(item.palette);
+    li.textContent = `${item.title}${options.length ? " - " + options.join(", ") : ""} - Qty: ${item.quantity || 1} - Rs. ${item.price}`;
+    cartList.appendChild(li);
+  });
+
+  if (shouldShowPhotoUpload(cartItems)) {
+    photoUploadContainer.style.display = "block";
+    photoUploadInput.required = true;
+  } else {
+    photoUploadContainer.style.display = "none";
+    photoUploadInput.required = false;
+    photoUploadInput.value = "";
+  }
+}
+
+renderCart();
+
+document.getElementById("checkoutForm").addEventListener("submit", async function (e) {
+  e.preventDefault();
+
+  const requiredFields = [
+    "email",
+    "firstName",
+    "lastName",
+    "address",
+    "city",
+    "state",
+    "pincode",
+    "phone",
+  ];
+  if (photoUploadContainer.style.display === "block") {
+    requiredFields.push("photoUpload");
+  }
+
+  let valid = true;
+  for (const id of requiredFields) {
+    const el = document.getElementById(id);
+    if (!el) continue;
+    if (el.type === "file") {
+      if (el.files.length === 0) {
+        el.style.borderColor = "red";
+        valid = false;
+      } else {
+        el.style.borderColor = "";
+      }
+    } else {
+      if (!el.value.trim()) {
+        el.style.borderColor = "red";
+        valid = false;
+      } else {
+        el.style.borderColor = "";
+      }
+    }
+  }
+  if (!valid) {
+    alert(
+      "Please fill all required fields" +
+        (photoUploadContainer.style.display === "block" ? " and upload your photo." : ".")
+    );
+    return;
+  }
+
+  let photoBase64 = null;
+  let photoType = null;
+  if (photoUploadContainer.style.display === "block") {
+    const file = photoUploadInput.files[0];
+    photoType = file.type;
+    photoBase64 = await new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = () => reject("Could not read image file");
+      reader.readAsDataURL(file);
+    });
+  }
+
+  const payload = {
+    customerName: document.getElementById("firstName").value + " " + document.getElementById("lastName").value,
+    email: document.getElementById("email").value,
+    address:
+      document.getElementById("address").value +
+      ", " +
+      document.getElementById("apartment").value +
+      ", " +
+      document.getElementById("city").value +
+      ", " +
+      document.getElementById("state").value +
+      ", " +
+      document.getElementById("pincode").value,
+    phone: document.getElementById("phone").value,
+    comments: document.getElementById("comments").value.trim(),
+    cartItems,
+    photoBase64,
+    photoType,
+  };
+
+  try {
+    const res = await fetch("https://script.google.com/macros/s/AKfycbz0m1jS3txvkGVN7UnTSnxfFZQlzxaqkpcbCtmvKMa6BVKrYeCul8W986jv9naoSWy_/exec", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+    const json = await res.json();
+    if (json.result === "success") {
+      alert("Order placed successfully.");
+      sessionStorage.removeItem("directOrder");
+      localStorage.removeItem("magpieCart");
+      this.reset();
+      // Optionally redirect or clear form
+    } else {
+      alert("Error submitting order: " + json.message);
+    }
+  } catch (error) {
+    alert("Submission failed: " + error.message);
+  }
+});
+</script>
+</body>
+</html>

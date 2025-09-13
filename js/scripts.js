@@ -1,0 +1,1 @@
+console.log('Magpie Arts site loaded');

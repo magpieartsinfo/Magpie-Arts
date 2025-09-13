@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Payment | MAGPIE ARTS</title>
+<style>
+  body { font-family: Arial, sans-serif; max-width: 400px; margin: 40px auto; text-align: center; background: #f8faff; }
+  h1 { margin-bottom: 20px; color: #3c59ff; }
+  img { margin: 20px 0; border: 1px solid #555; border-radius: 8px; }
+  p { font-size: 1.1rem; }
+  button {
+    background: #3c59ff;
+    color: #fff;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    margin-top: 20px;
+  }
+  #successMessage {
+    display: none;
+    color: #155724;
+    background: #d4edda;
+    padding: 15px;
+    border-radius: 10px;
+    margin-top: 30px;
+    font-weight: bold;
+  }
+  a {
+    color: #3c59ff;
+    text-decoration: none;
+  }
+</style>
+</head>
+<body>
+  <h1>Complete Your Payment</h1>
+  <p>Please scan the QR code below or use the payment link with your UPI app:</p>
+  <img id="qrCode" src="" alt="UPI QR Code" width="200" height="200" />
+  <p><a id="paymentLink" href="" target="_blank" rel="noopener noreferrer"></a></p>
+  <p><strong>Amount to pay: ₹<span id="amountDisplay"></span></strong></p>
+
+  <button id="confirmPaymentBtn">I Have Completed Payment</button>
+
+  <div id="successMessage">
+    <h2>Thank you for your order!</h2>
+    <p>Your payment is confirmed.</p>
+    <p>Order ID: <span id="orderIdDisplay"></span></p>
+    <p><a href="/index.html">Return to homepage</a></p>
+  </div>
+
+<script>
+  const UPI_ID = "jaymistryfeb-1@okhdfcbank";
+  const BUSINESS_NAME = "MAGPIE ARTS";
+
+  const qrCodeImg = document.getElementById('qrCode');
+  const paymentLink = document.getElementById('paymentLink');
+  const amountDisplay = document.getElementById('amountDisplay');
+  const confirmBtn = document.getElementById('confirmPaymentBtn');
+  const successMsg = document.getElementById('successMessage');
+  const orderIdDisplay = document.getElementById('orderIdDisplay');
+
+  // Retrieve payment info saved by checkout page
+  const orderId = sessionStorage.getItem('paymentOrderId');
+  const amount = sessionStorage.getItem('paymentAmount'); // Pass amount separately
+  if (!orderId || !amount) {
+    alert("Payment information not found. Redirecting to checkout.");
+    window.location.href = '/checkout.html';
+  } else {
+    amountDisplay.textContent = amount;
+
+    // Build UPI payment URL
+    const paymentUrl = `upi://pay?pa=${encodeURIComponent(UPI_ID)}&pn=${encodeURIComponent(BUSINESS_NAME)}&am=${encodeURIComponent(amount)}&cu=INR`;
+
+    paymentLink.href = paymentUrl;
+    paymentLink.textContent = paymentUrl;
+
+    // Generate QR code using qrserver.com
+    qrCodeImg.src = 'https://api.qrserver.com/v1/create-qr-code/?data=' + encodeURIComponent(paymentUrl) + '&size=200x200';
+
+    orderIdDisplay.textContent = orderId;
+  }
+
+  confirmBtn.addEventListener('click', () => {
+    confirmBtn.style.display = 'none';
+    successMsg.style.display = 'block';
+
+    // Clear payment sessionStorage
+    sessionStorage.removeItem('paymentOrderId');
+    sessionStorage.removeItem('paymentAmount');
+  });
+</script>
+</body>
+</html>

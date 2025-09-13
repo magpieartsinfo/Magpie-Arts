@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Custom Kit | Magpie Arts</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@900&family=Roboto+Serif:opsz,wght@8..144,700&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      background: #f8fbff;
+      margin: 0; padding: 0;
+      font-family: 'Candara', Arial, sans-serif;
+      color: #222;
+    }
+    .prod-viewer {
+      max-width: 1200px;
+      margin: 40px auto 30px auto;
+      display: flex;
+      gap: 3.5rem;
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 2px 22px rgba(80,120,220,0.10);
+      padding: 2.5rem 2.5rem 1.5rem 2.5rem;
+    }
+    .img-section {
+      width: 430px;
+      min-width: 310px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.8rem;
+      user-select: none;
+      touch-action: none;
+    }
+    .back-arrow-icon {
+      background: none;
+      border: none;
+      padding: 0;
+      margin-bottom: 14px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      outline: none;
+      box-shadow: none;
+      user-select: none;
+      width: 38px; height: 38px;
+    }
+    .back-arrow-icon svg {
+      display: block;
+      transition: background 0.2s;
+    }
+    .back-arrow-icon:hover svg circle {
+      fill: #e7f5ff;
+    }
+    .main-img-wrap {
+      position: relative;
+      width: 350px;
+      height: 466px;
+      overflow: hidden;
+      border-radius: 15px;
+      box-shadow: 0 6px 30px rgba(64, 105, 215, 0.15);
+      background: #fafdff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .main-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 15px;
+      opacity: 1;
+      position: absolute;
+      top: 0; left: 0;
+      transition: opacity 0.5s ease;
+      user-select: none;
+      -webkit-user-drag: none;
+      z-index: 1;
+    }
+    .main-img-wrap img.fade-out { opacity: 0; z-index: 0; }
+    .main-img-wrap img.fade-in { opacity: 1; z-index: 1; }
+    .arrow {
+      position: absolute;
+      top: 50%; transform: translateY(-50%);
+      font-size: 2rem;
+      color: #8ba4c6;
+      background: #f4f8faa6;
+      border: none;
+      border-radius: 50%;
+      width: 38px; height: 38px;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      z-index: 5;
+      transition: background 0.2s;
+      user-select: none;
+    }
+    .arrow:hover { background: #bbe1ff; }
+    .arrow.left { left: 12px; }
+    .arrow.right { right: 12px; }
+    .thumbs {
+      display: flex;
+      gap: 6px;
+      margin-top: 10px;
+      user-select: none;
+    }
+    .thumbs img {
+      width: 58px;
+      height: 58px;
+      object-fit: cover;
+      border-radius: 8px;
+      border: 2px solid #dbeffd;
+      cursor: pointer;
+      transition: border-color 0.2s;
+      user-select: none;
+    }
+    .thumbs img.selected, .thumbs img:hover {
+      border-color: #294ad3;
+    }
+    @media (max-width: 1020px) {
+      .prod-viewer {
+        flex-direction: column;
+        align-items: center;
+      }
+      .img-section {
+        width: 100%;
+        max-width: 350px;
+      }
+    }
+    @media (max-width: 600px) {
+      .prod-viewer {
+        padding: 0.7rem !important;
+      }
+      .img-section, .main-img-wrap {
+        width: 98vw;
+        min-width: 110px;
+      }
+      .main-img-wrap {
+        height: calc(98vw * 4 / 3);
+      }
+    }
+    .detail-section {
+      flex: 1;
+      min-width: 330px;
+      max-width: 560px;
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+      margin-top: 20px;
+      overflow-x: auto;
+    }
+    .title-area {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .title-area h1 {
+      font-family: 'Roboto Serif', serif;
+      font-weight: 900;
+      font-size: 2.1rem;
+      margin: 0 0 0.6rem 0;
+      color: #253060;
+      letter-spacing: 0.01em;
+    }
+    .desc-area {
+      font-size: 1.05rem;
+    }
+    .note-hl {
+      display: block;
+      background: #fdeef5;
+      margin: 10px 0 0 0;
+      border-left: 4px solid #fa71a3;
+      color: #834659;
+      padding: 0.9em 1em;
+      border-radius: 7px;
+      font-size: 0.99em;
+    }
+    .price-area {
+      font-family: 'Montserrat', Arial, sans-serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: #242c41;
+      padding: 0.15rem 0;
+      margin-bottom: 0.35rem;
+    }
+    .prod-options {
+      margin-bottom: 0.8rem;
+      font-family: Arial, sans-serif;
+    }
+    .prod-options label {
+      font-weight: 700;
+      margin-right: 1.3em;
+    }
+    .prod-options .option-group {
+      margin-bottom: 0.9rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.7em;
+    }
+    .prod-options .option-group button {
+      font-family: inherit;
+      font-size: 1rem;
+      padding: 8px 18px;
+      border-radius: 7px;
+      border: 2.2px solid #80b6fca6;
+      background: #fafdff;
+      color: #086eb2;
+      cursor: pointer;
+      margin-right: 0.3em;
+      margin-bottom: 0.3em;
+      transition: background 0.16s, border 0.18s;
+    }
+    .prod-options .option-group button.selected,
+    .prod-options .option-group button:hover {
+      background: #0472ff;
+      color: #fff;
+      border-color: #0472ff;
+    }
+    .prod-options .option-group button:disabled {
+      background: #d5e5fc;
+      border-color: #bbe2fa;
+      color: #9bbed9;
+      cursor: not-allowed;
+    }
+    .form-row {
+      margin-bottom: 1.25em;
+    }
+    .form-row label {
+      font-size: 1rem;
+      font-weight: 600;
+      display: block;
+      margin-bottom: 0.4em;
+    }
+    .add-cart-row {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1rem;
+      align-items: center;
+    }
+    .add-cart-row button {
+      font-family: 'Montserrat', Arial, sans-serif;
+      font-weight: 700;
+      font-size: 1.12rem;
+      padding: 0.9rem 2.2rem;
+      border-radius: 30px;
+      border: none;
+      cursor: pointer;
+      user-select: none;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+    }
+    .add-cart-row .add-cart-btn {
+      background: linear-gradient(135deg, #1f39a5 0%, #2970f7 100%);
+      color: #fff;
+      box-shadow: 0 5px 15px rgb(49 74 181 / 50%);
+    }
+    .add-cart-row .add-cart-btn:hover {
+      background: linear-gradient(135deg, #1654a9 0%, #194bab 100%);
+      box-shadow: 0 6px 20px rgb(75 113 238 / 55%);
+      transform: translateY(-3px);
+    }
+    .add-cart-row .buy-now-btn {
+      background: #ffbc0a;
+      color: #231a01;
+      box-shadow: 0 4px 14px rgb(255 171 0 / 60%);
+    }
+    .add-cart-row .buy-now-btn:hover {
+      background: #ff9e04;
+      box-shadow: 0 6px 25px rgb(255 169 0 / 75%);
+      transform: translateY(-3px);
+    }
+    .upload-photo-row {
+      display: none;
+      margin-bottom: 1.2em;
+    }
+  </style>
+</head>
+<body>
+  <div class="prod-viewer" id="prodViewer">
+    <div class="detail-section">
+      <button class="back-arrow-icon" title="Back to Shop" onclick="goBack()">
+        <svg width="38" height="38" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Back">
+          <circle cx="19" cy="19" r="19" fill="#EFF7FF" stroke="#D6E3F8"/>
+          <path d="M22.5 27L17 21.474l5.5-5.5" stroke="#1056F1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+      <div class="title-area">
+        <h1 id="productTitle"></h1>
+        <div id="descArea" class="desc-area"></div>
+        <span class="note-hl">* Prices above Rs. 1,399 qualify for free delivery.</span>
+      </div>
+      <div class="price-area">
+        <span id="productPrice"></span>
+      </div>
+      <form id="orderForm" onsubmit="event.preventDefault();">
+        <div class="prod-options">
+          <div class="option-group" id="sizeOptions"></div>
+          <div class="option-group" id="paletteOptions"></div>
+        </div>
+        <div class="form-row upload-photo-row" id="uploadPhotoRow">
+          <label for="uploadInput">Upload your photo <span style="color:red">*</span></label>
+          <input id="uploadInput" type="file" accept="image/*" />
+        </div>
+        <div class="add-cart-row">
+          <button class="add-cart-btn" type="button" onclick="addToCart()">ADD TO CART</button>
+          <button class="buy-now-btn" type="submit">BUY IT NOW</button>
+          <button class="view-cart-btn" type="button" onclick="goToCart()" style="background:#444;color:#fff;border:none;border-radius:30px;padding:0.9rem 2.2rem;cursor:pointer;">VIEW CART</button>
+        </div>
+      </form>
+    </div>
+    <div class="img-section" id="imgSection">
+      <div class="main-img-wrap" id="mainImgWrap">
+        <button id="leftArrow" class="arrow left" aria-label="Previous image">&lt;</button>
+        <img id="mainImage" src="" alt="Product View" draggable="false" />
+        <button id="rightArrow" class="arrow right" aria-label="Next image">&gt;</button>
+      </div>
+      <div id="thumbsContainer" class="thumbs"></div>
+    </div>
+  </div>
+  <script>
+    function goBack() {
+      window.location.href = 'shop.html';
+    }
+    function goToCart() {
+      window.location.href = 'cart.html';
+    }
+    const products = JSON.parse(localStorage.getItem('magpieProducts')) || [];
+    let currentIndex = parseInt(new URLSearchParams(window.location.search).get('index'), 10);
+    if (isNaN(currentIndex) || !products[currentIndex]) currentIndex = -1;
+    const productTitleElem = document.getElementById('productTitle');
+    const descAreaElem = document.getElementById('descArea');
+    const productPriceElem = document.getElementById('productPrice');
+    const mainImage = document.getElementById('mainImage');
+    const thumbsContainer = document.getElementById('thumbsContainer');
+    const sizeOptionsElem = document.getElementById('sizeOptions');
+    const paletteOptionsElem = document.getElementById('paletteOptions');
+    const uploadPhotoRow = document.getElementById('uploadPhotoRow');
+    const uploadInput = document.getElementById('uploadInput');
+    let selectedOpts = { size: 0, palette: 0 };
+    let currentSlide = 0;
+    function setupProduct() {
+      if (currentIndex === -1) {
+        productTitleElem.textContent = "Product Not Found";
+        descAreaElem.textContent = "";
+        productPriceElem.textContent = "";
+        mainImage.style.display = 'none';
+        thumbsContainer.style.display = 'none';
+        return;
+      }
+      const product = products[currentIndex];
+      productTitleElem.textContent = product.title;
+      descAreaElem.textContent = product.desc;
+      // Always show main image as first, even after thumbnail click
+      const images = [product.image, 'https://raw.githubusercontent.com/magpieartsinfo/magpiearts-assets/main/magpie-arts-site/images/size-selector.png ', 'https://raw.githubusercontent.com/magpieartsinfo/magpiearts-assets/main/magpie-arts-site/images/kit-includes.png '];
+      mainImage.src = images[0];
+      let lastSelectedImgIndex = 0;
+      function updateImage(i) {
+        if (i === lastSelectedImgIndex) return;
+        mainImage.src = images[i];
+        lastSelectedImgIndex = i;
+        Array.from(thumbsContainer.children).forEach((thumb, idx) => thumb.classList.toggle('selected', idx === i));
+      }
+      thumbsContainer.innerHTML = '';
+      images.forEach((src, i) => {
+        const thumb = document.createElement('img');
+        thumb.src = src;
+        thumb.alt = i === 0 ? product.title + " main image" : (i === 1 ? "Size selector" : "Kit includes");
+        thumb.className = i === 0 ? 'selected' : '';
+        thumb.addEventListener('click', () => updateImage(i));
+        thumbsContainer.appendChild(thumb);
+      });
+      document.getElementById('leftArrow').onclick = () => updateImage((lastSelectedImgIndex - 1 + images.length) % images.length);
+      document.getElementById('rightArrow').onclick = () => updateImage((lastSelectedImgIndex + 1) % images.length);
+      const sizes = [
+        { label: '10x12 Inch', value: '10x12' },
+        { label: '18x20 Inch', value: '18x20' }
+      ];
+      const palettes = [
+        { label: '16 colors', value: 16 },
+        { label: '20 colors', value: 20 },
+        { label: '24 colors', value: 24 }
+      ];
+      function createButtons(container, options, groupName) {
+        container.innerHTML = '';
+        options.forEach((opt, idx) => {
+          const btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'option-btn';
+          btn.textContent = opt.label;
+          btn.onclick = () => selectOption(groupName, idx);
+          if (groupName === 'size' && idx === selectedOpts.size) btn.classList.add('selected');
+          if (groupName === 'palette' && idx === selectedOpts.palette) btn.classList.add('selected');
+          container.appendChild(btn);
+        });
+      }
+      function selectOption(group, idx) {
+        selectedOpts[group] = idx;
+        const container = group === 'size' ? sizeOptionsElem : paletteOptionsElem;
+        Array.from(container.children).forEach((btn, i) => btn.classList.toggle('selected', i === idx));
+        updatePaletteOptions(selectedOpts.size);
+        updatePrice();
+      }
+      function updatePaletteOptions(sizeIdx) {
+        const paletteBtns = paletteOptionsElem.querySelectorAll(".option-btn");
+        if (sizeIdx === 0) {
+          paletteBtns[0].disabled = false;
+          paletteBtns[1].disabled = false;
+          paletteBtns[2].disabled = true;
+          if (selectedOpts.palette === 2) selectOption('palette', 0);
+        } else {
+          paletteBtns[0].disabled = true;
+          paletteBtns[1].disabled = false;
+          paletteBtns[2].disabled = false;
+          if (selectedOpts.palette === 0) selectOption('palette', 1);
+        }
+      }
+      function updatePrice() {
+        let price = 900;
+        if (selectedOpts.size === 0 && selectedOpts.palette === 0) price = product.priceS1C16;
+        else if (selectedOpts.size === 0 && selectedOpts.palette === 1) price = product.priceS1C20;
+        else if (selectedOpts.size === 1 && selectedOpts.palette === 1) price = product.priceS2C20;
+        else if (selectedOpts.size === 1 && selectedOpts.palette === 2) price = product.priceS2C24;
+        productPriceElem.innerText = 'Rs. ' + price.toLocaleString();
+      }
+      createButtons(sizeOptionsElem, sizes, 'size');
+      createButtons(paletteOptionsElem, palettes, 'palette');
+      updatePaletteOptions(selectedOpts.size);
+      updatePrice();
+      sizeOptionsElem.addEventListener('click', e => {
+        if (e.target.classList.contains('option-btn')) {
+          const idx = Array.from(sizeOptionsElem.children).indexOf(e.target);
+          selectOption('size', idx);
+        }
+      });
+      // Show upload row only for Custom Kit:
+      if (product.isCustomKit) {
+        uploadPhotoRow.style.display = "block";
+        uploadInput.required = true;
+      } else {
+        uploadPhotoRow.style.display = "none";
+        uploadInput.required = false;
+      }
+    }
+    setupProduct();
+    function addToCart() {
+      if (currentIndex === -1) {
+        alert("Invalid product");
+        return;
+      }
+      const product = products[currentIndex];
+      // Capture selected options
+      const sizeOption = selectedOpts.size === 0 ? '10x12 Inch' : '18x20 Inch';
+      let paletteOption = '';
+      if (selectedOpts.palette === 0) paletteOption = '16 colors';
+      else if (selectedOpts.palette === 1) paletteOption = '20 colors';
+      else if (selectedOpts.palette === 2) paletteOption = '24 colors';
+      // Calculate price based on selected options
+      let price = 0;
+      if (selectedOpts.size === 0 && selectedOpts.palette === 0) price = product.priceS1C16;
+      else if (selectedOpts.size === 0 && selectedOpts.palette === 1) price = product.priceS1C20;
+      else if (selectedOpts.size === 1 && selectedOpts.palette === 1) price = product.priceS2C20;
+      else if (selectedOpts.size === 1 && selectedOpts.palette === 2) price = product.priceS2C24;
+      const cartItem = {
+        id: product.id ?? currentIndex,
+        title: product.title,
+        size: sizeOption,
+        palette: paletteOption,
+        price: price,
+        quantity: 1,
+        image: product.image
+      };
+      // Load existing cart or create new
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+      // Check if same product with same options exists
+      const existingIndex = cart.findIndex(item =>
+        item.id === cartItem.id &&
+        item.size === cartItem.size &&
+        item.palette === cartItem.palette
+      );
+      if (existingIndex !== -1) {
+        cart[existingIndex].quantity += 1; // Increase quantity
+      } else {
+        cart.push(cartItem); // Add new item
+      }
+      localStorage.setItem('cart', JSON.stringify(cart));
+      alert("Product added to cart!");
+      // Optionally redirect user to cart page
+      // window.location.href = 'cart.html';
+    }
+    function goToCart() {
+      window.location.href = 'cart.html';
+    }
+  // Add this to your existing script block on the product page
+
+// Attach event listener to the existing form submit event
+document.getElementById('orderForm').addEventListener('submit', function(event) {
+  event.preventDefault(); // Prevent regular form submission
+  buyNow();
+});
+
+function buyNow() {
+  if (currentIndex === -1) {
+    alert("Invalid product");
+    return;
+  }
+  const product = products[currentIndex];
+  const sizeOption = selectedOpts.size === 0 ? '10x12 Inch' : '18x20 Inch';
+  let paletteOption = '';
+  if (selectedOpts.palette === 0) paletteOption = '16 colors';
+  else if (selectedOpts.palette === 1) paletteOption = '20 colors';
+  else paletteOption = '24 colors';
+
+  let price = 0;
+  if (selectedOpts.size === 0 && selectedOpts.palette === 0) price = product.priceS1C16;
+  else if (selectedOpts.size === 0 && selectedOpts.palette === 1) price = product.priceS1C20;
+  else if (selectedOpts.size === 1 && selectedOpts.palette === 1) price = product.priceS2C20;
+  else if (selectedOpts.size === 1 && selectedOpts.palette === 2) price = product.priceS2C24;
+
+  const orderItem = {
+    id: product.id ?? currentIndex,
+    title: product.title,
+    size: sizeOption,
+    palette: paletteOption,
+    price: price,
+    quantity: 1,
+    image: product.image,
+    isCustomKit: product.isCustomKit // add this field if needed
+  };
+
+  sessionStorage.setItem('directOrder', JSON.stringify(orderItem));
+  window.location.href = 'checkout.html';
+}
+
+
+  </script>
+</body>
+</html>
