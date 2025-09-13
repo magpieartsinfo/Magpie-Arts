@@ -1,23 +1,45 @@
 [
   {
-    "title": "Ganesh Painting Kit",
-    "desc": "Celebrate Ganesh Chaturthi with vibrant paint-by-number.",
+    "title": "Krishna 1",
+    "desc": "PIE KIT - Krishna make divine blessing of Krishna through Paint by number kit",
     "priceS1C16": 900,
     "priceS1C20": 1000,
     "priceS2C20": 1400,
     "priceS2C24": 1500,
-    "image": "https://raw.githubusercontent.com/magpieartsinfo/magpiearts-site/main/images/ganesh_painting.jpg",
+    "image": "https://raw.githubusercontent.com/magpieartsinfo/magpiearts-assets/main/magpie-arts-site/images/Krishna.webp",
+    "category": "Devotion/Spiritual",
+    "isCustomKit": false
+  },`
+  {
+    "title": "Radha Krishna",
+    "desc": "Radha Krishna PIE kit , Devotion with Love.",
+    "priceS1C16": 900,
+    "priceS1C20": 1000,
+    "priceS2C20": 1400,
+    "priceS2C24": 1500,
+    "image": "https://raw.githubusercontent.com/magpieartsinfo/magpiearts-assets/main/magpie-arts-site/images/radha%20krishna%202.webp",
+    "category": "Devotion/Spiritual",
+    "isCustomKit": false
+  },
+  {
+    "title": "Radha Krishna 2",
+    "desc": "Radha Krishna PIE Kit, Paint by Number Kit, Devotion with Love",
+    "priceS1C16": 900,
+    "priceS1C20": 1000,
+    "priceS2C20": 1400,
+    "priceS2C24": 1500,
+    "image": "https://raw.githubusercontent.com/magpieartsinfo/magpiearts-assets/main/magpie-arts-site/images/radha%20krishna.webp",
     "category": "Devotion/Spiritual",
     "isCustomKit": false
   },
   {
     "title": "Custom PIE Kit",
-    "desc": "Upload your photo to create your personalized kit.",
-    "priceS1C16": 1000,
-    "priceS1C20": 1100,
-    "priceS2C20": 1500,
-    "priceS2C24": 1600,
-    "image": "https://raw.githubusercontent.com/magpieartsinfo/magpiearts-site/main/images/custom_portrait.jpg",
+    "desc": "' Turn Moments into Masterpiece'",
+    "priceS1C16": 900,
+    "priceS1C20": 1000,
+    "priceS2C20": 1400,
+    "priceS2C24": 1500,
+    "image": "https://raw.githubusercontent.com/magpieartsinfo/magpiearts-assets/main/magpie-arts-site/images/Mummy-Ppa.png",
     "category": "Custom",
     "isCustomKit": true
   }
