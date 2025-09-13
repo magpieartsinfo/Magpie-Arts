@@ -78,7 +78,7 @@
     <h2>Thank you for your order!</h2>
     <p>Your payment is confirmed.</p>
     <p>Order ID: <span id="orderIdDisplay"></span></p>
-    <p><a href="https://github.com/magpieartsinfo/magpie-arts-site/blob/main/index.html">Return to homepage</a></p>
+    <p><a href="https://magpieartsinfo.github.io/magpie-arts-site/index.html">Return to homepage</a></p>
   </div>
 <script>
   const UPI_ID = "jaymistryfeb-1@okhdfcbank";
@@ -94,7 +94,7 @@
   const amount = sessionStorage.getItem('paymentAmount');
   if (!orderId || !amount) {
     alert("Payment information not found. Redirecting to checkout.");
-    window.location.href = 'https://github.com/magpieartsinfo/magpie-arts-site/blob/main/checkout.html';
+    window.location.href = 'https://magpieartsinfo.github.io/magpie-arts-site/checkout.html';
   } else {
     amountDisplay.textContent = amount;
     // Build UPI payment URL

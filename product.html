@@ -336,10 +336,10 @@
   </div>
   <script>
     function goBack() {
-      window.location.href = 'https://github.com/magpieartsinfo/magpie-arts-site/blob/main/shop.html';
+      window.location.href = 'https://magpieartsinfo.github.io/magpie-arts-site/shop.html';
     }
     function goToCart() {
-      window.location.href = 'https://github.com/magpieartsinfo/magpie-arts-site/blob/main/cart.html';
+      window.location.href = 'https://magpieartsinfo.github.io/magpie-arts-site/cart.html';
     }
     const products = JSON.parse(localStorage.getItem('magpieProducts')) || [];
     let currentIndex = parseInt(new URLSearchParams(window.location.search).get('index'), 10);
@@ -506,10 +506,10 @@
       localStorage.setItem('cart', JSON.stringify(cart));
       alert("Product added to cart!");
       // Optional redirection commented out
-      // window.location.href = 'https://github.com/magpieartsinfo/magpie-arts-site/blob/main/cart.html';
+      // window.location.href = 'https://magpieartsinfo.github.io/magpie-arts-site/cart.html';
     }
     function goToCart() {
-      window.location.href = 'https://github.com/magpieartsinfo/magpie-arts-site/blob/main/cart.html';
+      window.location.href = 'https://magpieartsinfo.github.io/magpie-arts-site/cart.html';
     }
     document.getElementById('orderForm').addEventListener('submit', function(event) {
       event.preventDefault();
@@ -542,7 +542,7 @@
         isCustomKit: product.isCustomKit
       };
       sessionStorage.setItem('directOrder', JSON.stringify(orderItem));
-      window.location.href = 'https://github.com/magpieartsinfo/magpie-arts-site/blob/main/checkout.html';
+      window.location.href = 'https://magpieartsinfo.github.io/magpie-arts-site/checkout.html';
     }
   </script>
 </body>
