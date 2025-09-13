@@ -398,7 +398,7 @@
     let products = [];
 async function loadProductsFromJson() {
   try {
-    const response = await fetch('https://raw.githubusercontent.com/magpieartsinfo/magpie-arts-site/main/products.json');
+    const response = await fetch('https://raw.githubusercontent.com/magpieartsinfo/magpie-arts-site/refs/heads/main/products.json');
     if (!response.ok) throw new Error('Could not fetch products.json');
     products = await response.json();
   } catch (err) {
