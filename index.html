@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <title>MAGPIE ARTS | PIE Kits Paint by Number</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@900&family=Roboto+Serif:ital,wght@0,400;0,700&display=swap" rel="stylesheet" />
   <style>
     body {
@@ -68,34 +69,32 @@
       background: none;
       filter: drop-shadow(0 2px 4px rgba(32,32,70,0.13));
     }
-     .home-icon {
-  position: absolute;
-  left: 24px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 52px;
-  height: 52px;
-  /* Same styles as menu-icon for background, shadow, etc */
-  cursor: pointer;
-  z-index: 12;
-  background: #e6f0ff;
-  border-radius: 50%;
-  box-shadow: 0 4px 15px rgba(18, 68, 170, 0.14);
-  padding: 7px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background 0.3s;
-  user-select: none;
-}
-.home-icon:hover {
-  background: #c6dfff;
-}
-.home-icon svg {
-  width: 36px;
-  height: 36px;
-}
-
+    .home-icon {
+      position: absolute;
+      left: 24px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 52px;
+      height: 52px;
+      cursor: pointer;
+      z-index: 12;
+      background: #e6f0ff;
+      border-radius: 50%;
+      box-shadow: 0 4px 15px rgba(18, 68, 170, 0.14);
+      padding: 7px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.3s;
+      user-select: none;
+    }
+    .home-icon:hover {
+      background: #c6dfff;
+    }
+    .home-icon svg {
+      width: 36px;
+      height: 36px;
+    }
     .menu-icon {
       position: absolute;
       right: 24px;
@@ -132,6 +131,7 @@
       justify-content: center;
       gap: 38px;
       user-select: none;
+      flex-wrap: wrap;
     }
     nav.main-menu a {
       font-weight: 700;
@@ -144,6 +144,7 @@
       background: #e8f0fd;
       margin-bottom: 8px;
       cursor: pointer;
+      white-space: nowrap;
     }
     nav.main-menu a.active,
     nav.main-menu a:hover {
@@ -230,6 +231,7 @@
       justify-content: center;
       gap: 34px;
       margin-top: 17px;
+      flex-wrap: wrap;
     }
     .social-icons a {
       display: inline-block;
@@ -344,122 +346,116 @@
       .social-icons img { width: 28px; height: 28px; }
       .social-icons { gap: 17px; }
     }
-
-/* Order Lookup Modal */
-#orderLookupModal {
-  position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-  display: flex; justify-content: center; align-items: center;
-  z-index: 3000;
-}
-#orderLookupModal[hidden] {
-  display: none;
-}
-.modal-bg {
-  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-  background-color: rgba(0,0,0,0.4);
-  backdrop-filter: blur(3px);
-}
-.modal-content {
-  position: relative;
-  background: white;
-  border-radius: 18px;
-  padding: 20px;
-  max-width: 380px;
-  width: 90%;
-  box-shadow: 0 5px 25px #4b86e6aa;
-  font-family: 'Candara', Arial, sans-serif;
-  color: #222;
-  user-select: none;
-}
-#closeOrderLookup {
-  position: absolute; top: 10px; right: 10px;
-  background: transparent;
-  border: none;
-  font-size: 28px;
-  line-height: 1;
-  cursor: pointer;
-  color: #1852dd;
-}
-#orderLookupEmail {
-  width: 100%;
-  padding: 10px;
-  margin: 12px 0;
-  border: 2px solid #aed4ff;
-  border-radius: 10px;
-  font-size: 1rem;
-}
-#fetchOrdersBtn {
-  background: #1852dd;
-  border: none;
-  padding: 12px 20px;
-  border-radius: 10px;
-  color: white;
-  font-weight: 700;
-  font-size: 1.1rem;
-  cursor: pointer;
-  width: 100%;
-  user-select: none;
-}
-#fetchOrdersBtn:disabled {
-  background: #a3c2ff;
-  cursor: not-allowed;
-}
-#ordersResult {
-  margin-top: 20px;
-  max-height: 320px;
-  overflow-y: auto;
-  font-size: 0.95rem;
-}
-.order-item {
-  border-bottom: 1px solid #cee1ff;
-  padding: 8px 0;
-}
-.order-item:last-child {
-  border-bottom: none;
-}
-.order-id {
-  font-weight: 700;
-  color: #174197;
-  margin-bottom: 4px;
-}
-.order-status {
-  color: orange;
-  font-weight: 700;
-  margin-bottom: 8px;
-}
-.order-product {
-  margin-left: 10px;
-}
-.modal-content p {
-  margin-bottom: 12px;
-  font-weight: 600;
-  font-size: 1.05rem;
-  color: #1b2e57;
-}
-
-.input-group {
-  margin-bottom: 16px;
-}
-
-.input-group input {
-  width: 100%;
-  padding: 14px 16px;
-  font-size: 1.1rem;
-  border-radius: 12px;
-  border: 2px solid #9fbff6;
-  outline-color: #1852dd;
-  transition: border-color 0.3s ease;
-  box-sizing: border-box;
-}
-
-.input-group input:focus {
-  border-color: #3460f0;
-}
-
+    /* Order Lookup Modal */
+    #orderLookupModal {
+      position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+      display: flex; justify-content: center; align-items: center;
+      z-index: 3000;
+    }
+    #orderLookupModal[hidden] {
+      display: none;
+    }
+    .modal-bg {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background-color: rgba(0,0,0,0.4);
+      backdrop-filter: blur(3px);
+    }
+    .modal-content {
+      position: relative;
+      background: white;
+      border-radius: 18px;
+      padding: 20px;
+      max-width: 380px;
+      width: 90%;
+      box-shadow: 0 5px 25px #4b86e6aa;
+      font-family: 'Candara', Arial, sans-serif;
+      color: #222;
+      user-select: none;
+    }
+    #closeOrderLookup {
+      position: absolute; top: 10px; right: 10px;
+      background: transparent;
+      border: none;
+      font-size: 28px;
+      line-height: 1;
+      cursor: pointer;
+      color: #1852dd;
+    }
+    #orderLookupEmail {
+      width: 100%;
+      padding: 10px;
+      margin: 12px 0;
+      border: 2px solid #aed4ff;
+      border-radius: 10px;
+      font-size: 1rem;
+    }
+    #fetchOrdersBtn {
+      background: #1852dd;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 10px;
+      color: white;
+      font-weight: 700;
+      font-size: 1.1rem;
+      cursor: pointer;
+      width: 100%;
+      user-select: none;
+    }
+    #fetchOrdersBtn:disabled {
+      background: #a3c2ff;
+      cursor: not-allowed;
+    }
+    #ordersResult {
+      margin-top: 20px;
+      max-height: 320px;
+      overflow-y: auto;
+      font-size: 0.95rem;
+    }
+    .order-item {
+      border-bottom: 1px solid #cee1ff;
+      padding: 8px 0;
+    }
+    .order-item:last-child {
+      border-bottom: none;
+    }
+    .order-id {
+      font-weight: 700;
+      color: #174197;
+      margin-bottom: 4px;
+    }
+    .order-status {
+      color: orange;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .order-product {
+      margin-left: 10px;
+    }
+    .modal-content p {
+      margin-bottom: 12px;
+      font-weight: 600;
+      font-size: 1.05rem;
+      color: #1b2e57;
+    }
+    .input-group {
+      margin-bottom: 16px;
+    }
+    .input-group input {
+      width: 100%;
+      padding: 14px 16px;
+      font-size: 1.1rem;
+      border-radius: 12px;
+      border: 2px solid #9fbff6;
+      outline-color: #1852dd;
+      transition: border-color 0.3s ease;
+      box-sizing: border-box;
+    }
+    .input-group input:focus {
+      border-color: #3460f0;
+    }
   </style>
 </head>
 <body>
-
   <div id="sideMenu" aria-label="Main Navigation">
     <ul>
       <li><a href="#" id="menuPaintByNumber">Paint By Number</a></li>
@@ -468,12 +464,10 @@
       <li><a href="#" id="menuScenery">Scenery/Wonders</a></li>
       <li><a href="#" id="menuCart">Cart</a></li>
       <li><a href="#" id="menuOrderLookup">My Orders</a></li>
-
       <li><footer>© 2025 Magpie Arts</footer></li>
     </ul>
   </div>
   <div id="menuOverlay"></div>
-
   <header class="header-bar" role="banner">
     <span class="header-logo" role="img" aria-label="Magpie Arts logo">
       <img src="https://raw.githubusercontent.com/magpieartsinfo/magpiearts-assets/main/magpie-arts-site/images/logo.png" alt="Magpie Arts Logo" />
@@ -490,19 +484,16 @@
       </svg>
     </span>
   </header>
-
   <nav class="main-menu" aria-label="Main navigation">
-    <a href="Index.html" class="active">Home</a>
-    <a href="Shop.html">Shop</a>
+    <a href="index.html" class="active">Home</a>
+    <a href="shop.html">Shop</a>
     <a href="about.html">About Us</a>
     <a href="#contact-section">Contact Us</a>
   </nav>
-
   <div class="banner-box" aria-label="Homepage banner carousel">
     <div class="carousel-wrapper">
       <div class="carousel-slide">
-        <img src="https://raw.githubusercontent.com/magpieartsinfo/magpiearts-assets/main/magpie-arts-site/images/banner1.jpg
-" alt="Banner Image 1" />
+        <img src="https://raw.githubusercontent.com/magpieartsinfo/magpiearts-assets/main/magpie-arts-site/images/banner1.jpg" alt="Banner Image 1" />
       </div>
       <div class="carousel-slide">
         <video autoplay muted loop playsinline>
@@ -511,8 +502,7 @@
         </video>
       </div>
       <div class="carousel-slide">
-        <img src="https://raw.githubusercontent.com/magpieartsinfo/magpiearts-assets/main/magpie-arts-site/images/banner2.png
-" alt="Banner Image 2" />
+        <img src="https://raw.githubusercontent.com/magpieartsinfo/magpiearts-assets/main/magpie-arts-site/images/banner2.png" alt="Banner Image 2" />
       </div>
       <div class="carousel-slide">
         <video autoplay muted loop playsinline>
@@ -522,36 +512,33 @@
       </div>
     </div>
   </div>
-
   <main class="intro" role="main">
     <p><strong>MAGPIE ARTS presents PIE Kits Paint by Number.</strong></p>
     <p>Anyone can create stunning acrylic paintings — No experience required!</p>
     <p>Gift PIE kits on birthdays, anniversaries & celebrations.</p>
     <p class="highlight-red">Turn moments into masterpieces.</p>
   </main>
-
   <footer id="contact-section" aria-label="Footer">
     <div class="contact-info">
       <p><strong>Contact Us</strong></p>
-      <p>Phone: +91-8128136985 &nbsp;|&nbsp; Email: magpieartsinfo@gmail.com</p>
+      <p>Phone: +91-8128136985 &nbsp;|&nbsp; Email: <a href="mailto:magpieartsinfo@gmail.com" style="color:#fff;text-decoration:underline;">magpieartsinfo@gmail.com</a></p>
       <p>Address: 285, Manmandir Residency, Ankleshwar, Gujarat-393001</p>
     </div>
-    <nav class="social-icons" aria-label="Social media links">
+    <nav class="social-icons" aria-label="Social media links" role="navigation">
       <a href="https://api.whatsapp.com/send?phone=918128136985" aria-label="WhatsApp" rel="noopener" target="_blank">
-        <img src="https://raw.githubusercontent.com/magpieartsinfo/magpiearts-assets/refs/heads/main/magpie-arts-site/images/whatsapp-icon.svg" alt="WhatsApp" />
+        <img src="https://raw.githubusercontent.com/magpieartsinfo/magpiearts-assets/refs/heads/main/magpie-arts-site/images/whatsapp-icon.svg" alt="WhatsApp" width="38" height="38" />
       </a>
       <a href="https://www.linkedin.com/company/magpie-arts/?viewAsMember=true" aria-label="LinkedIn" rel="noopener" target="_blank">
-        <img src="https://raw.githubusercontent.com/magpieartsinfo/magpiearts-assets/refs/heads/main/magpie-arts-site/images/linkedin-icon.svg" alt="LinkedIn" />
+        <img src="https://raw.githubusercontent.com/magpieartsinfo/magpiearts-assets/refs/heads/main/magpie-arts-site/images/linkedin-icon.svg" alt="LinkedIn" width="38" height="38" />
       </a>
       <a href="https://www.instagram.com/magpiearts27?igsh=cWMxZ2UydWV3ZHdy" aria-label="Instagram" rel="noopener" target="_blank">
-        <img src="https://raw.githubusercontent.com/magpieartsinfo/magpiearts-assets/refs/heads/main/magpie-arts-site/images/instagram-icon.svg" alt="Instagram" />
+        <img src="https://raw.githubusercontent.com/magpieartsinfo/magpiearts-assets/refs/heads/main/magpie-arts-site/images/instagram-icon.svg" alt="Instagram" width="38" height="38" />
       </a>
       <a href="https://www.facebook.com/share/1QVHnxCqRB/" aria-label="Facebook" rel="noopener" target="_blank">
-        <img src="https://raw.githubusercontent.com/magpieartsinfo/magpiearts-assets/refs/heads/main/magpie-arts-site/images/facebook-icon.svg" alt="Facebook" />
+        <img src="https://raw.githubusercontent.com/magpieartsinfo/magpiearts-assets/refs/heads/main/magpie-arts-site/images/facebook-icon.svg" alt="Facebook" width="38" height="38" />
       </a>
     </nav>
   </footer>
-
 <div id="orderLookupModal" aria-modal="true" role="dialog" aria-labelledby="orderLookupTitle" tabindex="-1" hidden>
   <div class="modal-bg"></div>
   <div class="modal-content" role="document">
@@ -565,43 +552,34 @@
   <input type="text" id="orderLookupCity" placeholder="Your city" aria-label="City to lookup orders" />
 </div>
 <button id="fetchOrdersBtn" disabled>View Orders</button>
-
     <div id="ordersResult"></div>
   </div>
 </div>
-
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
   <script>
-
 // Initialize Supabase client (replace with your credentials)
 const supabaseUrl = "https://rxtukfjjeruospodnkdz.supabase.co";
 const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ4dHVrZmpqZXJ1b3Nwb2Rua2R6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTc0ODc0NTQsImV4cCI6MjA3MzA2MzQ1NH0.-sgX4XjHiamnzyqDdlmBlrPgaPMgX8GbzdB1c2rnSc0";
 const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
-
-    // Menu toggle logic
-    const menuIcon = document.querySelector('.menu-icon');
-    const sideMenu = document.getElementById('sideMenu');
-    const menuOverlay = document.getElementById('menuOverlay');
-
-    menuIcon.addEventListener('click', () => {
-      if (sideMenu.style.right === '0px') {
-        closeMenu();
-      } else {
-        openMenu();
-      }
-    });
-
-    menuOverlay.addEventListener('click', closeMenu);
-
-   function openMenu() {
+// Menu toggle logic
+const menuIcon = document.querySelector('.menu-icon');
+const sideMenu = document.getElementById('sideMenu');
+const menuOverlay = document.getElementById('menuOverlay');
+menuIcon.addEventListener('click', () => {
+  if (sideMenu.style.right === '0px') {
+    closeMenu();
+  } else {
+    openMenu();
+  }
+});
+menuOverlay.addEventListener('click', closeMenu);
+function openMenu() {
   sideMenu.classList.add("open");
   sideMenu.style.right = "0";
   sideMenu.style.left = "auto";
   menuOverlay.style.display = "block";
   document.body.style.overflow = "hidden";
 }
-
 function closeMenu() {
   sideMenu.classList.remove("open");
   sideMenu.style.right = "-260px";
@@ -609,36 +587,32 @@ function closeMenu() {
   menuOverlay.style.display = "none";
   document.body.style.overflow = "";
 }
-
-
-    // Navigation links inside side menu
-    document.getElementById('menuPaintByNumber').addEventListener('click', e => {
-      e.preventDefault();
-      window.location.href = 'shop.html#paint';
-      closeMenu();
-    });
-    document.getElementById('menuCustom').addEventListener('click', e => {
-      e.preventDefault();
-      window.location.href = 'shop.html#custom';
-      closeMenu();
-    });
-    document.getElementById('menuDevotion').addEventListener('click', e => {
-      e.preventDefault();
-      window.location.href = 'shop.html#devotion';
-      closeMenu();
-    });
-    document.getElementById('menuScenery').addEventListener('click', e => {
-      e.preventDefault();
-      window.location.href = 'shop.html#scenery';
-      closeMenu();
-    });
-  
-    document.getElementById('menuCart').addEventListener('click', e => {
+// Navigation links inside side menu
+document.getElementById('menuPaintByNumber').addEventListener('click', e => {
+  e.preventDefault();
+  window.location.href = 'shop.html#paint';
+  closeMenu();
+});
+document.getElementById('menuCustom').addEventListener('click', e => {
+  e.preventDefault();
+  window.location.href = 'shop.html#custom';
+  closeMenu();
+});
+document.getElementById('menuDevotion').addEventListener('click', e => {
+  e.preventDefault();
+  window.location.href = 'shop.html#devotion';
+  closeMenu();
+});
+document.getElementById('menuScenery').addEventListener('click', e => {
+  e.preventDefault();
+  window.location.href = 'shop.html#scenery';
+  closeMenu();
+});
+document.getElementById('menuCart').addEventListener('click', e => {
   e.preventDefault();
   window.location.href = 'cart.html';  // Redirect to cart page
   closeMenu();
 });
-
 // Order Lookup Popup Script
 const orderLookupModal = document.getElementById('orderLookupModal');
 const menuOrderLookupBtn = document.getElementById('menuOrderLookup');
@@ -647,13 +621,11 @@ const fetchOrdersBtn = document.getElementById('fetchOrdersBtn');
 const orderLookupPhoneInput = document.getElementById('orderLookupPhone');
 const orderLookupCityInput = document.getElementById('orderLookupCity');
 const ordersResult = document.getElementById('ordersResult');
-
 function validateInputs() {
   const phoneValid = orderLookupPhoneInput.validity.valid && orderLookupPhoneInput.value.trim().length === 10;
   const cityValid = orderLookupCityInput.value.trim().length > 0;
   fetchOrdersBtn.disabled = !(phoneValid && cityValid);
 }
-
 menuOrderLookupBtn.addEventListener('click', (e) => {
   e.preventDefault();
   orderLookupModal.hidden = false;
@@ -664,26 +636,19 @@ menuOrderLookupBtn.addEventListener('click', (e) => {
   orderLookupPhoneInput.focus();
   closeMenu();  // Close side menu for UX
 });
-
-
 closeOrderLookupBtn.addEventListener('click', () => {
   orderLookupModal.hidden = true;
 });
-
 orderLookupPhoneInput.addEventListener('input', validateInputs);
 orderLookupCityInput.addEventListener('input', validateInputs);
-
-
 orderLookupModal.querySelector('.modal-bg').addEventListener('click', () => {
   orderLookupModal.hidden = true;
 });
-
 fetchOrdersBtn.addEventListener('click', async () => {
   const phone = orderLookupPhoneInput.value.trim();
   const city = orderLookupCityInput.value.trim();
   if (!phone || !city) return;
   ordersResult.innerHTML = 'Loading orders...';
-
   try {
     const { data: orders, error } = await supabase
       .from('orders')
@@ -691,17 +656,14 @@ fetchOrdersBtn.addEventListener('click', async () => {
       .eq('phone', phone)
       .ilike('city', city)  // Case-insensitive city match
       .order('id', { ascending: false });
-
     if (error) {
       ordersResult.innerHTML = `<p style="color:red;">Error loading orders: ${error.message}</p>`;
       return;
     }
-
     if (!orders.length) {
       ordersResult.textContent = 'No orders found for this phone and city.';
       return;
     }
-
     // Render orders
     ordersResult.innerHTML = '';
     orders.forEach(order => {
@@ -724,8 +686,6 @@ fetchOrdersBtn.addEventListener('click', async () => {
     ordersResult.innerHTML = `<p style="color:red;">Unexpected error: ${err.message}</p>`;
   }
 });
-
-
   </script>
 </body>
 </html>

@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Product Admin Panel | Magpie Arts</title>
   <style>
-    /* Same styles as before for admin panel plus category styling */
     body {
       font-family: 'Candara', Arial, sans-serif;
       background: #f5f9ff;
@@ -44,6 +44,7 @@
       outline: none;
       transition: border-color 0.25s;
       font-family: Arial, sans-serif;
+      box-sizing: border-box;
     }
     input[type=text]:focus, input[type=number]:focus, select:focus, textarea:focus {
       border-color: #2979ff;
@@ -65,6 +66,7 @@
       letter-spacing: 0.05em;
       transition: background 0.3s ease;
       margin-top: 0.5rem;
+      user-select: none;
     }
     button:hover {
       background: #005ecb;
@@ -82,33 +84,46 @@
       align-items: center;
       background: #fafdff;
       user-select: none;
+      flex-wrap: wrap;
     }
     .product-info {
       max-width: calc(100% - 140px);
+      min-width: 0;
+      flex-grow: 1;
+      margin-bottom: 12px;
     }
     .product-title {
       font-weight: 700;
       font-size: 1.25rem;
       color: #1b3a8d;
       margin-bottom: 0.1rem;
+      word-break: break-word;
     }
     .product-desc {
       color: #444;
       font-size: 1rem;
       margin-bottom: 0.3rem;
-    }
-    .product-meta {
-      font-size: 0.93rem;
-      color: #666;
-      font-family: Arial, sans-serif;
+      word-break: break-word;
     }
     .product-category {
       font-style: italic;
       color: #295075;
       margin-bottom: 0.4rem;
     }
-    .product-actions button {
+    .product-meta {
+      font-size: 0.93rem;
+      color: #666;
+      font-family: Arial, sans-serif;
+      word-break: break-word;
+    }
+    .product-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
       margin-left: 12px;
+      flex-shrink: 0;
+    }
+    .product-actions button {
       padding: 0.48rem 1.1rem;
       border-radius: 14px;
       border: none;
@@ -116,6 +131,7 @@
       cursor: pointer;
       transition: background 0.3s ease;
       font-size: 0.95rem;
+      user-select: none;
     }
     .edit-btn {
       background: #ffc107;
@@ -130,6 +146,31 @@
     }
     .delete-btn:hover {
       background: #b12622;
+    }
+    /* Responsive styling */
+    @media (max-width: 700px) {
+      .product-item {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .product-info {
+        max-width: 100%;
+        margin-bottom: 16px;
+      }
+      .product-actions {
+        margin-left: 0;
+        width: 100%;
+        justify-content: flex-start;
+        gap: 8px;
+      }
+      .product-actions button {
+        flex: 1 1 auto;
+        text-align: center;
+      }
+      img {
+        max-width: 100%;
+        height: auto;
+      }
     }
   </style>
 </head>

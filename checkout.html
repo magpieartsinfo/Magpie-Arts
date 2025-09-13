@@ -2,148 +2,171 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Checkout | Magpie Arts</title>
 <style>
-.back-arrow-btn {
-  background: none;
-  border: none;
-  padding: 0;
-  margin-bottom: 14px;
-  margin-left: 8px;
-  cursor: pointer;
-  border-radius: 50%;
-  box-shadow: 0 1.5px 7px #d7d7d7;
-  width: 38px;
-  height: 38px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.back-arrow-btn:hover {
-  background: #e0eaff;
-}
-body {
-  font-family: Arial, sans-serif;
-  max-width: 500px;
-  margin: 25px auto;
-  background: #f8faff;
-  padding: 20px;
-}
-.logo-container {
-  text-align: center;
-  margin-bottom: 20px;
-}
-.logo-container img {
-  width: 150px;
-  border-radius: 12px;
-  box-shadow: 0 0 10px #abc;
-}
-h1 {
-  text-align: center;
-  margin-bottom: 20px;
-}
-#cartDescription {
-  background: #eef5ff;
-  border-radius: 10px;
-  padding: 12px;
-  margin-bottom: 20px;
-  color: #1e3a8a;
-}
-#cartDescription ul {
-  margin-left: 20px;
-  padding: 0;
-  list-style-type: none;
-}
-.cart-item {
-  margin-bottom: 12px;
-  padding: 10px;
-  border-bottom: 1px solid #cfd8ff;
-}
-.cart-item strong {
-  color: #1e3a8a;
-}
-form {
-  background: #fff;
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 0 12px #ccc;
-}
-.form-group {
-  margin-bottom: 15px;
-}
-label {
-  font-weight: bold;
-}
-input, select, textarea {
-  width: 100%;
-  padding: 8px;
-  border-radius: 6px;
-  border: 1px solid #a9c4ff;
-  font-size: 1rem;
-}
-input:invalid,select:invalid {
-  border-color: red;
-}
-button[type="submit"] {
-  background: #3c59ff;
-  color: #fff;
-  border: none;
-  padding: 12px;
-  border-radius: 10px;
-  font-size: 1.2rem;
-  font-weight: bold;
-  cursor: pointer;
-  width: 100%;
-}
-button[type="submit"]:hover {
-  background: #2a43c6;
-}
-textarea {
-  resize: vertical;
-  height: 80px;
-}
-#photoUploadContainer {
-  display: none;
-  margin-bottom: 15px;
-}
-.loading {
-  opacity: 0.7;
-  pointer-events: none;
-}
-.success-message {
-  background-color: #d4edda;
-  color: #155724;
-  padding: 12px;
-  border-radius: 8px;
-  margin-bottom: 20px;
-  text-align: center;
-  display: none;
-}
-.error-message {
-  background-color: #f8d7da;
-  color: #721c24;
-  padding: 12px;
-  border-radius: 8px;
-  margin-bottom: 20px;
-  text-align: center;
-  display: none;
-}
+  body {
+    font-family: Arial, sans-serif;
+    max-width: 500px;
+    margin: 25px auto;
+    background: #f8faff;
+    padding: 20px;
+  }
+  .back-arrow-btn {
+    background: none;
+    border: none;
+    padding: 0;
+    margin-bottom: 14px;
+    margin-left: 8px;
+    cursor: pointer;
+    border-radius: 50%;
+    box-shadow: 0 1.5px 7px #d7d7d7;
+    width: 38px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .back-arrow-btn:hover {
+    background: #e0eaff;
+  }
+  .logo-container {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  .logo-container img {
+    width: 150px;
+    border-radius: 12px;
+    box-shadow: 0 0 10px #abc;
+  }
+  h1 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  #cartDescription {
+    background: #eef5ff;
+    border-radius: 10px;
+    padding: 12px;
+    margin-bottom: 20px;
+    color: #1e3a8a;
+  }
+  #cartDescription ul {
+    margin-left: 20px;
+    padding: 0;
+    list-style-type: none;
+  }
+  .cart-item {
+    margin-bottom: 12px;
+    padding: 10px;
+    border-bottom: 1px solid #cfd8ff;
+  }
+  .cart-item strong {
+    color: #1e3a8a;
+  }
+  form {
+    background: #fff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 0 12px #ccc;
+  }
+  .form-group {
+    margin-bottom: 15px;
+  }
+  label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 6px;
+  }
+  input, select, textarea {
+    width: 100%;
+    padding: 8px;
+    border-radius: 6px;
+    border: 1px solid #a9c4ff;
+    font-size: 1rem;
+    box-sizing: border-box;
+  }
+  input:invalid, select:invalid {
+    border-color: red;
+  }
+  button[type="submit"] {
+    background: #3c59ff;
+    color: #fff;
+    border: none;
+    padding: 12px;
+    border-radius: 10px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+    width: 100%;
+    user-select: none;
+    transition: background 0.3s ease;
+  }
+  button[type="submit"]:hover {
+    background: #2a43c6;
+  }
+  textarea {
+    resize: vertical;
+    height: 80px;
+  }
+  #photoUploadContainer {
+    display: none;
+    margin-bottom: 15px;
+  }
+  .loading {
+    opacity: 0.7;
+    pointer-events: none;
+  }
+  .success-message,
+  .error-message {
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    text-align: center;
+    display: none;
+  }
+  .success-message {
+    background-color: #d4edda;
+    color: #155724;
+  }
+  .error-message {
+    background-color: #f8d7da;
+    color: #721c24;
+  }
+  /* Responsive styling */
+  @media (max-width: 400px) {
+    body {
+      margin: 15px 10px;
+      padding: 15px;
+      max-width: 100%;
+    }
+    h1 {
+      font-size: 1.6rem;
+    }
+    button[type="submit"] {
+      font-size: 1.1rem;
+      padding: 10px;
+    }
+    input, select, textarea {
+      font-size: 0.9rem;
+    }
+  }
 </style>
 </head>
 <body>
   <div class="logo-container">
+  <a href="index.html" aria-label="Magpie Arts Home">
     <img src="https://raw.githubusercontent.com/magpieartsinfo/magpiearts-assets/main/magpie-arts-site/images/logo.png" alt="Magpie Arts Logo" />
-  </div>
+  </a>
+</div>
+
   <button class="back-arrow-btn" onclick="history.back()" aria-label="Go Back">
-    <svg width="24" height="24" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6" stroke="#3c59ff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+      <path d="M15 18l-6-6 6-6" stroke="#3c59ff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
   </button>
   <h1>Checkout</h1>
-  <div id="successMessage" class="success-message">
-    Order placed successfully! Thank you for your purchase.
-  </div>
-  <div id="errorMessage" class="error-message">
-    There was an error processing your order. Please try again.
-  </div>
+  <div id="successMessage" class="success-message" role="alert"></div>
+  <div id="errorMessage" class="error-message" role="alert"></div>
   <div id="cartDescription" aria-label="Order Summary">
     <p><strong>Products in your order:</strong></p>
     <ul id="cartList"></ul>
@@ -210,7 +233,6 @@ textarea {
     const supabaseUrl = "https://rxtukfjjeruospodnkdz.supabase.co";
     const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ4dHVrZmpqZXJ1b3Nwb2Rua2R6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTc0ODc0NTQsImV4cCI6MjA3MzA2MzQ1NH0.-sgX4XjHiamnzyqDdlmBlrPgaPMgX8GbzdB1c2rnSc0";
     const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
-
     function getCartItems() {
       let cartItems = [];
       try {
@@ -229,18 +251,15 @@ textarea {
       } catch (e) {}
       return cartItems;
     }
-
     function shouldShowPhotoUpload(cartItems) {
       if (!cartItems.length) return false;
       return cartItems.some(item => /custom PIE kit/i.test(item.title));
     }
-
     const cartItems = getCartItems();
     const cartList = document.getElementById("cartList");
     const cartTotal = document.getElementById("cartTotal");
     const photoUploadContainer = document.getElementById("photoUploadContainer");
     const photoUploadInput = document.getElementById("photoUpload");
-
     function renderCart() {
       if (!cartItems.length) {
         cartList.innerHTML = "<li>No products in your order.</li>";
@@ -262,7 +281,8 @@ textarea {
         cartList.appendChild(li);
       });
       const totalAmount = cartItems.reduce(
-        (t, i) => t + (i.price * (i.quantity || 1)), 0
+        (t, i) => t + i.price * (i.quantity || 1),
+        0
       );
       cartTotal.textContent = `Total: ₹${totalAmount}`;
       if (shouldShowPhotoUpload(cartItems)) {
@@ -274,7 +294,6 @@ textarea {
         photoUploadInput.value = "";
       }
     }
-
     // Convert file to Base64
     function fileToBase64(file) {
       return new Promise((resolve, reject) => {
@@ -284,20 +303,13 @@ textarea {
         reader.readAsDataURL(file);
       });
     }
-
     // Save order to Supabase with Base64 photo
     async function saveOrderToSupabase(orderData) {
       try {
-        console.log('Saving order to Supabase...');
-
-        // Convert photo to Base64 if provided
         let photoBase64 = null;
         if (orderData.photoFile) {
-          console.log('Converting photo to Base64...');
           photoBase64 = await fileToBase64(orderData.photoFile);
-          console.log('Photo converted to Base64, length:', photoBase64.length);
         }
-
         const { data: order, error: orderError } = await supabase
           .from('orders')
           .insert([
@@ -314,42 +326,31 @@ textarea {
               total_amount: orderData.totalAmount,
               product_list: JSON.stringify(orderData.productList),
               comments: orderData.comments,
-              photo_url: photoBase64, // Store Base64 string directly in photo_url
+              photo_url: photoBase64,
               status: 'pending',
             }
           ])
           .select();
-        if (orderError) {
-          console.error('Order insert error:', orderError);
-          throw orderError;
-        }
-        console.log('Order saved successfully:', order[0].id);
+        if (orderError) throw orderError;
         return order[0].id;
       } catch (error) {
-        console.error('Error saving order:', error);
         throw error;
       }
     }
-
     function showError(message) {
       const errorDiv = document.getElementById('errorMessage');
       errorDiv.textContent = message;
       errorDiv.style.display = 'block';
       setTimeout(() => { errorDiv.style.display = 'none'; }, 5000);
     }
-
     function showSuccess(message) {
       const successDiv = document.getElementById('successMessage');
       successDiv.textContent = message;
       successDiv.style.display = 'block';
       setTimeout(() => { successDiv.style.display = 'none'; }, 3000);
     }
-
-    // Form submission handler
     document.getElementById('checkoutForm').addEventListener('submit', async function(e) {
       e.preventDefault();
-      console.log('Form submitted');
-      // Hide previous messages
       document.getElementById('successMessage').style.display = 'none';
       document.getElementById('errorMessage').style.display = 'none';
       const requiredFields = [
@@ -374,8 +375,7 @@ textarea {
         }
       }
       if (!valid) {
-        showError("Please fill all required fields" +
-          (photoUploadContainer.style.display === "block" ? " and upload your photo." : "."));
+        showError("Please fill all required fields" + (photoUploadContainer.style.display === "block" ? " and upload your photo." : "."));
         return;
       }
       const totalAmount = cartItems.reduce((total, item) => total + (item.price * (item.quantity || 1)), 0);
@@ -401,20 +401,16 @@ textarea {
       try {
         const orderId = await saveOrderToSupabase(orderData);
         localStorage.removeItem("magpieCart");
-        // Save payment data in sessionStorage
         sessionStorage.setItem('paymentOrderId', orderId);
         sessionStorage.setItem('paymentAmount', totalAmount.toFixed(2));
-        // Redirect to payment page
         window.location.href = 'payment.html';
       } catch (error) {
-        console.error('Form submission error:', error);
         showError("There was an error processing your order: " + error.message);
       } finally {
         submitButton.textContent = originalText;
         submitButton.disabled = false;
       }
     });
-
     renderCart();
   </script>
 </body>

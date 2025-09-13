@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Custom Kit | Magpie Arts</title>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@900&family=Roboto+Serif:opsz,wght@8..144,700&display=swap" rel="stylesheet" />
   <style>
@@ -20,6 +21,8 @@
       border-radius: 16px;
       box-shadow: 0 2px 22px rgba(80,120,220,0.10);
       padding: 2.5rem 2.5rem 1.5rem 2.5rem;
+      user-select: none;
+      flex-wrap: nowrap;
     }
     .img-section {
       width: 430px;
@@ -28,7 +31,6 @@
       flex-direction: column;
       align-items: center;
       gap: 0.8rem;
-      user-select: none;
       touch-action: none;
     }
     .back-arrow-icon {
@@ -41,7 +43,6 @@
       align-items: center;
       outline: none;
       box-shadow: none;
-      user-select: none;
       width: 38px; height: 38px;
     }
     .back-arrow-icon svg {
@@ -72,9 +73,9 @@
       position: absolute;
       top: 0; left: 0;
       transition: opacity 0.5s ease;
-      user-select: none;
       -webkit-user-drag: none;
       z-index: 1;
+      user-select: none;
     }
     .main-img-wrap img.fade-out { opacity: 0; z-index: 0; }
     .main-img-wrap img.fade-in { opacity: 1; z-index: 1; }
@@ -100,7 +101,6 @@
       display: flex;
       gap: 6px;
       margin-top: 10px;
-      user-select: none;
     }
     .thumbs img {
       width: 58px;
@@ -114,28 +114,6 @@
     }
     .thumbs img.selected, .thumbs img:hover {
       border-color: #294ad3;
-    }
-    @media (max-width: 1020px) {
-      .prod-viewer {
-        flex-direction: column;
-        align-items: center;
-      }
-      .img-section {
-        width: 100%;
-        max-width: 350px;
-      }
-    }
-    @media (max-width: 600px) {
-      .prod-viewer {
-        padding: 0.7rem !important;
-      }
-      .img-section, .main-img-wrap {
-        width: 98vw;
-        min-width: 110px;
-      }
-      .main-img-wrap {
-        height: calc(98vw * 4 / 3);
-      }
     }
     .detail-section {
       flex: 1;
@@ -271,6 +249,47 @@
       display: none;
       margin-bottom: 1.2em;
     }
+
+    /* Mobile responsive */
+    @media (max-width: 1020px) {
+      .prod-viewer {
+        flex-direction: column;
+        align-items: center;
+        padding: 1rem;
+      }
+      .img-section {
+        width: 100%;
+        max-width: 350px;
+        margin: 0 auto 20px auto;
+      }
+      .main-img-wrap {
+        width: 98vw;
+        height: calc(98vw * 4 / 3);
+        max-width: 430px;
+      }
+    }
+    @media (max-width: 600px) {
+      .prod-viewer {
+        padding: 0.7rem !important;
+      }
+      .img-section, .main-img-wrap {
+        width: 98vw;
+        min-width: 110px;
+      }
+      .detail-section {
+        min-width: 100%;
+      }
+      .main-img-wrap {
+        height: calc(98vw * 4 / 3);
+      }
+      .add-cart-row {
+        flex-direction: column;
+        gap: 0.7rem;
+      }
+      .add-cart-row button {
+        width: 100%;
+      }
+    }
   </style>
 </head>
 <body>
@@ -335,7 +354,6 @@
     const uploadPhotoRow = document.getElementById('uploadPhotoRow');
     const uploadInput = document.getElementById('uploadInput');
     let selectedOpts = { size: 0, palette: 0 };
-    let currentSlide = 0;
     function setupProduct() {
       if (currentIndex === -1) {
         productTitleElem.textContent = "Product Not Found";
@@ -343,13 +361,17 @@
         productPriceElem.textContent = "";
         mainImage.style.display = 'none';
         thumbsContainer.style.display = 'none';
+        uploadPhotoRow.style.display = "none";
         return;
       }
       const product = products[currentIndex];
       productTitleElem.textContent = product.title;
       descAreaElem.textContent = product.desc;
-      // Always show main image as first, even after thumbnail click
-      const images = [product.image, 'https://raw.githubusercontent.com/magpieartsinfo/magpiearts-assets/main/magpie-arts-site/images/size-selector.png ', 'https://raw.githubusercontent.com/magpieartsinfo/magpiearts-assets/main/magpie-arts-site/images/kit-includes.png '];
+      const images = [
+        product.image,
+        'https://raw.githubusercontent.com/magpieartsinfo/magpiearts-assets/main/magpie-arts-site/images/size-selector.png',
+        'https://raw.githubusercontent.com/magpieartsinfo/magpiearts-assets/main/magpie-arts-site/images/kit-includes.png'
+      ];
       mainImage.src = images[0];
       let lastSelectedImgIndex = 0;
       function updateImage(i) {
@@ -465,7 +487,8 @@
         palette: paletteOption,
         price: price,
         quantity: 1,
-        image: product.image
+        image: product.image,
+        isCustomKit: product.isCustomKit // add this field if needed
       };
       // Load existing cart or create new
       let cart = JSON.parse(localStorage.getItem('cart')) || [];
@@ -482,54 +505,45 @@
       }
       localStorage.setItem('cart', JSON.stringify(cart));
       alert("Product added to cart!");
-      // Optionally redirect user to cart page
+      // Optional redirection commented out
       // window.location.href = 'cart.html';
     }
     function goToCart() {
       window.location.href = 'cart.html';
     }
-  // Add this to your existing script block on the product page
-
-// Attach event listener to the existing form submit event
-document.getElementById('orderForm').addEventListener('submit', function(event) {
-  event.preventDefault(); // Prevent regular form submission
-  buyNow();
-});
-
-function buyNow() {
-  if (currentIndex === -1) {
-    alert("Invalid product");
-    return;
-  }
-  const product = products[currentIndex];
-  const sizeOption = selectedOpts.size === 0 ? '10x12 Inch' : '18x20 Inch';
-  let paletteOption = '';
-  if (selectedOpts.palette === 0) paletteOption = '16 colors';
-  else if (selectedOpts.palette === 1) paletteOption = '20 colors';
-  else paletteOption = '24 colors';
-
-  let price = 0;
-  if (selectedOpts.size === 0 && selectedOpts.palette === 0) price = product.priceS1C16;
-  else if (selectedOpts.size === 0 && selectedOpts.palette === 1) price = product.priceS1C20;
-  else if (selectedOpts.size === 1 && selectedOpts.palette === 1) price = product.priceS2C20;
-  else if (selectedOpts.size === 1 && selectedOpts.palette === 2) price = product.priceS2C24;
-
-  const orderItem = {
-    id: product.id ?? currentIndex,
-    title: product.title,
-    size: sizeOption,
-    palette: paletteOption,
-    price: price,
-    quantity: 1,
-    image: product.image,
-    isCustomKit: product.isCustomKit // add this field if needed
-  };
-
-  sessionStorage.setItem('directOrder', JSON.stringify(orderItem));
-  window.location.href = 'checkout.html';
-}
-
-
+    document.getElementById('orderForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+      buyNow();
+    });
+    function buyNow() {
+      if (currentIndex === -1) {
+        alert("Invalid product");
+        return;
+      }
+      const product = products[currentIndex];
+      const sizeOption = selectedOpts.size === 0 ? '10x12 Inch' : '18x20 Inch';
+      let paletteOption = '';
+      if (selectedOpts.palette === 0) paletteOption = '16 colors';
+      else if (selectedOpts.palette === 1) paletteOption = '20 colors';
+      else paletteOption = '24 colors';
+      let price = 0;
+      if (selectedOpts.size === 0 && selectedOpts.palette === 0) price = product.priceS1C16;
+      else if (selectedOpts.size === 0 && selectedOpts.palette === 1) price = product.priceS1C20;
+      else if (selectedOpts.size === 1 && selectedOpts.palette === 1) price = product.priceS2C20;
+      else if (selectedOpts.size === 1 && selectedOpts.palette === 2) price = product.priceS2C24;
+      const orderItem = {
+        id: product.id ?? currentIndex,
+        title: product.title,
+        size: sizeOption,
+        palette: paletteOption,
+        price: price,
+        quantity: 1,
+        image: product.image,
+        isCustomKit: product.isCustomKit
+      };
+      sessionStorage.setItem('directOrder', JSON.stringify(orderItem));
+      window.location.href = 'checkout.html';
+    }
   </script>
 </body>
 </html>

@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>MAGPIE ARTS | About Us</title>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@900&family=Roboto+Serif:ital,wght@0,400;0,700&family=Dancing+Script:wght@700&family=Merriweather:wght@900&display=swap" rel="stylesheet" />
   <style>
@@ -13,7 +14,6 @@
       font-family: 'Candara', Arial, sans-serif;
       overflow-x: hidden;
     }
-
     .header-bar {
       position: relative;
       background: linear-gradient(90deg, #b4d9f6 0%, #eaeefe 50%, #97d2f7 100%);
@@ -27,7 +27,6 @@
       box-shadow: 0 8px 44px rgba(25, 43, 101, 0.16);
       user-select: none;
     }
-
     .header-logo {
       cursor: pointer;
       width: 110px;
@@ -40,13 +39,14 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      margin-left: 20px;
+      user-select: none;
     }
     .header-logo img {
       width: 110px;
       height: auto;
       display: block;
     }
-
     /* Container for buttons below header */
     .header-buttons {
       max-width: 960px;
@@ -69,7 +69,6 @@
     .header-buttons button:hover {
       background-color: #0f2a61;
     }
-
     main.about-content {
       max-width: 900px;
       margin: 0 auto 80px;
@@ -133,6 +132,7 @@
       box-shadow: 0 4px 16px #a0c6feaa;
       text-align: center;
       color: #174197;
+      user-select: none;
     }
     .step-card img {
       width: 100%;
@@ -148,7 +148,6 @@
       margin-bottom: 8px;
       font-weight: 800;
     }
-
     /* Special styling for the mission statement */
     .mission-statement {
       text-align: center;
@@ -198,7 +197,6 @@
         font-size: 1.38rem;
       }
     }
-
     footer {
       background-color: #172a59;
       padding: 36px 20px 28px;
@@ -221,6 +219,7 @@
       justify-content: center;
       gap: 34px;
       margin-top: 17px;
+      flex-wrap: wrap;
     }
     .social-icons a {
       display: inline-block;
@@ -250,32 +249,26 @@
 </head>
 <body>
   <header class="header-bar" role="banner">
-    <a href="Index.html" class="header-logo" aria-label="Go to MAGPIE ARTS Home Page">
+    <a href="index.html" class="header-logo" aria-label="Go to MAGPIE ARTS Home Page">
       <img src="https://raw.githubusercontent.com/magpieartsinfo/magpiearts-assets/main/magpie-arts-site/images/logo.png" alt="Magpie Arts Logo" />
     </a>
   </header>
-
   <div class="header-buttons" role="navigation" aria-label="Page navigation buttons">
-    <button onclick="window.location.href='Index.html'">Home</button>
-    <button onclick="window.location.href='Shop.html'">Shop</button>
+    <button onclick="window.location.href='index.html'">Home</button>
+    <button onclick="window.location.href='shop.html'">Shop</button>
   </div>
-
   <main class="about-content" role="main">
     <h1>About MAGPIE ARTS</h1>
-
     <p>
       At Magpie Arts, we believe art should be easy, joyful, and accessible to everyone. That’s why we created PIE Kits – Paint It Easily, a unique range of DIY Paint-by-Number kits that let anyone create stunning acrylic paintings — no experience required!
     </p>
-
     <p>
       With PIE Kits, you can turn cherished photos, favorite designs, or timeless sceneries into personal masterpieces that are ready to frame and treasure forever. Each kit is carefully crafted to provide not just paints and canvas, but an experience of relaxation, mindfulness, and creativity.
     </p>
-
     <div class="mission-statement" aria-label="Our mission statement">
       <span class="turn-moments">Turn Moments into</span>
       <span class="masterpiece">MASTERPIECE</span>.
     </div>
-
     <p><strong>Why PIE Kits?</strong></p>
     <ul>
       <li>🎨 <strong>Anyone Can Paint</strong> – Simple paint-by-number guides make it easy for kids, adults, families, and even first-time painters.</li>
@@ -292,7 +285,6 @@
       <li>Receive your customized PIE Kit with all materials included.</li>
       <li>Enjoy painting your own artwork — and watch it come alive!</li>
     </ol>
-
     <h2 class="section-title">How PIE Kits Work</h2>
     <div class="kits-steps">
       <div class="step-card">
@@ -312,11 +304,10 @@
       </div>
     </div>
   </main>
-
   <footer aria-label="Footer">
     <div class="contact-info">
       <p><strong>Contact Us</strong></p>
-      <p>Phone: +91-8128136985 &nbsp;|&nbsp; Email: magpieartsinfo@gmail.com</p>
+      <p>Phone: +91-8128136985 &nbsp;|&nbsp; Email: <a href="mailto:magpieartsinfo@gmail.com" style="color:#fff;text-decoration:underline;">magpieartsinfo@gmail.com</a></p>
       <p>Address: 285, Manmandir Residency, Ankleshwar, Gujarat-393001</p>
     </div>
     <nav class="social-icons" aria-label="Social media links">

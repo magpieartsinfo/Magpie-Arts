@@ -3,8 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <title>shop | Magpie Arts</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@900&family=Roboto+Serif:opsz,wght@8..144,700&display=swap" rel="stylesheet" />
   <style>
+    /* Your existing styles unchanged - pasted here for completeness */
     body {
       font-family: 'Candara', Arial, sans-serif;
       background: #f8fbff;
@@ -320,18 +322,17 @@
 </head>
 <body>
   <!-- Side Menu -->
-<div id="sideMenu" style="position:fixed;top:0;right:-260px;left:auto;width:240px;height:100vh;background:#e6f0ff;box-shadow:2px 0 20px rgba(43,58,128,0.12);padding:48px 0 24px 0;z-index:2000;transition:left 0.3s cubic-bezier(.77,0,.175,1);display:flex;flex-direction:column;">
-  <ul style="padding:0 0 0 26px;margin:0;list-style:none;font-size:1.17rem;font-weight:700;color:#1747a0;user-select:none;">
-    <li style="margin-bottom:28px"><a href="#" onclick="menuFilter('All');return false;">Paint By Number</a></li>
-    <li style="margin-bottom:28px"><a href="#" onclick="menuFilter('Custom');return false;">Custom Kit</a></li>
-    <li style="margin-bottom:28px"><a href="#" onclick="menuFilter('Devotion/Spiritual');return false;">Devotion/Spiritual</a></li>
-    <li style="margin-bottom:28px"><a href="#" onclick="menuFilter('Scenery/Wonders');return false;">Scenery/Wonders</a></li>
-    <li style="margin-bottom:28px"><a href="cart.html" onclick="closeMenu();">Cart</a></li>
-    <li style="color:#7080a3;font-weight:400;font-size:.95rem;margin-top:30px;">&copy; 2025 Magpie Arts</li>
-  </ul>
-</div>
-<div id="menuOverlay" style="position:fixed;top:0;right:0;left:auto;width:100vw;height:100vh;background:rgba(14,42,139,0.15);z-index:1999;display:none;"></div>
-
+  <div id="sideMenu" style="position:fixed;top:0;right:-260px;left:auto;width:240px;height:100vh;background:#e6f0ff;box-shadow:2px 0 20px rgba(43,58,128,0.12);padding:48px 0 24px 0;z-index:2000;transition:left 0.3s cubic-bezier(.77,0,.175,1);display:flex;flex-direction:column;">
+    <ul style="padding:0 0 0 26px;margin:0;list-style:none;font-size:1.17rem;font-weight:700;color:#1747a0;user-select:none;">
+      <li style="margin-bottom:28px"><a href="#" onclick="menuFilter('All');return false;">Paint By Number</a></li>
+      <li style="margin-bottom:28px"><a href="#" onclick="menuFilter('Custom');return false;">Custom Kit</a></li>
+      <li style="margin-bottom:28px"><a href="#" onclick="menuFilter('Devotion/Spiritual');return false;">Devotion/Spiritual</a></li>
+      <li style="margin-bottom:28px"><a href="#" onclick="menuFilter('Scenery/Wonders');return false;">Scenery/Wonders</a></li>
+      <li style="margin-bottom:28px"><a href="cart.html" onclick="closeMenu();">Cart</a></li>
+      <li style="color:#7080a3;font-weight:400;font-size:.95rem;margin-top:30px;">&copy; 2025 Magpie Arts</li>
+    </ul>
+  </div>
+  <div id="menuOverlay" style="position:fixed;top:0;right:0;left:auto;width:100vw;height:100vh;background:rgba(14,42,139,0.15);z-index:1999;display:none;"></div>
   <a href="index.html" title="Home">
     <img class="side-logo" src="https://raw.githubusercontent.com/magpieartsinfo/magpiearts-assets/main/magpie-arts-site/images/logo.png" alt="Magpie Arts Logo" />
   </a>
@@ -495,11 +496,9 @@
     item.style.alignItems = 'center';
     item.style.marginBottom = '0.9rem';
     item.style.justifyContent = 'space-between';
-
     // Make wishlist item clickable and open product page on click
     item.style.cursor = 'pointer';
     item.onclick = () => openProductPage(index);
-
     item.innerHTML = `
       <img src="${prod.image}" alt="${prod.title}" style="width:60px; height:80px; object-fit:cover; border-radius:12px; margin-right:12px;" />
       <div style="flex-grow:1; font-weight:700; font-size:1rem; color:#1b3a8d; text-align:left;">${prod.title}</div>
@@ -508,7 +507,6 @@
     wishlistItems.appendChild(item);
   });
 }
-
     document.addEventListener('click', function (event) {
       if (wishlistModal.style.display === 'block') {
         const isClickInside = wishlistModal.contains(event.target);
@@ -533,7 +531,6 @@ function openMenu() {
   menuOverlay.style.display = 'block';
   document.body.style.overflow = 'hidden';
 }
-
 function closeMenu() {
   sideMenu.classList.remove('open');
   sideMenu.style.right = '-260px';
@@ -541,10 +538,8 @@ function closeMenu() {
   menuOverlay.style.display = 'none';
   document.body.style.overflow = '';
 }
-
 menuBtn.addEventListener('click', openMenu);
 menuOverlay.addEventListener('click', closeMenu);
-
 // Menu navigation links (and side menu closes on category selection)
 function menuFilter(cat) {
   closeMenu();
@@ -564,9 +559,7 @@ window.addEventListener('DOMContentLoaded', () => {
     devotion: 'Devotion/Spiritual',
     scenery: 'Scenery/Wonders'
   };
-
   const category = categoryMap[hash] || 'All';
-
   // Find all category links and update active class
   document.querySelectorAll('nav a').forEach(link => {
     if (link.textContent.trim().toLowerCase() === category.toLowerCase()) {
@@ -575,16 +568,13 @@ window.addEventListener('DOMContentLoaded', () => {
       link.classList.remove('active');
     }
   });
-
   // Call your existing filterCategory function with the derived category
   if (typeof filterCategory === "function") {
     filterCategory(category);
   }
 });
-
 window.addEventListener('DOMContentLoaded', () => {
   const hash = window.location.hash.substring(1).toLowerCase();
-
   // Map hashes to the correct filterCategory argument
   const categoryMap = {
     'paint': { nav: 'Paint By Number Kit', cat: 'All' },
@@ -593,7 +583,6 @@ window.addEventListener('DOMContentLoaded', () => {
     'scenery': { nav: 'Scenery/Wonders', cat: 'Scenery/Wonders' }
   };
   const selection = categoryMap[hash] || { nav: 'Paint By Number Kit', cat: 'All' };
-
   // Highlight nav
   document.querySelectorAll('nav a').forEach(link => {
     if (link.textContent.trim().toLowerCase() === selection.nav.toLowerCase()) {
@@ -602,13 +591,11 @@ window.addEventListener('DOMContentLoaded', () => {
       link.classList.remove('active');
     }
   });
-
   // Call filterCategory with the correct product category value
   if (typeof filterCategory === 'function') {
     filterCategory(selection.cat, document.querySelector('nav a.active'));
   }
 });
-
   </script>
 </body>
 </html>

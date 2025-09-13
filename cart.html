@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Shopping Cart | Magpie Arts</title>
 <style>
   body {
@@ -56,15 +57,18 @@
     border-bottom: 1px solid #ccc;
     padding: 15px 0;
     align-items: center;
+    flex-wrap: wrap;
   }
   .cart-item img {
     width: 80px;
     height: 100px;
     object-fit: cover;
     border-radius: 12px;
+    flex-shrink: 0;
   }
   .details {
     flex-grow: 1;
+    min-width: 200px;
   }
   .title {
     font-weight: bold;
@@ -85,6 +89,7 @@
     align-items: center;
     gap: 8px;
     margin-top: 8px;
+    flex-wrap: nowrap;
   }
   .quantity-control button {
     width: 28px;
@@ -95,6 +100,8 @@
     cursor: pointer;
     border-radius: 6px;
     user-select: none;
+    padding: 0;
+    line-height: 1;
   }
   .quantity-control span {
     min-width: 24px;
@@ -134,6 +141,39 @@
   #buyNowBtn:hover {
     box-shadow: 0 7px 20px rgba(49, 74, 181, 0.75);
   }
+  /* Responsive adjustments */
+  @media (max-width: 600px) {
+    body {
+      margin: 20px 10px;
+      padding: 10px 10px 60px;
+      max-width: 100%;
+    }
+    .cart-item {
+      flex-direction: column;
+      gap: 12px;
+      padding: 12px 0;
+    }
+    .cart-item img {
+      width: 100%;
+      max-width: 200px;
+      height: auto;
+      border-radius: 12px;
+    }
+    .quantity-control {
+      justify-content: flex-start;
+      gap: 6px;
+    }
+    #buyNowBtn {
+      width: 100%;
+      padding: 14px 0;
+      font-size: 1.1rem;
+      box-sizing: border-box;
+    }
+    #totalPrice {
+      font-size: 1.2rem;
+      margin-top: 12px;
+    }
+  }
 </style>
 </head>
 <body>
@@ -156,20 +196,15 @@
   const cartContainer = document.getElementById('cartContainer');
   const totalPriceElem = document.getElementById('totalPrice');
   const buyNowBtn = document.getElementById('buyNowBtn');
-
   // Load cart from localStorage or initialize empty array
   let cart = JSON.parse(localStorage.getItem('cart')) || [];
-
-  // Ensure all cart items have correct isCustomKit boolean set for custom kits
   cart = cart.map(item => ({
     ...item,
     isCustomKit: item.isCustomKit === true || item.isCustomKit === 'true' || false
   }));
-
   function saveCart() {
     localStorage.setItem('cart', JSON.stringify(cart));
   }
-
   function renderCart() {
     cartContainer.innerHTML = '';
     if (cart.length === 0) {
@@ -192,10 +227,10 @@
           <div class="options">Size: ${item.size || ''} | Palette: ${item.palette || ''}</div>
           <div class="price">Price: Rs. ${item.price}</div>
           <div class="quantity-control">
-            <button data-index="${index}" class="decrease">-</button>
+            <button data-index="${index}" class="decrease" aria-label="Decrease quantity of ${item.title}">-</button>
             <span>${item.quantity}</span>
-            <button data-index="${index}" class="increase">+</button>
-            <button data-index="${index}" class="remove-btn" title="Remove item">&times;</button>
+            <button data-index="${index}" class="increase" aria-label="Increase quantity of ${item.title}">+</button>
+            <button data-index="${index}" class="remove-btn" title="Remove item" aria-label="Remove ${item.title} from cart">&times;</button>
           </div>
         </div>
       `;
@@ -204,7 +239,6 @@
     totalPriceElem.textContent = `Total: Rs. ${total.toLocaleString()}`;
     attachEventListeners();
   }
-
   function attachEventListeners() {
     document.querySelectorAll('.decrease').forEach(button => {
       button.addEventListener('click', () => {
@@ -215,7 +249,6 @@
         }
       });
     });
-
     document.querySelectorAll('.increase').forEach(button => {
       button.addEventListener('click', () => {
         const index = Number(button.dataset.index);
@@ -223,7 +256,6 @@
         updateCart();
       });
     });
-
     document.querySelectorAll('.remove-btn').forEach(button => {
       button.addEventListener('click', () => {
         const index = Number(button.dataset.index);
@@ -232,12 +264,10 @@
       });
     });
   }
-
   function updateCart() {
     saveCart();
     renderCart();
   }
-
   buyNowBtn.addEventListener('click', () => {
     if (cart.length === 0) {
       alert('Your cart is empty.');
@@ -249,7 +279,6 @@
     sessionStorage.removeItem('directOrder');
     window.location.href = 'checkout.html';
   });
-
   renderCart();
 </script>
 </body>
