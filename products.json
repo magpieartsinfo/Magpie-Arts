@@ -1,0 +1,24 @@
+[
+  {
+    "title": "Ganesh Painting Kit",
+    "desc": "Celebrate Ganesh Chaturthi with vibrant paint-by-number.",
+    "priceS1C16": 900,
+    "priceS1C20": 1000,
+    "priceS2C20": 1400,
+    "priceS2C24": 1500,
+    "image": "https://raw.githubusercontent.com/magpieartsinfo/magpiearts-site/main/images/ganesh_painting.jpg",
+    "category": "Devotion/Spiritual",
+    "isCustomKit": false
+  },
+  {
+    "title": "Custom PIE Kit",
+    "desc": "Upload your photo to create your personalized kit.",
+    "priceS1C16": 1000,
+    "priceS1C20": 1100,
+    "priceS2C20": 1500,
+    "priceS2C24": 1600,
+    "image": "https://raw.githubusercontent.com/magpieartsinfo/magpiearts-site/main/images/custom_portrait.jpg",
+    "category": "Custom",
+    "isCustomKit": true
+  }
+]
