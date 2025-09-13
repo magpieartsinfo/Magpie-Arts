@@ -498,7 +498,11 @@
         productsGrid.innerHTML = '<div class="error-message">No products available.</div>';
         return;
       }
-      
+        // Debug: log loaded products and selected category.
+  console.log('Current Category:', currentCategory);
+  console.log('Total products loaded:', products.length);
+  console.log('Products:', products);
+
       let filteredProducts;
       if (currentCategory === 'All') {
         // Custom Kit (isCustomKit==true) comes first, then other products
@@ -508,7 +512,7 @@
         if(customKitProduct) filteredProducts.push(customKitProduct);
         filteredProducts = filteredProducts.concat(notCustomKit);
       } else {
-        filteredProducts = products.filter(p => p.category === currentCategory);
+        filteredProducts = products.filter(p => p.category.trim().toLowerCase() === currentCategory.trim().toLowerCase());
       }
       
       if (filteredProducts.length === 0) {
