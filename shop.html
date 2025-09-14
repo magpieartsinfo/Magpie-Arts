@@ -2,15 +2,15 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>shop | Magpie Arts</title>
+  <title>Shop | Magpie Arts</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@900&family=Roboto+Serif:opsz,wght@8..144,700&display=swap" rel="stylesheet" />
   <style>
-    /* Your existing styles unchanged - pasted here for completeness */
     body {
       font-family: 'Candara', Arial, sans-serif;
       background: #f8fbff;
-      margin: 0; padding: 0 20px 50px;
+      margin: 0; 
+      padding: 0 20px 50px;
       color: #222;
     }
     .side-logo {
@@ -281,7 +281,6 @@
       padding-left: 15px;
       user-select: none;
     }
-    /* Footer styling */
     .footer-contact-shop {
       background: #172a59;
       color: #fff;
@@ -358,7 +357,7 @@
       </svg>
     </span>
     <div class="pie-logo-center">
-      <img src="https://raw.githubusercontent.com/magpieartsinfo/magpiearts-assets/main/magpie-arts-site/images/PIE-kits.png " alt="PIE Kits - Paint It Easily Logo" draggable="false" loading="lazy" />
+      <img src="https://raw.githubusercontent.com/magpieartsinfo/magpiearts-assets/main/magpie-arts-site/images/PIE-kits.png" alt="PIE Kits - Paint It Easily Logo" draggable="false" loading="lazy" />
     </div>
     <a href="https://magpieartsinfo.github.io/magpie-arts-site/index.html" class="home-icon-link" title="Home" aria-label="Home">
       <svg viewBox="0 0 24 24" fill="currentColor" role="img" xmlns="http://www.w3.org/2000/svg" tabindex="0">
@@ -409,6 +408,47 @@
     </nav>
   </footer>
   <script>
+    // Sample product data
+    const sampleProducts = [
+      {
+        title: "Custom PIE Kit",
+        category: "Custom",
+        image: "https://via.placeholder.com/207x276/3c59ff/ffffff?text=Custom+Kit",
+        priceS1C16: 1999,
+        isCustomKit: true
+      },
+      {
+        title: "Lord Krishna",
+        category: "Devotion/Spiritual",
+        image: "https://via.placeholder.com/207x276/3c59ff/ffffff?text=Krishna",
+        priceS1C16: 1499
+      },
+      {
+        title: "Mountain Landscape",
+        category: "Scenery/Wonders",
+        image: "https://via.placeholder.com/207x276/3c59ff/ffffff?text=Landscape",
+        priceS1C16: 1299
+      },
+      {
+        title: "Sunset Beach",
+        category: "Scenery/Wonders",
+        image: "https://via.placeholder.com/207x276/3c59ff/ffffff?text=Beach+Sunset",
+        priceS1C16: 1399
+      },
+      {
+        title: "Ganesha",
+        category: "Devotion/Spiritual",
+        image: "https://via.placeholder.com/207x276/3c59ff/ffffff?text=Ganesha",
+        priceS1C16: 1599
+      },
+      {
+        title: "Floral Pattern",
+        category: "Scenery/Wonders",
+        image: "https://via.placeholder.com/207x276/3c59ff/ffffff?text=Floral+Design",
+        priceS1C16: 1199
+      }
+    ];
+
     let products = [];
     let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
     const productsGrid = document.getElementById('productsGrid');
@@ -417,13 +457,13 @@
     const wishlistLink = document.getElementById('wishlist-link');
     let currentCategory = 'All';
 
-    // Load products from JSON
+    // Load products from JSON or use sample data
     async function loadProductsFromJson() {
       try {
         // Show loading indicator
         productsGrid.innerHTML = '<div class="loading-indicator">Loading products...</div>';
         
-        // Try multiple possible URLs for the products.json file
+        // Try to fetch from GitHub
         const urls = [
           'https://raw.githubusercontent.com/magpieartsinfo/magpie-arts-site/main/products.json',
           'https://raw.githubusercontent.com/magpieartsinfo/magpie-arts-site/refs/heads/main/products.json',
@@ -440,36 +480,11 @@
           }
         }
         
-        if (!response || !response.ok) {
-          throw new Error('Could not fetch products.json from any source');
-        }
-        
-        products = await response.json();
-        
-        // If products is empty, try to create some sample data
-        if (!products || products.length === 0) {
-          console.warn('Products array is empty, creating sample data');
-          products = [
-            {
-              title: "Custom PIE Kit",
-              category: "Custom",
-              image: "https://via.placeholder.com/207x276/3c59ff/ffffff?text=Custom+Kit",
-              priceS1C16: 1999,
-              isCustomKit: true
-            },
-            {
-              title: "Lord Krishna",
-              category: "Devotion/Spiritual",
-              image: "https://via.placeholder.com/207x276/3c59ff/ffffff?text=Krishna",
-              priceS1C16: 1499
-            },
-            {
-              title: "Mountain Landscape",
-              category: "Scenery/Wonders",
-              image: "https://via.placeholder.com/207x276/3c59ff/ffffff?text=Landscape",
-              priceS1C16: 1299
-            }
-          ];
+        if (response && response.ok) {
+          products = await response.json();
+        } else {
+          // Use sample data if fetch fails
+          products = sampleProducts;
         }
         
         // Render products after loading
@@ -477,16 +492,9 @@
         
       } catch (err) {
         console.error('Product fetch failed:', err);
-        productsGrid.innerHTML = `
-          <div class="error-message">
-            Failed to load products. Please check your internet connection and try again.
-            <br><br>
-            <button onclick="loadProductsFromJson()" style="padding: 10px 20px; background: #3c59ff; color: white; border: none; border-radius: 8px; cursor: pointer;">
-              Retry
-            </button>
-          </div>
-        `;
-        products = [];
+        // Use sample data as fallback
+        products = sampleProducts;
+        renderProducts();
       }
     }
 
@@ -498,11 +506,7 @@
         productsGrid.innerHTML = '<div class="error-message">No products available.</div>';
         return;
       }
-        // Debug: log loaded products and selected category.
-  console.log('Current Category:', currentCategory);
-  console.log('Total products loaded:', products.length);
-  console.log('Products:', products);
-
+      
       let filteredProducts;
       if (currentCategory === 'All') {
         // Custom Kit (isCustomKit==true) comes first, then other products
@@ -512,7 +516,7 @@
         if(customKitProduct) filteredProducts.push(customKitProduct);
         filteredProducts = filteredProducts.concat(notCustomKit);
       } else {
-        filteredProducts = products.filter(p => p.category.trim().toLowerCase() === currentCategory.trim().toLowerCase());
+        filteredProducts = products.filter(p => p.category === currentCategory);
       }
       
       if (filteredProducts.length === 0) {
@@ -520,8 +524,7 @@
         return;
       }
       
-      filteredProducts.forEach(prod => {
-        const idx = products.indexOf(prod);
+      filteredProducts.forEach((prod, idx) => {
         const card = document.createElement('div');
         card.className = 'product-card';
         card.onclick = () => openProductPage(idx);
@@ -606,7 +609,6 @@
         item.style.alignItems = 'center';
         item.style.marginBottom = '0.9rem';
         item.style.justifyContent = 'space-between';
-        // Make wishlist item clickable and open product page on click
         item.style.cursor = 'pointer';
         item.onclick = () => openProductPage(index);
         item.innerHTML = `
@@ -650,10 +652,9 @@
     menuBtn.addEventListener('click', openMenu);
     menuOverlay.addEventListener('click', closeMenu);
     
-    // Menu navigation links (and side menu closes on category selection)
+    // Menu navigation links
     function menuFilter(cat) {
       closeMenu();
-      // Simulate a click on the corresponding top nav link for highlighting and filtering
       const navs = document.querySelectorAll('nav a');
       navs.forEach(a=>{
         if (a.textContent.trim().toLowerCase().includes(cat.toLowerCase())) {
