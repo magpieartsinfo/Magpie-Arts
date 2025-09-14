@@ -409,7 +409,46 @@
   </footer>
   <script>
     // Sample product data
-  
+    const sampleProducts = [
+      {
+        title: "Custom PIE Kit",
+        category: "Custom",
+        image: "https://via.placeholder.com/207x276/3c59ff/ffffff?text=Custom+Kit",
+        priceS1C16: 1999,
+        isCustomKit: true
+      },
+      {
+        title: "Lord Krishna",
+        category: "Devotion/Spiritual",
+        image: "https://via.placeholder.com/207x276/3c59ff/ffffff?text=Krishna",
+        priceS1C16: 1499
+      },
+      {
+        title: "Mountain Landscape",
+        category: "Scenery/Wonders",
+        image: "https://via.placeholder.com/207x276/3c59ff/ffffff?text=Landscape",
+        priceS1C16: 1299
+      },
+      {
+        title: "Sunset Beach",
+        category: "Scenery/Wonders",
+        image: "https://via.placeholder.com/207x276/3c59ff/ffffff?text=Beach+Sunset",
+        priceS1C16: 1399
+      },
+      {
+        title: "Ganesha",
+        category: "Devotion/Spiritual",
+        image: "https://via.placeholder.com/207x276/3c59ff/ffffff?text=Ganesha",
+        priceS1C16: 1599
+      },
+      {
+        title: "Floral Pattern",
+        category: "Scenery/Wonders",
+        image: "https://via.placeholder.com/207x276/3c59ff/ffffff?text=Floral+Design",
+        priceS1C16: 1199
+      }
+    ];
+
     let products = [];
  // Load products from JSON or use sample data
     async function loadProductsFromJson() {
