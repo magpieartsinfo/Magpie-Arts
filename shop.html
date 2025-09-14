@@ -450,14 +450,7 @@
     ];
 
     let products = [];
-    let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
-    const productsGrid = document.getElementById('productsGrid');
-    const wishlistModal = document.getElementById('wishlistModal');
-    const wishlistItems = document.getElementById('wishlistItems');
-    const wishlistLink = document.getElementById('wishlist-link');
-    let currentCategory = 'All';
-
-    // Load products from JSON or use sample data
+ // Load products from JSON or use sample data
     async function loadProductsFromJson() {
       try {
         // Show loading indicator
@@ -468,6 +461,14 @@
           'https://raw.githubusercontent.com/magpieartsinfo/magpie-arts-site/main/products.json',
           
         ];
+    let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+    const productsGrid = document.getElementById('productsGrid');
+    const wishlistModal = document.getElementById('wishlistModal');
+    const wishlistItems = document.getElementById('wishlistItems');
+    const wishlistLink = document.getElementById('wishlist-link');
+    let currentCategory = 'All';
+
+   
         
         let response;
         for (const url of urls) {
