@@ -507,7 +507,7 @@
     async function loadProductsFromJson() {
       try {
         productsGrid.innerHTML = '<div class="loading-indicator">Loading products...</div>';
-        const response = await fetch('https://raw.githubusercontent.com/magpieartsinfo/magpie-arts-site/main/products.json');
+        const response = await fetch('https://raw.githubusercontent.com/magpieartsinfo/magpie-arts-site/refs/heads/main/products.json');
         if (!response.ok) {
           throw new Error('Could not fetch products.json');
         }
