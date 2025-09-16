@@ -34,36 +34,48 @@
       width: 100vw;
       margin: 0 auto;
     }
-    .menu-icon, .home-icon-link {
+.menu-icon, .home-icon-link {
   position: absolute;
   width: 52px;
   height: 52px;
   border-radius: 50%;
-  background: none;       /* Remove circle background */
-  box-shadow: 0 7px 24px 0 rgba(80,108,210,0.29), 0 3px 10px 0 rgba(50,50,100,0.13), 0 15px 30px 0 rgba(85,125,240,0.16); /* Strong 3D drop shadow */
+  background: none; /* No circle */
+  box-shadow: 0 7px 24px 0 rgba(80,108,210,0.29), 0 3px 10px 0 rgba(50,50,100,0.13), 0 15px 30px 0 rgba(85,125,240,0.16);
   padding: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: box-shadow 0.2s, background 0.2s;
   z-index: 10002;
   top: 50%;
   transform: translateY(-50%);
+  cursor: pointer;
   border: none;
   outline: none;
-  cursor: pointer;
+  transition: box-shadow 0.2s, background 0.2s;
 }
-.menu-icon:hover, .home-icon-link:hover {
-  box-shadow: 0 10px 36px 0 rgba(80,108,210,0.38), 0 5px 16px 0 rgba(50,50,100,0.16), 0 20px 40px 0 rgba(85,125,240,0.21);
-  background: none;
+
+.home-icon-link {
+  left: 24px;   /* Fix: explicitly position on left */
+  right: auto;
 }
-.menu-icon svg, .home-icon-link svg, .home-icon-link img {
+
+.menu-icon {
+  right: 24px;  /* Fix: explicitly position on right */
+  left: auto;
+}
+
+.menu-icon svg, .home-icon-link svg {
   width: 44px;
   height: 44px;
   display: block;
-  user-select: none;
   pointer-events: none;
+  user-select: none;
   margin: auto;
+}
+
+.menu-icon:hover, .home-icon-link:hover {
+  box-shadow: 0 10px 36px 0 rgba(80,108,210,0.38), 0 5px 16px 0 rgba(50,50,100,0.16), 0 20px 40px 0 rgba(85,125,240,0.21);
+  background: none;
 }
 
     .pie-logo-center {
