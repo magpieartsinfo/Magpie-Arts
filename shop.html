@@ -71,21 +71,28 @@
       box-shadow: 0 8px 26px #6599f3b2;
       padding: 0 80px;
     }
-    
-.menu-icon {
-  width: 52px;
-  height: 52px;
-  padding: 7px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: #e6f0ff;
-  box-shadow: 0 4px 14px rgba(30, 78, 170, 0.22);
-  cursor: pointer;
-  transition: background 0.3s, fill 0.3s;
-}
-
+    /* Adjusted icon sizes and positioning to match index page */
+    .menu-icon, .home-icon-link {
+      position: absolute;
+      width: 52px;
+      height: 52px;
+      cursor: pointer;
+      border-radius: 50%;
+      background: #e6f0ff;
+      box-shadow: 0 4px 15px rgba(18, 68, 170, 0.14);
+      padding: 7px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.3s, fill 0.3s;
+      user-select: none;
+      z-index: 12;
+    }
+    .menu-icon {
+      right: 24px;
+      left: auto;
+      top: 50%;
+      transform: translateY(-50%);
     }
     .menu-icon:hover {
       background: #c6ddff;
@@ -94,6 +101,21 @@
       width: 36px;
       height: 36px;
       display: block;
+    }
+    .home-icon-link {
+      left: 24px;
+      top: 50%;
+      transform: translateY(-50%);
+      fill: #1b3a8d;
+      text-decoration: none;
+    }
+    .home-icon-link:hover {
+      fill: #2979ff;
+      background: #c4ddff;
+    }
+    .home-icon-link svg {
+      width: 36px;
+      height: 36px;
     }
     .pie-logo-center {
       margin: 0 auto;
@@ -114,30 +136,6 @@
       margin: 0 auto;
       user-select: none;
       pointer-events: none;
-    }
-    .home-icon-link {
-      position: absolute;
-      left: 24px;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 52px;
-      height: 52px;
-      cursor: pointer;
-      fill: #1b3a8d;
-      transition: fill 0.3s;
-      user-select: none;
-      border-radius: 50%;
-      background: #e6f0ff;
-      box-shadow: 0 4px 14px rgba(30, 78, 170, 0.22);
-      padding: 7px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-decoration: none;
-    }
-    .home-icon-link:hover {
-      fill: #2979ff;
-      background: #c4ddff;
     }
     nav {
       margin-top: 18px;
@@ -428,12 +426,14 @@
     </ul>
   </div>
   <div id="menuOverlay" class="menu-overlay"></div>
-  <a href="https://magpieartsinfo.github.io/magpie-arts-site/index.html" title="Home">
-    <img class="side-logo" src="https://raw.githubusercontent.com/magpieartsinfo/magpiearts-assets/main/magpie-arts-site/images/logo.png" alt="Magpie Arts Logo" />
+  <a href="https://magpieartsinfo.github.io/magpie-arts-site/index.html" title="Home" class="home-icon-link" aria-label="Home">
+    <svg viewBox="0 0 36 36" fill="currentColor" role="img" tabindex="0" xmlns="http://www.w3.org/2000/svg" width="36" height="36" >
+      <path d="M12 3l10 9h-3v9h-6v-6h-2v6H5v-9H2z" />
+    </svg>
   </a>
   <div class="header-bar">
     <span class="menu-icon" role="button" aria-label="Menu" tabindex="0" title="Menu" onclick="openMenu()">
-      <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
+      <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
         <rect x="2" y="2" width="15" height="15" rx="6" fill="#285be8"/>
         <rect x="19" y="2" width="15" height="15" rx="6" fill="#9ac1fc"/>
         <rect x="2" y="19" width="15" height="15" rx="6" fill="#285be8"/>
@@ -443,11 +443,6 @@
     <div class="pie-logo-center">
       <img src="https://raw.githubusercontent.com/magpieartsinfo/magpiearts-assets/main/magpie-arts-site/images/PIE-kits.png" alt="PIE Kits - Paint It Easily Logo" draggable="false" loading="lazy" />
     </div>
-    <a href="https://magpieartsinfo.github.io/magpie-arts-site/index.html" class="home-icon-link" title="Home" aria-label="Home">
-      <svg viewBox="0 0 24 24" fill="currentColor" role="img" tabindex="0" xmlns="http://www.w3.org/2000/svg">
-        <path d="M12 3l10 9h-3v9h-6v-6h-2v6H5v-9H2z"/>
-      </svg>
-    </a>
   </div>
   <nav>
     <a href="#" onclick="filterCategory('All', this)">Paint By Number Kit</a>
@@ -491,7 +486,6 @@
       </a>
     </nav>
   </footer>
-
   <script>
     let products = [];
     let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
@@ -500,12 +494,11 @@
     const wishlistItems = document.getElementById('wishlistItems');
     const wishlistLink = document.getElementById('wishlist-link');
     let currentCategory = 'All';
-
     // Fetch products.json from GitHub raw URL and render
     async function loadProductsFromJson() {
       try {
         productsGrid.innerHTML = '<div class="loading-indicator">Loading products...</div>';
-        const response = await fetch('https://raw.githubusercontent.com/magpieartsinfo/magpie-arts-site/refs/heads/main/products.json');
+        const response = await fetch('https://raw.githubusercontent.com/magpieartsinfo/magpie-arts-site/main/products.json');
         if (!response.ok) {
           throw new Error('Could not fetch products.json');
         }
@@ -520,7 +513,6 @@
         console.error(error);
       }
     }
-
     function renderProducts() {
       productsGrid.innerHTML = '';
       if (!products || products.length === 0) {
@@ -557,17 +549,14 @@
         productsGrid.appendChild(card);
       });
     }
-
     function getStartingPrice(prod) {
       const prices = [prod.priceS1C16, prod.priceS1C20, prod.priceS2C20, prod.priceS2C24].filter(p => typeof p === 'number' && p > 0);
       if (prices.length === 0) return "N/A";
       return Math.min(...prices);
     }
-
     function openProductPage(index) {
       window.location.href = `https://magpieartsinfo.github.io/magpie-arts-site/product.html?index=${index}`;
     }
-
     function filterCategory(cat, el) {
       currentCategory = cat;
       document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
@@ -575,11 +564,9 @@
       renderProducts();
       closeWishlistModal();
     }
-
     function saveWishlist() {
       localStorage.setItem('wishlist', JSON.stringify(wishlist));
     }
-
     function toggleWishlist(e, index) {
       e.stopPropagation();
       if (wishlist.includes(index)) {
@@ -591,7 +578,6 @@
       renderProducts();
       renderWishlist();
     }
-
     function toggleWishlistModal() {
       if (wishlistModal.style.display === 'block') {
         closeWishlistModal();
@@ -600,18 +586,15 @@
         wishlistModal.style.display = 'block';
       }
     }
-
     function closeWishlistModal() {
       wishlistModal.style.display = 'none';
     }
-
     function removeFromWishlist(index) {
       wishlist = wishlist.filter(i => i !== index);
       saveWishlist();
       renderProducts();
       renderWishlist();
     }
-
     function renderWishlist() {
       if (wishlist.length === 0) {
         wishlistItems.innerHTML = '<p style="text-align:center; font-size:1.1rem; margin-top:1.2rem;">Your wishlist is empty.</p>';
@@ -632,7 +615,6 @@
         wishlistItems.appendChild(item);
       });
     }
-
     // Side menu toggle
     const sideMenu = document.getElementById('sideMenu');
     const menuOverlay = document.getElementById('menuOverlay');
@@ -665,7 +647,6 @@
         }
       }
     });
-
     document.addEventListener('DOMContentLoaded', () => {
       const hash = window.location.hash.substring(1).toLowerCase();
       const categoryMap = {
