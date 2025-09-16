@@ -11,68 +11,117 @@
       --background: 220 100% 98%;
       --foreground: 220 10% 10%;
       --card: 0 0% 100%;
+      --primary: 220 91% 56%;
     }
     body {
       font-family: 'Candara', Arial, sans-serif;
       background: hsl(var(--background));
       color: hsl(var(--foreground));
       min-height: 100vh;
-      padding-bottom: 75px;
+      padding-bottom: 80px;
     }
-    /* HEADER */
     .header-bar {
       background: linear-gradient(90deg, #b4d9f6 0%, #eaeefe 50%, #97d2f7 100%);
-      min-height: 120px; border-radius: 32px 0 32px 0;
-      display: flex; align-items: center; justify-content: center;
-      position: relative; box-shadow: 0 8px 26px #6599f3b2;
-      padding: 0 80px; margin: 0 auto; max-width: 100vw;
+      min-height: 110px; 
+      border-radius: 32px 0 32px 0;
+      display: flex; 
+      align-items: center; 
+      justify-content: center;
+      position: relative; 
+      box-shadow: 0 8px 26px #6599f3b2;
+      padding: 0 12vw; 
+      max-width: 100vw; 
       width: 100vw;
+      margin: 0 auto;
     }
     .menu-icon, .home-icon-link {
       position: absolute;
-      width: 52px;
-      height: 52px;
+      width: 60px;
+      height: 60px;
       border-radius: 50%;
       background: #e6f0ff;
-      box-shadow: 0 4px 15px rgba(18, 68, 170, 0.14);
-      padding: 7px;
+      box-shadow: 0 4px 16px rgba(18, 68, 170, 0.13);
+      padding: 0;
       display: flex;
       align-items: center;
       justify-content: center;
       transition: background 0.3s, fill 0.3s;
-      z-index: 12;
+      z-index: 14;
       top: 50%;
       transform: translateY(-50%);
+      border: none;
+      outline: none;
     }
-    .menu-icon { right: 24px; left: auto; }
-    .menu-icon svg, .home-icon-link svg { width: 36px; height: 36px; display: block; }
-    .menu-icon:hover, .home-icon-link:hover { background: #c6ddff; }
-    .home-icon-link { left: 24px; right: auto; fill: #1b3a8d; text-decoration: none;}
+    .menu-icon {
+      right: 24px; left: auto;
+      cursor: pointer;
+    }
+    .menu-icon svg { 
+      width: 44px; height: 44px; 
+      display: block; 
+    }
+    .menu-icon:hover, .home-icon-link:hover {
+      background: #c6ddff;
+    }
+    .home-icon-link {
+      left: 24px; right: auto;
+      fill: #1b3a8d;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    .home-icon-link svg {
+      width: 44px; 
+      height: 44px;
+      display: block;
+    }
+    @media (max-width:700px) {
+      .header-bar { padding: 0 2vw; min-height: 80px; }
+      .home-icon-link, .menu-icon { width: 48px; height: 48px; }
+      .home-icon-link svg, .menu-icon svg { width: 32px; height: 32px; }
+    }
     .pie-logo-center {
-      margin: 0 auto; max-width: 330px; width: 330px;
-      display: flex; justify-content: center; align-items: center;
-      padding: 7px 8px 3px 8px; background: none; user-select: none;
+      margin: 0 auto; 
+      max-width: 300px; 
+      width: 220px;
+      display: flex; 
+      justify-content: center; 
+      align-items: center;
+      transition: width 0.2s;
+      z-index: 10;
+      position: relative;
+      padding-bottom: 0;
     }
-    .pie-logo-center img { width: 100%; height: auto; display: block; pointer-events: none; }
-    /* CATEGORY BAR */
+    .pie-logo-center img {
+      width: 100%;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+      background: none;
+      user-select: none;
+      pointer-events: none;
+      filter: drop-shadow(0 2px 5px #7eb8f72a);
+    }
+    @media (max-width: 700px) {
+      .pie-logo-center { width: 36vw; min-width: 100px; max-width: 150px; }
+    }
     .categories {
-      margin: 0 auto 8px auto;
+      margin: 0 auto 7px auto;
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      gap: 8px 18px;
-      max-width: 100vw;
-      padding: 6px 0 0 0;
+      gap: 8px 14px;
+      max-width: 515px;
+      padding: 7px 0 0 0;
       background: none;
     }
     .category-btn {
       font-weight: 600;
-      font-size: 0.97rem;
+      font-size: 0.98rem;
       color: #154ea4;
       background: #e8f4fe;
       border: none; outline: none; cursor: pointer;
-      padding: 7px 16px;
-      border-radius: 11px;
+      padding: 7px 14px;
+      border-radius: 13px;
       transition: background .17s, color .17s;
       white-space: nowrap;
     }
@@ -80,14 +129,12 @@
       background: #b6d8fe;
       color: #1d388b;
     }
-    /* FIX: REMOVE classic nav */
     nav { display: none; }
-    /* PRODUCT GRID & CARD */
-    .shop-container { width: 100vw; max-width: 100vw; margin: 0 auto; padding: 0; }
+    .shop-container { width: 100vw; max-width: 100vw; margin: 0 auto; padding: 0;}
     .products-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 25px 20px;
+      gap: 25px 16px;
       justify-items: center;
       margin: 0 auto;
       width: 100vw;
@@ -96,130 +143,143 @@
     }
     .product-card {
       background: hsl(var(--card));
-      border-radius: 24px;
-      box-shadow: 0 6px 35px #d7e0f7cc;
-      max-width: 340px;
-      width: 94%;
+      border-radius: 22px;
+      box-shadow: 0 6px 34px #d7e0f7cc;
+      max-width: 350px;
+      width: 96%;
       cursor: pointer;
       display: flex; flex-direction: column; align-items: center;
       position: relative;
-      padding: 18px 12px 17px 12px;
-      transition: box-shadow 0.25s ease, transform 0.25s ease;
+      padding: 15px 8px 14px 8px;
+      transition: box-shadow 0.21s, transform 0.21s;
       user-select: none;
     }
     .product-card:hover { box-shadow: 0 11px 50px #6ea3fc7f; transform: translateY(-4px);}
     .product-img-window {
-      width: 97%; min-width:170px; aspect-ratio: 9/12;
+      width: 97%; min-width:140px; aspect-ratio: 9/12;
       background: #e7f3fa;
-      border-radius: 18px; display: flex;
+      border-radius: 14px; display: flex;
       align-items: center; justify-content: center;
       overflow: hidden; box-shadow: 0 4px 18px #bdd9fc77;
       margin-bottom: .7rem; position: relative;
     }
-    .product-img { width: 100%; height: 100%; object-fit: cover; border-radius: 16px;}
+    .product-img { width: 100%; height: 100%; object-fit: cover; border-radius: 12px;}
     .product-card:hover .product-img { transform: scale(1.08);}
-    .product-title { font-family: 'Candara', Arial, sans-serif; font-size: 1.07rem; font-weight: 700; color: #264a8b; text-align: center; margin-bottom: 0.2rem; min-height: 22px;}
-    .product-price { font-family: Arial, sans-serif; font-size: 1rem; font-weight: 700; color: #1c3a92; margin-bottom: 0.3rem; text-align: center;}
+    .product-title { font-family: 'Candara', Arial, sans-serif; font-size: 1.09rem; font-weight: 700; color: #264a8b; text-align: center; margin-bottom: 0.13rem; min-height: 15px;}
+    .product-price { font-family: Arial, sans-serif; font-size: 0.99rem; font-weight: 700; color: #1c3a92; margin-bottom: 0.02rem; text-align: center;}
     .wishlist-heart {
-      position: absolute; top: 12px; right: 15px;
-      font-size: 1.55rem; color: #bbb; cursor: pointer; transition: color 0.25s; user-select: none; z-index: 22;
+      position: absolute; top: 11px; right: 13px;
+      font-size: 1.48rem; color: #bbb; cursor: pointer; transition: color 0.17s; user-select: none; z-index: 22;
     }
-    .wishlist-heart.wishlisted { color: #e84265; text-shadow: 0 3px 12px #fda3bb;}
+    .wishlist-heart.wishlisted { color: #e84265; text-shadow: 0 3px 10px #fda3bb;}
     .wishlist-heart:hover { color: #e84265; }
-    /* FLOATING WISHLIST BUTTON */
     #wishlist-floating-btn {
       position: fixed;
-      bottom: 24px;
-      right: 23px;
-      z-index: 21000;
-      width: 52px;
-      height: 52px;
+      bottom: 21px;
+      right: 25px;
+      z-index: 22000;
+      width: 60px;
+      height: 60px;
       border-radius: 50%;
       box-shadow: 0 4px 22px #285be86e;
-      background: #f4f8ff;
+      background: #f5faff;
       border: 2.5px solid #b1d5f9;
-      display: none;
+      display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
       color: #e84265;
-      font-size: 2.02rem;
-      transition: background .18s, box-shadow .2s;
+      font-size: 2.15rem;
+      transition: background .13s, box-shadow .13s;
+      outline: none;
     }
     #wishlist-floating-btn:hover {
       background: #fff;
-      box-shadow: 0 12px 35px #285be84f;
+      box-shadow: 0 12px 22px #285be84f;
     }
-    .wishlist-label-desktop {
-      display: inline-block;
-      color: #e84265;
-      font-size: 1.13rem;
-      font-weight: bold;
-      margin-left: 8px;
-      user-select: none;
-      vertical-align: middle;
-    }
-    /* WISHLIST MODAL */
+    .wishlist-label-desktop { display: none; }
     #wishlistModal {
       position: fixed; top: 90px; right: 20px; width: 340px; max-height: 500px;
       background: hsl(var(--card)); box-shadow: 0 0 40px rgba(30,78,170,0.25);
       border-radius: 20px; overflow-y: auto; padding: 21px 25px 25px 25px;
-      z-index: 1999; display: none;
+      z-index: 2999; display: none;
     }
     #wishlistModal h2 {font-weight: 800; text-align: center; margin: 0 0 15px 0; color: #1f3e83; font-size: 1.4rem;}
     .wishlist-item { display: flex; align-items: center; margin-bottom: 1rem; justify-content: space-between; cursor: pointer;}
-    .wishlist-item img { width: 56px; height: 76px; object-fit: cover; border-radius: 14px; margin-right: 14px;}
-    .wish-title { flex-grow: 1; font-weight: 700; font-size: 1rem; color: #1b3a8d; text-align: left;}
-    .remove-wish { font-size: 1.4rem; color: #e84265; cursor: pointer; font-weight: 900; padding-left: 15px; user-select: none;}
+    .wishlist-item img { width: 54px; height: 72px; object-fit: cover; border-radius: 12px; margin-right: 14px;}
+    .wish-title { flex-grow: 1; font-weight: 700; font-size: 0.97rem; color: #1b3a8d; text-align: left;}
+    .remove-wish { font-size: 1.31rem; color: #e84265; cursor: pointer; font-weight: 900; padding-left: 10px; user-select: none;}
     .footer-contact-shop {
       background: #172a59;
       color: #fff; padding: 30px 10px 20px 10px;
       border-radius: 28px; text-align: center; margin: 27px auto 10px auto;
-      font-family: Arial, sans-serif; width: 98vw; max-width: 720px;
+      font-family: Arial, sans-serif; width: 99vw; max-width: 740px;
     }
     .footer-contact-shop .contact-info p { margin: 5px 0; font-size: 1.03rem; color: #fff; line-height: 1.5;}
     .social-icons { margin-top: 20px; display: flex; justify-content: center; gap: 18px;}
     .social-icons a { text-decoration: none; }
-    @media (max-width: 900px) {
-      .header-bar { padding: 0 12vw; }
+    @media (max-width: 960px) {
+      .header-bar { padding: 0 2vw; }
+      .pie-logo-center { width: 28vw; }
     }
     @media (max-width: 700px) {
-      .header-bar { border-radius: 0!important; padding: 0 2vw; min-height: 80px; }
-      .pie-logo-center { width: 140px;}
-      .categories { gap: 7px 6vw; margin-bottom: 0; }
-      .category-btn { font-size: .96rem; padding: 4.5px 8px; border-radius: 6px;}
-      .footer-contact-shop { border-radius: 20px;}
-      .products-grid { grid-template-columns: repeat(2, 1fr)!important; gap: 11px 7px; width: 100vw; max-width: 100vw; }
+      .header-bar {border-radius: 0!important; min-height: 65px;}
+      .home-icon-link, .menu-icon { width: 42px; height: 42px; }
+      .home-icon-link svg, .menu-icon svg { width: 26px; height: 26px; }
+      .pie-logo-center { width: 30vw; min-width: 75px; max-width: 110px; }
+      .categories { gap: 6px 5vw; margin-bottom: 0; }
+      .category-btn { font-size: .94rem; padding: 3.5px 8px; border-radius: 7px;}
+      .footer-contact-shop { border-radius: 15px; }
+      .products-grid { grid-template-columns: repeat(2, 1fr)!important; gap: 10px 3px; width: 100vw; max-width: 100vw; }
       .shop-container { max-width: 100vw; margin: 0; padding: 0;}
+      #wishlistModal { width: 95vw; right: 2vw; }
+      #wishlist-floating-btn { bottom: 15px; right: 18px; width: 52px; height: 52px; font-size: 1.6rem; }
     }
-    @media (max-width:500px) {
-      .header-bar { padding: 0 1vw; }
-      .products-grid { gap: 7px 3px;}
-      .category-btn { font-size: .94rem; padding: 2px 5vw;}
-      .pie-logo-center { width: 78vw;}
+    @media (max-width: 500px) {
+      .header-bar { padding: 0 1vw;}
+      .products-grid { gap: 7px 2px;}
+      .category-btn { font-size: .93rem; padding: 2.5px 3vw;}
+      .pie-logo-center { min-width: 40px; max-width: 80px;}
       .footer-contact-shop { font-size: 12px; }
-      #wishlistModal { width: 97vw; right: 2vw; }
+      #wishlistModal { width: 98vw; right: 1vw;}
     }
-    /* Show floating wishlist on mobile, hide desktop */
-    @media (max-width: 950px) {
-      #wishlist-floating-btn { display: flex; }
-      .wishlist-label-desktop { display: none; }
+    @media (max-width: 400px) {
+      .pie-logo-center { width: 44vw; }
     }
-    @media (min-width: 951px) {
-      #wishlist-floating-btn { display: none!important; }
-      .wishlist-label-desktop { display: inline-block; }
+    /* Show floating wishlist always */
+    #wishlist-floating-btn { display: flex;}
+    .loading-indicator { text-align: center; padding: 24px; font-size: 1.15rem; color: #3897f0;}
+    .error-message { text-align: center; padding: 24px; font-size: 1.13rem; color: #e84265;}
+    /* Fix side menu overlay */
+    .side-menu {
+      position: fixed; top: 0; right: -260px; left: auto;
+      width: 240px; height: 100vh;
+      background: #e6f0ff; box-shadow: 2px 0 20px rgba(43,58,128,0.12);
+      padding: 48px 0 24px 0; z-index: 40000;
+      transition: right 0.3s cubic-bezier(.77,0,.175,1);
+      display: flex; flex-direction: column;
     }
-    .loading-indicator { text-align: center; padding: 30px; font-size: 1.1rem; color: #3897f0;}
-    .error-message { text-align: center; padding: 30px; font-size: 1.15rem; color: #e84265;}
+    .side-menu.open { right: 0 !important; }
+    .side-menu ul {
+      padding: 0 0 0 26px; margin: 0; list-style: none;
+      font-size: 1.13rem; font-weight: 700; color: #1747a0; user-select: none;
+    }
+    .side-menu ul li { margin-bottom: 25px; }
+    .side-menu ul li a { color: inherit; text-decoration: none; }
+    .menu-overlay { 
+      position: fixed; top: 0; right: 0; left: 0; width: 100vw; height: 100vh; 
+      background: rgba(14,42,139,0.15); z-index: 30000; display: none;
+    }
+    .menu-overlay.open { display: block; }
   </style>
 </head>
 <body>
   <div class="header-bar">
     <a href="https://magpieartsinfo.github.io/magpie-arts-site/index.html" class="home-icon-link" title="Home" aria-label="Home">
-      <svg viewBox="0 0 36 36" fill="currentColor" width="36" height="36"><path d="M12 3l10 9h-3v9h-6v-6h-2v6H5v-9H2z"/></svg>
+      <svg viewBox="0 0 36 36" fill="#1b3a8d"><circle cx="18" cy="18" r="16" fill="#e5eeff"/><path d="M12 18v8a2 2 0 002 2h8a2 2 0 002-2v-8m-7 0V9a1 1 0 011-1h2a1 1 0 011 1v9m-7 0H7.5a.5.5 0 01-.35-.85l9-9a.5.5 0 01.7 0l9 9a.5.5 0 01-.35.85H25" stroke="#1b3a8d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
     </a>
     <span class="menu-icon" role="button" aria-label="Menu" tabindex="0" title="Menu" onclick="openMenu()">
-      <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
+      <svg width="44" height="44" viewBox="0 0 36 36" fill="none">
         <rect x="2" y="2" width="15" height="15" rx="6" fill="#285be8"/>
         <rect x="19" y="2" width="15" height="15" rx="6" fill="#9ac1fc"/>
         <rect x="2" y="19" width="15" height="15" rx="6" fill="#285be8"/>
@@ -241,7 +301,6 @@
       <div class="loading-indicator">Loading products...</div>
     </div>
   </main>
-  <!-- Floating wishlist button -->
   <div id="wishlist-floating-btn" onclick="toggleWishlistModal()" title="Wishlist" aria-label="Wishlist">❤</div>
   <div id="wishlistModal" role="dialog" aria-modal="true" aria-labelledby="wishlistTitle">
     <h2 id="wishlistTitle">Your Wishlist</h2>
@@ -372,12 +431,8 @@
       renderWishlist();
     }
     function toggleWishlistModal() {
-      if (wishlistModal.style.display === 'block') {
-        closeWishlistModal();
-      } else {
-        renderWishlist();
-        wishlistModal.style.display = 'block';
-      }
+      wishlistModal.style.display = (wishlistModal.style.display === 'block') ? 'none' : 'block';
+      renderWishlist();
     }
     function closeWishlistModal() {
       wishlistModal.style.display = 'none';
