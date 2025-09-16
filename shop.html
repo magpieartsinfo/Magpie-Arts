@@ -6,20 +6,51 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@900&family=Roboto+Serif:opsz,wght@8..144,700&display=swap" rel="stylesheet" />
   <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --background: 220 100% 98%;
+      --foreground: 220 10% 10%;
+      --card: 0 0% 100%;
+      --card-foreground: 220 10% 10%;
+      --popover: 0 0% 100%;
+      --popover-foreground: 220 10% 10%;
+      --primary: 220 91% 56%;
+      --primary-foreground: 210 40% 98%;
+      --secondary: 220 14% 96%;
+      --secondary-foreground: 220 9% 46%;
+      --muted: 220 14% 96%;
+      --muted-foreground: 220 9% 46%;
+      --accent: 220 14% 96%;
+      --accent-foreground: 220 9% 46%;
+      --destructive: 0 84% 60%;
+      --destructive-foreground: 210 40% 98%;
+      --border: 220 13% 91%;
+      --input: 220 13% 91%;
+      --ring: 220 91% 56%;
+      --radius: 0.5rem;
+    }
+
     body {
       font-family: 'Candara', Arial, sans-serif;
-      background: #f8fbff;
+      background: hsl(var(--background));
       margin: 0; 
       padding: 0 20px 50px;
-      color: #222;
+      color: hsl(var(--foreground));
+      line-height: 1.5;
     }
+
     .side-logo {
       position: fixed;
       top: 24px;
       left: 28px;
       width: 110px;
       height: auto;
-      background: #fff;
+      background: hsl(var(--card));
       border-radius: 16px;
       padding: 7px 12px;
       border: 3px solid #d9eefb;
@@ -28,9 +59,11 @@
       z-index: 1000;
       text-decoration: none;
     }
+    
     .side-logo:hover {
       box-shadow: 0 8px 50px rgba(60,90,170,0.3);
     }
+    
     .header-bar {
       background: linear-gradient(90deg, #b4d9f6 0%, #eaeefe 50%, #97d2f7 100%);
       min-height: 160px;
@@ -43,6 +76,7 @@
       box-shadow: 0 8px 26px #6599f3b2;
       padding: 0 80px;
     }
+    
     .menu-icon {
       position: absolute;
       right: 24px;
@@ -62,14 +96,17 @@
       transition: background 0.3s;
       padding: 7px;
     }
+    
     .menu-icon:hover {
       background: #c6ddff;
     }
+    
     .menu-icon svg {
       width: 36px;
       height: 36px;
       display: block;
     }
+    
     .pie-logo-center {
       margin: 0 auto;
       max-width: 330px;
@@ -82,6 +119,7 @@
       z-index: 5;
       user-select: none;
     }
+    
     .pie-logo-center img {
       width: 100%;
       height: auto;
@@ -90,6 +128,7 @@
       user-select: none;
       pointer-events: none;
     }
+    
     .home-icon-link {
       position: absolute;
       left: 24px;
@@ -109,11 +148,14 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      text-decoration: none;
     }
+    
     .home-icon-link:hover {
       fill: #2979ff;
       background: #c4ddff;
     }
+    
     nav {
       margin-top: 18px;
       margin-left: 160px;
@@ -123,6 +165,7 @@
       font-family: Arial, sans-serif;
       flex-wrap: wrap;
     }
+    
     nav a {
       font-weight: 700;
       font-size: 1.2rem;
@@ -135,29 +178,34 @@
       transition: background-color 0.3s ease;
       white-space: nowrap;
     }
+    
     nav a.active, nav a:hover {
       background-color: #e4f3ff;
       color: #2a72ea;
     }
+    
     nav #wishlist-link {
       color: #e84265 !important;
       font-size: 1.4rem;
       margin-left: 50px;
     }
+    
     .shop-container {
       max-width: 1320px;
       margin: 32px auto 0 auto;
       margin-left: 160px;
       padding-right: 8px;
     }
+    
     .products-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill,minmax(280px,1fr));
       gap: 25px 28px;
       justify-items: center;
     }
+    
     .product-card {
-      background: white;
+      background: hsl(var(--card));
       border-radius: 24px;
       box-shadow: 0 6px 35px #d7e0f7cc;
       width: 280px;
@@ -170,10 +218,12 @@
       transition: box-shadow 0.25s ease, transform 0.25s ease;
       user-select: none;
     }
+    
     .product-card:hover {
       box-shadow: 0 11px 50px #6ea3fc7f;
       transform: translateY(-4px);
     }
+    
     .product-img-window {
       width: 207px;
       height: 276px;
@@ -187,6 +237,7 @@
       margin-bottom: 1.1rem;
       position: relative;
     }
+    
     .product-img {
       width: 100%;
       height: 100%;
@@ -194,9 +245,11 @@
       border-radius: 18px;
       transition: transform 0.4s ease;
     }
+    
     .product-card:hover .product-img {
       transform: scale(1.08);
     }
+    
     .product-title {
       font-family: 'Candara', Arial, sans-serif;
       font-size: 1.3rem;
@@ -206,6 +259,7 @@
       margin-bottom: 0.3rem;
       min-height: 44px;
     }
+    
     .product-price {
       font-family: Arial, sans-serif;
       font-size: 1.1rem;
@@ -214,6 +268,7 @@
       margin-bottom: 1rem;
       text-align: center;
     }
+    
     .wishlist-heart {
       position: absolute;
       top: 22px;
@@ -225,20 +280,23 @@
       user-select: none;
       z-index: 22;
     }
+    
     .wishlist-heart.wishlisted {
       color: #e84265;
       text-shadow: 0 3px 12px #fda3bb;
     }
+    
     .wishlist-heart:hover {
       color: #e84265;
     }
+    
     #wishlistModal {
       position: fixed;
       top: 90px;
       right: 20px;
       width: 340px;
       max-height: 500px;
-      background: white;
+      background: hsl(var(--card));
       box-shadow: 0 0 40px rgba(30,78,170,0.25);
       border-radius: 20px;
       overflow-y: auto;
@@ -246,6 +304,7 @@
       z-index: 1999;
       display: none;
     }
+    
     #wishlistModal h2 {
       font-weight: 800;
       text-align: center;
@@ -253,27 +312,32 @@
       color: #1f3e83;
       font-size: 1.4rem;
     }
-    #wishlistModal .wishlist-item {
+    
+    .wishlist-item {
       display: flex;
       align-items: center;
       margin-bottom: 1rem;
       justify-content: space-between;
+      cursor: pointer;
     }
-    #wishlistModal img {
+    
+    .wishlist-item img {
       width: 56px;
       height: 76px;
       object-fit: cover;
       border-radius: 14px;
       margin-right: 14px;
     }
-    #wishlistModal .wish-title {
+    
+    .wish-title {
       flex-grow: 1;
       font-weight: 700;
       font-size: 1rem;
       color: #1b3a8d;
       text-align: left;
     }
-    #wishlistModal .remove-wish {
+    
+    .remove-wish {
       font-size: 1.4rem;
       color: #e84265;
       cursor: pointer;
@@ -281,6 +345,7 @@
       padding-left: 15px;
       user-select: none;
     }
+    
     .footer-contact-shop {
       background: #172a59;
       color: #fff;
@@ -291,16 +356,100 @@
       font-family: Arial, sans-serif;
       max-width: 100%;
     }
+    
     .footer-contact-shop .contact-info p {
       margin: 5px 0;
       font-size: 1.1rem;
       color: #fff;
       line-height: 1.5;
     }
+    
     .footer-contact-shop .contact-info p strong {
       font-size: 1.18rem;
       color: #fff;
     }
+
+    .social-icons {
+      margin-top: 20px;
+      display: flex;
+      justify-content: center;
+      gap: 28px;
+    }
+
+    .social-icons a {
+      text-decoration: none;
+    }
+    
+    /* Side Menu Styles */
+    .side-menu {
+      position: fixed;
+      top: 0;
+      right: -260px;
+      left: auto;
+      width: 240px;
+      height: 100vh;
+      background: #e6f0ff;
+      box-shadow: 2px 0 20px rgba(43,58,128,0.12);
+      padding: 48px 0 24px 0;
+      z-index: 2000;
+      transition: right 0.3s cubic-bezier(.77,0,.175,1);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .side-menu.open {
+      right: 0;
+    }
+
+    .side-menu ul {
+      padding: 0 0 0 26px;
+      margin: 0;
+      list-style: none;
+      font-size: 1.17rem;
+      font-weight: 700;
+      color: #1747a0;
+      user-select: none;
+    }
+
+    .side-menu ul li {
+      margin-bottom: 28px;
+    }
+
+    .side-menu ul li a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .menu-overlay {
+      position: fixed;
+      top: 0;
+      right: 0;
+      left: auto;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(14,42,139,0.15);
+      z-index: 1999;
+      display: none;
+    }
+
+    .menu-overlay.open {
+      display: block;
+    }
+    
+    .loading-indicator {
+      text-align: center;
+      padding: 40px;
+      font-size: 1.2rem;
+      color: hsl(var(--primary));
+    }
+    
+    .error-message {
+      text-align: center;
+      padding: 40px;
+      font-size: 1.2rem;
+      color: #e84265;
+    }
+    
     @media (max-width: 850px) {
       .side-logo { display: none; }
       .header-bar { margin-left: 0; border-radius: 0;}
@@ -309,6 +458,7 @@
       .pie-logo-center { width: 210px; }
       .footer-contact-shop { margin-left: 2vw; margin-right: 2vw; }
     }
+    
     @media (max-width: 600px) {
       .shop-container {padding: 0 6px;}
       .product-card {width: 95vw;}
@@ -317,40 +467,28 @@
       .footer-contact-shop { border-radius: 18px; padding: 15px 4vw; }
       .footer-contact-shop .contact-info p { font-size: 0.94rem; }
     }
-    .loading-indicator {
-      text-align: center;
-      padding: 40px;
-      font-size: 1.2rem;
-      color: #3c59ff;
-    }
-    .error-message {
-      text-align: center;
-      padding: 40px;
-      font-size: 1.2rem;
-      color: #e84265;
-    }
   </style>
 </head>
 <body>
   <!-- Side Menu -->
-  <div id="sideMenu" style="position:fixed;top:0;right:-260px;left:auto;width:240px;height:100vh;background:#e6f0ff;box-shadow:2px 0 20px rgba(43,58,128,0.12);padding:48px 0 24px 0;z-index:2000;transition:left 0.3s cubic-bezier(.77,0,.175,1);display:flex;flex-direction:column;">
-    <ul style="padding:0 0 0 26px;margin:0;list-style:none;font-size:1.17rem;font-weight:700;color:#1747a0;user-select:none;">
-      <li style="margin-bottom:28px"><a href="#" onclick="menuFilter('All');return false;">Paint By Number</a></li>
-      <li style="margin-bottom:28px"><a href="#" onclick="menuFilter('Custom');return false;">Custom Kit</a></li>
-      <li style="margin-bottom:28px"><a href="#" onclick="menuFilter('Devotion/Spiritual');return false;">Devotion/Spiritual</a></li>
-      <li style="margin-bottom:28px"><a href="#" onclick="menuFilter('Scenery/Wonders');return false;">Scenery/Wonders</a></li>
-      <li style="margin-bottom:28px"><a href="cart.html" onclick="closeMenu();">Cart</a></li>
+  <div id="sideMenu" class="side-menu">
+    <ul>
+      <li><a href="#" onclick="menuFilter('All');return false;">Paint By Number</a></li>
+      <li><a href="#" onclick="menuFilter('Custom');return false;">Custom Kit</a></li>
+      <li><a href="#" onclick="menuFilter('Devotion/Spiritual');return false;">Devotion/Spiritual</a></li>
+      <li><a href="#" onclick="menuFilter('Scenery/Wonders');return false;">Scenery/Wonders</a></li>
+      <li><a href="#" onclick="closeMenu();">Cart</a></li>
       <li style="color:#7080a3;font-weight:400;font-size:.95rem;margin-top:30px;">&copy; 2025 Magpie Arts</li>
     </ul>
   </div>
-  <div id="menuOverlay" style="position:fixed;top:0;right:0;left:auto;width:100vw;height:100vh;background:rgba(14,42,139,0.15);z-index:1999;display:none;"></div>
-  
+  <div id="menuOverlay" class="menu-overlay"></div>
+
   <a href="https://magpieartsinfo.github.io/magpie-arts-site/index.html" title="Home">
     <img class="side-logo" src="https://raw.githubusercontent.com/magpieartsinfo/magpiearts-assets/main/magpie-arts-site/images/logo.png" alt="Magpie Arts Logo" />
   </a>
-  
+
   <div class="header-bar">
-    <span class="menu-icon" role="button" aria-label="Menu" tabindex="0" title="Menu">
+    <span class="menu-icon" role="button" aria-label="Menu" tabindex="0" title="Menu" onclick="openMenu()">
       <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
         <rect x="2" y="2" width="15" height="15" rx="6" fill="#285be8"/>
         <rect x="19" y="2" width="15" height="15" rx="6" fill="#9ac1fc"/>
@@ -362,12 +500,12 @@
       <img src="https://raw.githubusercontent.com/magpieartsinfo/magpiearts-assets/main/magpie-arts-site/images/PIE-kits.png" alt="PIE Kits - Paint It Easily Logo" draggable="false" loading="lazy" />
     </div>
     <a href="https://magpieartsinfo.github.io/magpie-arts-site/index.html" class="home-icon-link" title="Home" aria-label="Home">
-      <svg viewBox="0 0 24 24" fill="currentColor" role="img" xmlns="http://www.w3.org/2000/svg" tabindex="0">
+      <svg viewBox="0 0 24 24" fill="currentColor" role="img">
         <path d="M12 3l10 9h-3v9h-6v-6h-2v6H5v-9H2z"/>
       </svg>
     </a>
   </div>
-  
+
   <nav>
     <a href="#" onclick="filterCategory('All', this)">Paint By Number Kit</a>
     <a href="#" onclick="filterCategory('Custom', this)">Custom Kit</a>
@@ -375,18 +513,18 @@
     <a href="#" onclick="filterCategory('Scenery/Wonders', this)">Scenery/Wonders</a>
     <a id="wishlist-link" title="Wishlist" onclick="toggleWishlistModal()">❤ Wishlist</a>
   </nav>
-  
+
   <main class="shop-container">
     <div class="products-grid" id="productsGrid">
       <div class="loading-indicator">Loading products...</div>
     </div>
   </main>
-  
+
   <div id="wishlistModal" role="dialog" aria-modal="true" aria-labelledby="wishlistTitle">
     <h2 id="wishlistTitle">Your Wishlist</h2>
     <div id="wishlistItems"></div>
   </div>
-  
+
   <footer class="footer-contact-shop">
     <div class="contact-info">
       <p><strong>Contact Us</strong></p>
@@ -398,7 +536,7 @@
         Address: 285, Manmandir Residency, Ankleshwar, Gujarat-393001
       </p>
     </div>
-    <nav class="social-icons" style="margin-top: 20px; display: flex; justify-content: center; gap: 28px;" aria-label="Social media links" role="navigation">
+    <nav class="social-icons" aria-label="Social media links" role="navigation">
       <a href="https://api.whatsapp.com/send?phone=9181283685" target="_blank" aria-label="WhatsApp">
         <img src="https://raw.githubusercontent.com/magpieartsinfo/magpiearts-assets/refs/heads/main/magpie-arts-site/images/whatsapp-icon.svg" alt="WhatsApp" width="38" height="38" />
       </a>
@@ -415,54 +553,60 @@
   </footer>
 
   <script>
-    // DECLARE ALL VARIABLES GLOBALLY - ONLY ONCE
-    let products = [];
+    // Product data
+    const products = [
+      {
+        "title": "Krishna 1",
+        "desc": "PIE KIT - Krishna make divine blessing of Krishna through Paint by number kit",
+        "priceS1C16": 900,
+        "priceS1C20": 1000,
+        "priceS2C20": 1400,
+        "priceS2C24": 1500,
+        "image": "https://raw.githubusercontent.com/magpieartsinfo/magpiearts-assets/main/magpie-arts-site/images/Krishna.webp",
+        "category": "Devotion/Spiritual",
+        "isCustomKit": false
+      },
+      {
+        "title": "Radha Krishna",
+        "desc": "Radha Krishna PIE kit , Devotion with Love.",
+        "priceS1C16": 900,
+        "priceS1C20": 1000,
+        "priceS2C20": 1400,
+        "priceS2C24": 1500,
+        "image": "https://raw.githubusercontent.com/magpieartsinfo/magpiearts-assets/main/magpie-arts-site/images/radha%20krishna%202.webp",
+        "category": "Devotion/Spiritual",
+        "isCustomKit": false
+      },
+      {
+        "title": "Radha Krishna 2",
+        "desc": "Radha Krishna PIE Kit, Paint by Number Kit, Devotion with Love",
+        "priceS1C16": 900,
+        "priceS1C20": 1000,
+        "priceS2C20": 1400,
+        "priceS2C24": 1500,
+        "image": "https://raw.githubusercontent.com/magpieartsinfo/magpiearts-assets/main/magpie-arts-site/images/radha%20krishna.webp",
+        "category": "Devotion/Spiritual",
+        "isCustomKit": false
+      },
+      {
+        "title": "Custom PIE Kit",
+        "desc": "' Turn Moments into Masterpiece'",
+        "priceS1C16": 900,
+        "priceS1C20": 1000,
+        "priceS2C20": 1400,
+        "priceS2C24": 1500,
+        "image": "https://raw.githubusercontent.com/magpieartsinfo/magpiearts-assets/main/magpie-arts-site/images/Mummy-Ppa.png",
+        "category": "Custom",
+        "isCustomKit": true
+      }
+    ];
+
     let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
     const productsGrid = document.getElementById('productsGrid');
     const wishlistModal = document.getElementById('wishlistModal');
     const wishlistItems = document.getElementById('wishlistItems');
     const wishlistLink = document.getElementById('wishlist-link');
     let currentCategory = 'All';
-
-    // Menu elements
-    const sideMenu = document.getElementById('sideMenu');
-    const menuOverlay = document.getElementById('menuOverlay');
-    const menuBtn = document.querySelector('.menu-icon');
-
-    // Load products from JSON
-    async function loadProductsFromJson() {
-      try {
-        // Show loading indicator
-        productsGrid.innerHTML = '<div class="loading-indicator">Loading products...</div>';
-        
-        // Fetch from GitHub
-        const url = 'https://raw.githubusercontent.com/magpieartsinfo/magpie-arts-site/main/products.json';
-        const response = await fetch(url);
-        
-        if (response && response.ok) {
-          products = await response.json();
-          console.log('Products loaded:', products); // Debug log
-        } else {
-          throw new Error('Failed to fetch products.json');
-        }
-        
-        // Render products after loading
-        renderProducts();
-        
-      } catch (err) {
-        console.error('Product fetch failed:', err);
-        productsGrid.innerHTML = `
-          <div class="error-message">
-            Failed to load products. Please check your internet connection and try again.
-            <br><br>
-            <button onclick="loadProductsFromJson()" style="padding: 10px 20px; background: #3c59ff; color: white; border: none; border-radius: 8px; cursor: pointer;">
-              Retry
-            </button>
-          </div>
-        `;
-        products = [];
-      }
-    }
 
     // Render products to the grid
     function renderProducts() {
@@ -491,16 +635,17 @@
       }
       
       filteredProducts.forEach((prod, idx) => {
+        const originalIndex = products.findIndex(p => p === prod);
         const card = document.createElement('div');
         card.className = 'product-card';
-        card.onclick = () => openProductPage(idx);
+        card.onclick = () => openProductPage(originalIndex);
         card.innerHTML = `
           <div class="product-img-window">
             <img src="${prod.image}" alt="${prod.title}" class="product-img" loading="lazy"/>
           </div>
           <div class="product-title">${prod.title}</div>
           <div class="product-price">Starting at Rs. ${getStartingPrice(prod).toLocaleString()}</div>
-          <span title="Add to Wishlist" class="wishlist-heart ${wishlist.includes(idx) ? 'wishlisted' : ''}" onclick="toggleWishlist(event, ${idx})">❤</span>
+          <span title="Add to Wishlist" class="wishlist-heart ${wishlist.includes(originalIndex) ? 'wishlisted' : ''}" onclick="toggleWishlist(event, ${originalIndex})">❤</span>
         `;
         productsGrid.appendChild(card);
       });
@@ -571,20 +716,44 @@
         if (!prod) return;
         const item = document.createElement('div');
         item.className = 'wishlist-item';
-        item.style.display = 'flex';
-        item.style.alignItems = 'center';
-        item.style.marginBottom = '0.9rem';
-        item.style.justifyContent = 'space-between';
-        item.style.cursor = 'pointer';
         item.onclick = () => openProductPage(index);
         item.innerHTML = `
-          <img src="${prod.image}" alt="${prod.title}" style="width:60px; height:80px; object-fit:cover; border-radius:12px; margin-right:12px;" />
-          <div style="flex-grow:1; font-weight:700; font-size:1rem; color:#1b3a8d; text-align:left;">${prod.title}</div>
-          <div style="cursor:pointer; color:#e84265; font-weight:900; font-size:1.3rem; padding-left:10px;" title="Remove from wishlist" onclick="removeFromWishlist(${index}); event.stopPropagation();">&times;</div>
+          <img src="${prod.image}" alt="${prod.title}" />
+          <div class="wish-title">${prod.title}</div>
+          <div class="remove-wish" title="Remove from wishlist" onclick="removeFromWishlist(${index}); event.stopPropagation();">&times;</div>
         `;
         wishlistItems.appendChild(item);
       });
     }
+
+    // Side menu functionality
+    const sideMenu = document.getElementById('sideMenu');
+    const menuOverlay = document.getElementById('menuOverlay');
+
+    function openMenu() {
+      sideMenu.classList.add('open');
+      menuOverlay.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeMenu() {
+      sideMenu.classList.remove('open');
+      menuOverlay.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    function menuFilter(cat) {
+      closeMenu();
+      const navs = document.querySelectorAll('nav a');
+      navs.forEach(a => {
+        if (a.textContent.trim().toLowerCase().includes(cat.toLowerCase())) {
+          a.click();
+        }
+      });
+    }
+
+    // Event listeners
+    menuOverlay.addEventListener('click', closeMenu);
 
     document.addEventListener('click', function (event) {
       if (wishlistModal.style.display === 'block') {
@@ -595,38 +764,9 @@
         }
       }
     });
-    
-    // MENU ICON BEHAVIOR
-    function openMenu() {
-      sideMenu.style.right = '0px';
-      sideMenu.style.left = 'auto';
-      menuOverlay.style.display = 'block';
-      document.body.style.overflow = 'hidden';
-    }
-    
-    function closeMenu() {
-      sideMenu.style.right = '-260px';
-      sideMenu.style.left = 'auto';
-      menuOverlay.style.display = 'none';
-      document.body.style.overflow = '';
-    }
-    
-    menuBtn.addEventListener('click', openMenu);
-    menuOverlay.addEventListener('click', closeMenu);
-    
-    // Menu navigation links
-    function menuFilter(cat) {
-      closeMenu();
-      const navs = document.querySelectorAll('nav a');
-      navs.forEach(a=>{
-        if (a.textContent.trim().toLowerCase().includes(cat.toLowerCase())) {
-          a.click();
-        }
-      });
-    }
 
     // Initialize the page
-    document.addEventListener('DOMContentLoaded', async () => {
+    document.addEventListener('DOMContentLoaded', () => {
       // Set up navigation based on URL hash
       const hash = window.location.hash.substring(1).toLowerCase();
       const categoryMap = {
@@ -647,11 +787,9 @@
         }
       });
       
-      // Load products and then filter
-      await loadProductsFromJson();
-      
-      // Call filterCategory with the correct product category value
-      filterCategory(selection.cat, document.querySelector('nav a.active'));
+      // Render products
+      currentCategory = selection.cat;
+      renderProducts();
     });
   </script>
 </body>
