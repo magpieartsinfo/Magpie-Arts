@@ -344,9 +344,11 @@
     </ul>
   </div>
   <div id="menuOverlay" style="position:fixed;top:0;right:0;left:auto;width:100vw;height:100vh;background:rgba(14,42,139,0.15);z-index:1999;display:none;"></div>
+  
   <a href="https://magpieartsinfo.github.io/magpie-arts-site/index.html" title="Home">
     <img class="side-logo" src="https://raw.githubusercontent.com/magpieartsinfo/magpiearts-assets/main/magpie-arts-site/images/logo.png" alt="Magpie Arts Logo" />
   </a>
+  
   <div class="header-bar">
     <span class="menu-icon" role="button" aria-label="Menu" tabindex="0" title="Menu">
       <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
@@ -365,6 +367,7 @@
       </svg>
     </a>
   </div>
+  
   <nav>
     <a href="#" onclick="filterCategory('All', this)">Paint By Number Kit</a>
     <a href="#" onclick="filterCategory('Custom', this)">Custom Kit</a>
@@ -372,15 +375,18 @@
     <a href="#" onclick="filterCategory('Scenery/Wonders', this)">Scenery/Wonders</a>
     <a id="wishlist-link" title="Wishlist" onclick="toggleWishlistModal()">❤ Wishlist</a>
   </nav>
+  
   <main class="shop-container">
     <div class="products-grid" id="productsGrid">
       <div class="loading-indicator">Loading products...</div>
     </div>
   </main>
+  
   <div id="wishlistModal" role="dialog" aria-modal="true" aria-labelledby="wishlistTitle">
     <h2 id="wishlistTitle">Your Wishlist</h2>
     <div id="wishlistItems"></div>
   </div>
+  
   <footer class="footer-contact-shop">
     <div class="contact-info">
       <p><strong>Contact Us</strong></p>
@@ -407,60 +413,10 @@
       </a>
     </nav>
   </footer>
-  <script>
-    // Sample product data
-    const sampleProducts = [
-      {
-        title: "Custom PIE Kit",
-        category: "Custom",
-        image: "https://via.placeholder.com/207x276/3c59ff/ffffff?text=Custom+Kit",
-        priceS1C16: 1999,
-        isCustomKit: true
-      },
-      {
-        title: "Lord Krishna",
-        category: "Devotion/Spiritual",
-        image: "https://via.placeholder.com/207x276/3c59ff/ffffff?text=Krishna",
-        priceS1C16: 1499
-      },
-      {
-        title: "Mountain Landscape",
-        category: "Scenery/Wonders",
-        image: "https://via.placeholder.com/207x276/3c59ff/ffffff?text=Landscape",
-        priceS1C16: 1299
-      },
-      {
-        title: "Sunset Beach",
-        category: "Scenery/Wonders",
-        image: "https://via.placeholder.com/207x276/3c59ff/ffffff?text=Beach+Sunset",
-        priceS1C16: 1399
-      },
-      {
-        title: "Ganesha",
-        category: "Devotion/Spiritual",
-        image: "https://via.placeholder.com/207x276/3c59ff/ffffff?text=Ganesha",
-        priceS1C16: 1599
-      },
-      {
-        title: "Floral Pattern",
-        category: "Scenery/Wonders",
-        image: "https://via.placeholder.com/207x276/3c59ff/ffffff?text=Floral+Design",
-        priceS1C16: 1199
-      }
-    ];
 
+  <script>
+    // DECLARE ALL VARIABLES GLOBALLY - ONLY ONCE
     let products = [];
- // Load products from JSON or use sample data
-    async function loadProductsFromJson() {
-      try {
-        // Show loading indicator
-        productsGrid.innerHTML = '<div class="loading-indicator">Loading products...</div>';
-        
-        // Try to fetch from GitHub
-        const urls = [
-          'https://raw.githubusercontent.com/magpieartsinfo/magpie-arts-site/main/products.json',
-          
-        ];
     let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
     const productsGrid = document.getElementById('productsGrid');
     const wishlistModal = document.getElementById('wishlistModal');
@@ -468,23 +424,26 @@
     const wishlistLink = document.getElementById('wishlist-link');
     let currentCategory = 'All';
 
-   
+    // Menu elements
+    const sideMenu = document.getElementById('sideMenu');
+    const menuOverlay = document.getElementById('menuOverlay');
+    const menuBtn = document.querySelector('.menu-icon');
+
+    // Load products from JSON
+    async function loadProductsFromJson() {
+      try {
+        // Show loading indicator
+        productsGrid.innerHTML = '<div class="loading-indicator">Loading products...</div>';
         
-        let response;
-        for (const url of urls) {
-          try {
-            response = await fetch(url);
-            if (response.ok) break;
-          } catch (e) {
-            console.log(`Failed to fetch from ${url}:`, e);
-          }
-        }
+        // Fetch from GitHub
+        const url = 'https://raw.githubusercontent.com/magpieartsinfo/magpie-arts-site/main/products.json';
+        const response = await fetch(url);
         
         if (response && response.ok) {
           products = await response.json();
+          console.log('Products loaded:', products); // Debug log
         } else {
-          // Use sample data if fetch fails
-          products = sampleProducts;
+          throw new Error('Failed to fetch products.json');
         }
         
         // Render products after loading
@@ -492,9 +451,16 @@
         
       } catch (err) {
         console.error('Product fetch failed:', err);
-        // Use sample data as fallback
-        products = sampleProducts;
-        renderProducts();
+        productsGrid.innerHTML = `
+          <div class="error-message">
+            Failed to load products. Please check your internet connection and try again.
+            <br><br>
+            <button onclick="loadProductsFromJson()" style="padding: 10px 20px; background: #3c59ff; color: white; border: none; border-radius: 8px; cursor: pointer;">
+              Retry
+            </button>
+          </div>
+        `;
+        products = [];
       }
     }
 
@@ -631,10 +597,6 @@
     });
     
     // MENU ICON BEHAVIOR
-    const sideMenu = document.getElementById('sideMenu');
-    const menuOverlay = document.getElementById('menuOverlay');
-    const menuBtn = document.querySelector('.menu-icon');
-    
     function openMenu() {
       sideMenu.style.right = '0px';
       sideMenu.style.left = 'auto';
