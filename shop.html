@@ -18,68 +18,63 @@
       background: hsl(var(--background));
       color: hsl(var(--foreground));
       min-height: 100vh;
+      padding-top: 120px; /* Space for fixed header */
       padding-bottom: 80px;
     }
     .header-bar {
+      position: fixed; /* Fixed to top */
+      top: 0;
+      left: 0;
+      width: 100vw;
+      z-index: 10000; /* High z-index to stay on top */
       background: linear-gradient(90deg, #b4d9f6 0%, #eaeefe 50%, #97d2f7 100%);
       min-height: 110px; 
       border-radius: 32px 0 32px 0;
       display: flex; 
       align-items: center; 
       justify-content: center;
-      position: relative; 
       box-shadow: 0 8px 26px #6599f3b2;
       padding: 0 12vw; 
-      max-width: 100vw; 
-      width: 100vw;
-      margin: 0 auto;
     }
-.menu-icon, .home-icon-link {
-  position: absolute;
-  width: auto;       /* Remove fixed width */
-  height: auto;      /* Remove fixed height */
-  background: none;  /* No background */
-  border: none;
-  border-radius: 0;
-  padding: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 10002;
-  top: 50%;
-  transform: translateY(-50%);
-  cursor: pointer;
-  outline: none;
-  transition: filter 0.2s;
-}
-
-.menu-icon { right: 24px; left: auto; }
-.home-icon-link { left: 24px; right: auto; }
-
-.menu-icon svg, .menu-icon img, .home-icon-link svg, .home-icon-link img {
-  width: 44px;
-  height: 44px;
-  display: block;
-  background: none;
-  border: none;
-  border-radius: 0;
-  user-select: none;
-  pointer-events: none;
-  /* Apply shadow directly to the SVG/image */
-  filter: drop-shadow(0 7px 24px rgba(80,108,210,0.29)) 
-          drop-shadow(0 3px 10px rgba(50,50,100,0.13)) 
-          drop-shadow(0 15px 30px rgba(85,125,240,0.16));
-}
-
-.menu-icon:hover svg, .menu-icon:hover img, 
-.home-icon-link:hover svg, .home-icon-link:hover img {
-  filter: drop-shadow(0 10px 36px rgba(80,108,210,0.38)) 
-          drop-shadow(0 5px 16px rgba(50,50,100,0.16)) 
-          drop-shadow(0 20px 40px rgba(85,125,240,0.21));
-}
-
-
-
+    .menu-icon, .home-icon-link {
+      position: absolute;
+      width: auto;
+      height: auto;
+      background: none;
+      border: none;
+      border-radius: 0;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10002;
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
+      outline: none;
+      transition: filter 0.2s;
+    }
+    .menu-icon { right: 24px; left: auto; }
+    .home-icon-link { left: 24px; right: auto; }
+    .menu-icon svg, .menu-icon img, .home-icon-link svg, .home-icon-link img {
+      width: 44px;
+      height: 44px;
+      display: block;
+      background: none;
+      border: none;
+      border-radius: 0;
+      user-select: none;
+      pointer-events: none;
+      filter: drop-shadow(0 7px 24px rgba(80,108,210,0.29)) 
+              drop-shadow(0 3px 10px rgba(50,50,100,0.13)) 
+              drop-shadow(0 15px 30px rgba(85,125,240,0.16));
+    }
+    .menu-icon:hover svg, .menu-icon:hover img, 
+    .home-icon-link:hover svg, .home-icon-link:hover img {
+      filter: drop-shadow(0 10px 36px rgba(80,108,210,0.38)) 
+              drop-shadow(0 5px 16px rgba(50,50,100,0.16)) 
+              drop-shadow(0 20px 40px rgba(85,125,240,0.21));
+    }
     .pie-logo-center {
       margin: 0 auto; 
       max-width: 330px; 
@@ -104,14 +99,19 @@
       filter: drop-shadow(0 2px 5px #7eb8f72a);
     }
     .categories {
+      position: fixed; /* Fixed below header */
+      top: 110px;
+      left: 0;
+      width: 100vw;
+      z-index: 9999;
+      background: hsl(var(--background));
       margin: 0 auto 8px auto;
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
       gap: 8px 14px;
-      max-width: 515px;
-      padding: 7px 0 0 0;
-      background: none;
+      padding: 10px 0;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
     }
     .category-btn {
       font-weight: 600;
@@ -129,7 +129,12 @@
       color: #1d388b;
     }
     nav { display: none; }
-    .shop-container { width: 100vw; max-width: 100vw; margin: 0 auto; padding: 0;}
+    .shop-container { 
+      width: 100vw; 
+      max-width: 100vw; 
+      margin: 0 auto; 
+      padding: 60px 0 0 0; /* Extra padding for categories bar */
+    }
     .products-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -201,7 +206,7 @@
       position: fixed; top: 90px; right: 20px; width: 340px; max-height: 500px;
       background: hsl(var(--card)); box-shadow: 0 0 40px rgba(30,78,170,0.25);
       border-radius: 20px; overflow-y: auto; padding: 21px 25px 25px 25px;
-      z-index: 2999; display: none;
+      z-index: 30000; display: none;
     }
     #wishlistModal h2 {font-weight: 800; text-align: center; margin: 0 0 15px 0; color: #1f3e83; font-size: 1.4rem;}
     .wishlist-item { display: flex; align-items: center; margin-bottom: 1rem; justify-content: space-between; cursor: pointer;}
@@ -222,29 +227,28 @@
       .pie-logo-center { width: 28vw; }
     }
     @media (max-width: 700px) {
+      body { padding-top: 80px; } /* Adjusted for mobile header height */
       .header-bar {border-radius: 0!important; min-height: 65px;}
-      .home-icon-link, .menu-icon { width: 42px; height: 42px; }
-      .home-icon-link svg, .menu-icon svg { width: 26px; height: 26px; }
+      .categories { top: 65px; }
+      .home-icon-link svg, .home-icon-link img, 
+      .menu-icon svg, .menu-icon img { width: 32px; height: 32px; }
       .pie-logo-center { width: 30vw; min-width: 75px; max-width: 110px; }
-      .categories { gap: 6px 5vw; margin-bottom: 0; }
+      .categories { gap: 6px 5vw; padding: 8px 0; }
       .category-btn { font-size: .94rem; padding: 3.5px 8px; border-radius: 7px;}
       .footer-contact-shop { border-radius: 15px; }
       .products-grid { grid-template-columns: repeat(2, 1fr)!important; gap: 10px 6px; width: 100vw; max-width: 100vw; }
-      .shop-container { max-width: 100vw; margin: 0; padding: 0;}
+      .shop-container { max-width: 100vw; margin: 0; padding: 50px 0 0 0;}
       #wishlistModal { width: 95vw; right: 2vw; }
       #wishlist-floating-btn { bottom: 15px; right: 18px; width: 52px; height: 52px; font-size: 1.6rem; }
-      /* Fix side menu z-index for mobile */
-      .side-menu { z-index: 30001 !important; }
-      .menu-overlay { z-index: 30000 !important; }
+      .side-menu { z-index: 40001 !important; }
+      .menu-overlay { z-index: 40000 !important; }
     }
     @media (max-width: 400px) {
       .pie-logo-center { width: 44vw; }
     }
-    /* Show floating wishlist always */
     #wishlist-floating-btn { display: flex; }
     .loading-indicator { text-align: center; padding: 24px; font-size: 1.15rem; color: #3897f0;}
     .error-message { text-align: center; padding: 24px; font-size: 1.13rem; color: #e84265;}
-    /* Fix side menu overlay */
     .side-menu {
       position: fixed;
       top: 0;
@@ -258,6 +262,7 @@
       transition: right 0.3s cubic-bezier(.77,0,.175,1);
       display: flex;
       flex-direction: column;
+      z-index: 50000;
     }
     .side-menu.open { right: 0 !important; }
     .side-menu ul {
@@ -285,7 +290,7 @@
       width: 100vw;
       height: 100vh;
       background: rgba(14, 42, 139, 0.15);
-      z-index: 30000;
+      z-index: 45000;
       display: none;
     }
     .menu-overlay.open {
@@ -296,13 +301,11 @@
 <body>
   <div class="header-bar" role="banner">
     <a href="https://magpieartsinfo.github.io/magpie-arts-site/index.html" class="home-icon-link" title="Home" aria-label="Home">
-  <img src="https://raw.githubusercontent.com/magpieartsinfo/magpie-arts-site/main/SVG/home.svg" alt="Home Icon" style="width:44px; height:44px; display:block; margin:auto; pointer-events:none; user-select:none;" />
+      <img src="https://raw.githubusercontent.com/magpieartsinfo/magpie-arts-site/main/SVG/home.svg" alt="Home Icon" />
     </a>
-
     <span class="menu-icon" role="button" aria-label="Menu" tabindex="0" title="Menu" onclick="openMenu()">
-  <img src="https://raw.githubusercontent.com/magpieartsinfo/magpie-arts-site/main/SVG/menu%20icon.svg" alt="Menu Icon" style="width:44px; height:44px; display:block; margin:auto; pointer-events:none; user-select:none;" />
+      <img src="https://raw.githubusercontent.com/magpieartsinfo/magpie-arts-site/main/SVG/menu%20icon.svg" alt="Menu Icon" />
     </span>
-
     <div class="pie-logo-center" aria-label="PIE Kits Logo">
       <img src="https://raw.githubusercontent.com/magpieartsinfo/magpiearts-assets/main/magpie-arts-site/images/PIE-kits.png" alt="PIE Kits - Paint It Easily Logo" draggable="false" loading="lazy" />
     </div>
@@ -368,7 +371,6 @@
     const sideMenu = document.getElementById('sideMenu');
     const menuOverlay = document.getElementById('menuOverlay');
     let currentCategory = 'All';
-
     async function loadProductsFromJson() {
       try {
         productsGrid.innerHTML = '<div class="loading-indicator">Loading products...</div>';
@@ -385,7 +387,6 @@
         console.error(error);
       }
     }
-
     function renderProducts() {
       productsGrid.innerHTML = '';
       if (!products || products.length === 0) {
@@ -422,17 +423,14 @@
         productsGrid.appendChild(card);
       });
     }
-
     function getStartingPrice(prod) {
       const prices = [prod.priceS1C16, prod.priceS1C20, prod.priceS2C20, prod.priceS2C24].filter(p => typeof p === 'number' && p > 0);
       if (prices.length === 0) return "N/A";
       return Math.min(...prices);
     }
-
     function openProductPage(index) {
       window.location.href = `https://magpieartsinfo.github.io/magpie-arts-site/product.html?index=${index}`;
     }
-
     function filterCategory(cat, el) {
       currentCategory = cat;
       catBtns.forEach(cb => cb.classList.remove('active'));
@@ -440,11 +438,9 @@
       renderProducts();
       closeWishlistModal();
     }
-
     function saveWishlist() {
       localStorage.setItem('wishlist', JSON.stringify(wishlist));
     }
-
     function toggleWishlist(e, index) {
       e.stopPropagation();
       if (wishlist.includes(index)) {
@@ -456,7 +452,6 @@
       renderProducts();
       renderWishlist();
     }
-
     function toggleWishlistModal() {
       if (wishlistModal.style.display === 'block') {
         closeWishlistModal();
@@ -465,18 +460,15 @@
         wishlistModal.style.display = 'block';
       }
     }
-
     function closeWishlistModal() {
       wishlistModal.style.display = 'none';
     }
-
     function removeFromWishlist(index) {
       wishlist = wishlist.filter(i => i !== index);
       saveWishlist();
       renderProducts();
       renderWishlist();
     }
-
     function renderWishlist() {
       if (wishlist.length === 0) {
         wishlistItems.innerHTML = '<p style="text-align:center; font-size:1.1rem; margin-top:1.2rem;">Your wishlist is empty.</p>';
@@ -497,33 +489,26 @@
         wishlistItems.appendChild(item);
       });
     }
-
-    // Side menu toggle
     function openMenu() {
       sideMenu.classList.add('open');
       menuOverlay.classList.add('open');
       document.body.style.overflow = 'hidden';
     }
-
     function closeMenu() {
       sideMenu.classList.remove('open');
       menuOverlay.classList.remove('open');
       document.body.style.overflow = '';
     }
-
     function menuFilter(cat) {
       closeMenu();
       filterCategory(cat, catBtns.find(btn => btn.textContent.toLowerCase().includes(cat.toLowerCase())));
     }
-
     menuOverlay.addEventListener('click', closeMenu);
-
     document.addEventListener('click', function(event) {
       if (wishlistModal.style.display === 'block' && !wishlistModal.contains(event.target) && event.target !== wishlistBtn) {
         closeWishlistModal();
       }
     });
-
     document.addEventListener('DOMContentLoaded', () => {
       const hash = window.location.hash.substring(1).toLowerCase();
       const categoryMap = {
