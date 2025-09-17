@@ -341,7 +341,16 @@
     function goToCart() {
       window.location.href = 'https://magpieartsinfo.github.io/magpie-arts-site/cart.html';
     }
-    const products = JSON.parse(localStorage.getItem('magpieProducts')) || [];
+
+async function loadProductsJson() {
+  try {
+    const res = await fetch('https://raw.githubusercontent.com/magpieartsinfo/magpie-arts-site/main/products.json');
+    products = await res.json();
+  } catch (e) {
+    alert('Unable to load product data.');
+  }
+}
+    let products = [];
     let currentIndex = parseInt(new URLSearchParams(window.location.search).get('index'), 10);
     if (isNaN(currentIndex) || !products[currentIndex]) currentIndex = -1;
     const productTitleElem = document.getElementById('productTitle');
@@ -462,6 +471,9 @@
       }
     }
     setupProduct();
+await loadProductsJson();
+async function setupProduct() { … }
+
     function addToCart() {
       if (currentIndex === -1) {
         alert("Invalid product");
