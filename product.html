@@ -601,6 +601,60 @@
     });
     fetchProducts();
   });
+// Add swipe functionality for mobile
+function initSwipe() {
+  const mainImgWrap = document.getElementById('mainImgWrap');
+  let startX = 0;
+  let currentX = 0;
+  let isSwiping = false;
+
+  mainImgWrap.addEventListener('touchstart', (e) => {
+    startX = e.touches[0].clientX;
+    currentX = startX;
+    isSwiping = true;
+  });
+
+  mainImgWrap.addEventListener('touchmove', (e) => {
+    if (!isSwiping) return;
+    currentX = e.touches[0].clientX;
+  });
+
+  mainImgWrap.addEventListener('touchend', () => {
+    if (!isSwiping) return;
+    
+    const diff = currentX - startX;
+    const swipeThreshold = 50; // Minimum swipe distance
+    
+    if (Math.abs(diff) > swipeThreshold) {
+      if (diff > 0) {
+        // Swipe right - go to previous image
+        document.getElementById('leftArrow').click();
+      } else {
+        // Swipe left - go to next image
+        document.getElementById('rightArrow').click();
+      }
+    }
+    
+    isSwiping = false;
+  });
+
+  // Prevent default behavior for touch events to avoid scrolling while swiping
+  mainImgWrap.addEventListener('touchmove', (e) => {
+    if (isSwiping) {
+      e.preventDefault();
+    }
+  }, { passive: false });
+}
+
+// Call this function in your DOMContentLoaded event
+document.addEventListener('DOMContentLoaded', function() {
+  document.getElementById('orderForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+    buyNow();
+  });
+  fetchProducts();
+  initSwipe(); // Add this line
+});
 </script>
 </body>
 </html>
