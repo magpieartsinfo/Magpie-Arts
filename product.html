@@ -193,7 +193,7 @@
     .prod-options .option-group button.selected,
     .prod-options .option-group button:hover {
       background: #0472ff;
-      color: 'fff';
+      color: #fff;
       border-color: #0472ff;
     }
     .prod-options .option-group button:disabled {
@@ -380,6 +380,20 @@
     }
   }
 
+  function loadProduct() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const index = parseInt(urlParams.get('index'), 10);
+
+    if (isNaN(index) || index < 0 || index >= products.length) {
+      productTitleElem.textContent = "Product Not Found";
+      descAreaElem.textContent = "The requested product could not be found.";
+      return;
+    }
+
+    currentProduct = products[index];
+    setupProduct();
+  }
+
   function updateImage(newIndex) {
     if (newIndex === currentImageIndex) return;
     
@@ -389,23 +403,13 @@
       'https://raw.githubusercontent.com/magpieartsinfo/magpiearts-assets/main/magpie-arts-site/images/kit-includes.png'
     ];
     
-    // Get the current main image
-    const currentMainImage = document.getElementById('mainImage');
-    
     // Create new image element
     const newImg = document.createElement('img');
     newImg.src = images[newIndex];
     newImg.alt = newIndex === 0 ? currentProduct.title + " main image" : 
                 (newIndex === 1 ? "Size selector" : "Kit includes");
     newImg.style.opacity = '0';
-    newImg.style.position = 'absolute';
-    newImg.style.top = '0';
-    newImg.style.left = '0';
-    newImg.style.width = '100%';
-    newImg.style.height = '100%';
-    newImg.style.objectFit = 'cover';
-    newImg.style.borderRadius = '15px';
-    newImg.style.transition = 'opacity 0.4s ease-in-out';
+    newImg.style.zIndex = '2';
     
     // Add new image to container
     mainImgWrap.appendChild(newImg);
@@ -413,21 +417,13 @@
     // Fade in new image while fading out current image
     setTimeout(() => {
       newImg.style.opacity = '1';
-      currentMainImage.style.opacity = '0';
+      mainImage.style.opacity = '0';
     }, 10);
     
-    // Remove old image after transition completes and update reference
+    // Remove old image after transition completes
     setTimeout(() => {
-      // Remove the old image
-      if (currentMainImage.parentNode) {
-        currentMainImage.parentNode.removeChild(currentMainImage);
-      }
-      
-      // Set ID and z-index for the new image
-      newImg.id = 'mainImage';
-      newImg.style.zIndex = '1';
-      
-      // Update current index
+      mainImgWrap.removeChild(mainImage);
+      newImg.id = 'mainImage'; // Set ID to new image
       currentImageIndex = newIndex;
       
       // Update thumbnails selection
@@ -448,18 +444,7 @@
       'https://raw.githubusercontent.com/magpieartsinfo/magpiearts-assets/main/magpie-arts-site/images/kit-includes.png'
     ];
 
-    // Clear any existing images (fix for multiple runs)
-    const existingImages = mainImgWrap.querySelectorAll('img');
-    existingImages.forEach(img => {
-      if (img.id !== 'mainImage') {
-        img.parentNode.removeChild(img);
-      }
-    });
-
-    // Set up main image
     mainImage.src = images[0];
-    mainImage.style.opacity = '1';
-    mainImage.style.zIndex = '1';
     currentImageIndex = 0;
 
     thumbsContainer.innerHTML = '';
@@ -525,7 +510,7 @@
 
   function selectOption(group, idx) {
     selectedOpts[group] = idx;
-    const container = group === 'size' : sizeOptionsElem : paletteOptionsElem;
+    const container = group === 'size' ? sizeOptionsElem : paletteOptionsElem;
     Array.from(container.children).forEach((btn, i) => 
       btn.classList.toggle('selected', i === idx));
 
@@ -694,20 +679,6 @@
     mainImage.addEventListener('dragstart', (e) => {
       e.preventDefault();
     });
-  }
-
-  function loadProduct() {
-    const urlParams = new URLSearchParams(window.location.search);
-    const index = parseInt(urlParams.get('index'), 10);
-
-    if (isNaN(index) || index < 0 || index >= products.length) {
-      productTitleElem.textContent = "Product Not Found";
-      descAreaElem.textContent = "The requested product could not be found.";
-      return;
-    }
-
-    currentProduct = products[index];
-    setupProduct();
   }
 
   document.addEventListener('DOMContentLoaded', function() {
