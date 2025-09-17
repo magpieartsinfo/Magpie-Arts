@@ -395,42 +395,47 @@
   }
 
   function updateImage(newIndex) {
-    if (newIndex === currentImageIndex) return;
+  if (newIndex === currentImageIndex) return;
+  
+  const images = [
+    currentProduct.image,
+    'https://.../size-selector.png',
+    'https://.../kit-includes.png'
+  ];
+  
+  // Create new image element
+  const newImg = document.createElement('img');
+  newImg.src = images[newIndex];
+  newImg.alt = ...;
+  newImg.style.opacity = '0';
+  newImg.style.zIndex = '2';
+  
+  // Add new image to container
+  mainImgWrap.appendChild(newImg);
+  
+  // Fade in while fading out existing image
+  setTimeout(() => {
+    newImg.style.opacity = '1';
+    if (mainImgWrap.children.length > 1) {
+      mainImgWrap.children[0].style.opacity = '0';
+    }
+  }, 10);
+  
+  // After transition, remove old image
+  setTimeout(() => {
+    if (mainImgWrap.children.length > 1) {
+      mainImgWrap.removeChild(mainImgWrap.children[0]);
+    }
+    newImg.id = 'mainImage';
+    currentImageIndex = newIndex;
     
-    const images = [
-      currentProduct.image,
-      'https://raw.githubusercontent.com/magpieartsinfo/magpiearts-assets/main/magpie-arts-site/images/size-selector.png',
-      'https://raw.githubusercontent.com/magpieartsinfo/magpiearts-assets/main/magpie-arts-site/images/kit-includes.png'
-    ];
+    // Update thumbnails
+    Array.from(thumbsContainer.children).forEach((thumb, idx) => 
+      thumb.classList.toggle('selected', idx === newIndex));
     
-    // Create new image element
-    const newImg = document.createElement('img');
-    newImg.src = images[newIndex];
-    newImg.alt = newIndex === 0 ? currentProduct.title + " main image" : 
-                (newIndex === 1 ? "Size selector" : "Kit includes");
-    newImg.style.opacity = '0';
-    newImg.style.zIndex = '2';
-    
-    // Add new image to container
-    mainImgWrap.appendChild(newImg);
-    
-    // Fade in new image while fading out current image
-    setTimeout(() => {
-      newImg.style.opacity = '1';
-      mainImage.style.opacity = '0';
-    }, 10);
-    
-    // Remove old image after transition completes
-    setTimeout(() => {
-      mainImgWrap.removeChild(mainImage);
-      newImg.id = 'mainImage'; // Set ID to new image
-      currentImageIndex = newIndex;
-      
-      // Update thumbnails selection
-      Array.from(thumbsContainer.children).forEach((thumb, idx) => 
-        thumb.classList.toggle('selected', idx === newIndex));
-    }, 400);
-  }
+  }, 400);
+}
+
 
   function setupProduct() {
     if (!currentProduct) return;
