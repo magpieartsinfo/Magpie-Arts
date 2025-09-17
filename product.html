@@ -23,12 +23,12 @@
       padding: 2.5rem 2.5rem 1.5rem 2.5rem;
       user-select: none;
       flex-wrap: nowrap;
-      position: relative; /* Added for absolute positioning of back button */
+      position: relative;
     }
     .back-arrow-icon {
-      position: absolute; /* Changed from relative to absolute */
-      top: 20px; /* Position from top of prod-viewer */
-      left: 20px; /* Position from left of prod-viewer */
+      position: absolute;
+      top: 20px;
+      left: 20px;
       background: none;
       border: none;
       padding: 0;
@@ -40,7 +40,7 @@
       box-shadow: none;
       width: 50px;
       height: 50px;
-      z-index: 10; /* Ensure it's above other content */
+      z-index: 10;
     }
     .back-arrow-icon::before {
       content: "";
@@ -76,16 +76,13 @@
       height: 100%;
       object-fit: cover;
       border-radius: 15px;
-      opacity: 1;
       position: absolute;
-      top: 0; left: 0;
-      transition: opacity 0.5s ease;
+      top: 0; 
+      left: 0;
+      transition: opacity 0.4s ease-in-out;
       -webkit-user-drag: none;
-      z-index: 1;
       user-select: none;
     }
-    .main-img-wrap img.fade-out { opacity: 0; z-index: 0; }
-    .main-img-wrap img.fade-in { opacity: 1; z-index: 1; }
     .arrow {
       position: absolute;
       top: 50%; transform: translateY(-50%);
@@ -298,7 +295,6 @@
       .add-cart-row button {
         width: 100%;
       }
-      /* Mobile back button positioning */
       .back-arrow-icon {
         position: absolute;
         top: -20px;
@@ -310,7 +306,6 @@
 </head>
 <body>
   <div class="prod-viewer" id="prodViewer">
-    <!-- Back button moved to top level (outside img-section) -->
     <button class="back-arrow-icon" title="Back to Shop" onclick="goBack()" aria-label="Back to Shop"></button>
     
     <div class="img-section" id="imgSection">
@@ -351,10 +346,12 @@
   let products = [];
   let currentProduct = null;
   let selectedOpts = { size: 0, palette: 0 };
+  let currentImageIndex = 0;
 
   const productTitleElem = document.getElementById('productTitle');
   const descAreaElem = document.getElementById('descArea');
   const productPriceElem = document.getElementById('productPrice');
+  const mainImgWrap = document.getElementById('mainImgWrap');
   const mainImage = document.getElementById('mainImage');
   const thumbsContainer = document.getElementById('thumbsContainer');
   const sizeOptionsElem = document.getElementById('sizeOptions');
@@ -397,6 +394,44 @@
     setupProduct();
   }
 
+  function updateImage(newIndex) {
+    if (newIndex === currentImageIndex) return;
+    
+    const images = [
+      currentProduct.image,
+      'https://raw.githubusercontent.com/magpieartsinfo/magpiearts-assets/main/magpie-arts-site/images/size-selector.png',
+      'https://raw.githubusercontent.com/magpieartsinfo/magpiearts-assets/main/magpie-arts-site/images/kit-includes.png'
+    ];
+    
+    // Create new image element
+    const newImg = document.createElement('img');
+    newImg.src = images[newIndex];
+    newImg.alt = newIndex === 0 ? currentProduct.title + " main image" : 
+                (newIndex === 1 ? "Size selector" : "Kit includes");
+    newImg.style.opacity = '0';
+    newImg.style.zIndex = '2';
+    
+    // Add new image to container
+    mainImgWrap.appendChild(newImg);
+    
+    // Fade in new image while fading out current image
+    setTimeout(() => {
+      newImg.style.opacity = '1';
+      mainImage.style.opacity = '0';
+    }, 10);
+    
+    // Remove old image after transition completes
+    setTimeout(() => {
+      mainImgWrap.removeChild(mainImage);
+      newImg.id = 'mainImage'; // Set ID to new image
+      currentImageIndex = newIndex;
+      
+      // Update thumbnails selection
+      Array.from(thumbsContainer.children).forEach((thumb, idx) => 
+        thumb.classList.toggle('selected', idx === newIndex));
+    }, 400);
+  }
+
   function setupProduct() {
     if (!currentProduct) return;
 
@@ -410,7 +445,7 @@
     ];
 
     mainImage.src = images[0];
-    let currentImageIndex = 0;
+    currentImageIndex = 0;
 
     thumbsContainer.innerHTML = '';
     images.forEach((src, i) => {
@@ -423,19 +458,15 @@
       thumbsContainer.appendChild(thumb);
     });
 
-    document.getElementById('leftArrow').onclick = () =>
-      updateImage((currentImageIndex - 1 + images.length) % images.length);
+    document.getElementById('leftArrow').onclick = () => {
+      const newIndex = (currentImageIndex - 1 + images.length) % images.length;
+      updateImage(newIndex);
+    };
 
-    document.getElementById('rightArrow').onclick = () =>
-      updateImage((currentImageIndex + 1) % images.length);
-
-    function updateImage(index) {
-      if (index === currentImageIndex) return;
-      mainImage.src = images[index];
-      currentImageIndex = index;
-      Array.from(thumbsContainer.children).forEach((thumb, idx) =>
-        thumb.classList.toggle('selected', idx === index));
-    }
+    document.getElementById('rightArrow').onclick = () => {
+      const newIndex = (currentImageIndex + 1) % images.length;
+      updateImage(newIndex);
+    };
 
     const sizes = [
       { label: '10x12 Inch', value: '10x12' },
@@ -480,7 +511,7 @@
   function selectOption(group, idx) {
     selectedOpts[group] = idx;
     const container = group === 'size' ? sizeOptionsElem : paletteOptionsElem;
-    Array.from(container.children).forEach((btn, i) =>
+    Array.from(container.children).forEach((btn, i) => 
       btn.classList.toggle('selected', i === idx));
 
     if (group === 'size') {
@@ -594,103 +625,70 @@
     window.location.href = 'https://magpieartsinfo.github.io/magpie-arts-site/checkout.html';
   }
 
+  function initSwipe() {
+    const mainImgWrap = document.getElementById('mainImgWrap');
+    let startX = 0;
+    let startY = 0;
+    let isHorizontalSwipe = false;
+
+    mainImgWrap.addEventListener('touchstart', (e) => {
+      startX = e.touches[0].clientX;
+      startY = e.touches[0].clientY;
+      isHorizontalSwipe = false;
+    });
+
+    mainImgWrap.addEventListener('touchmove', (e) => {
+      const currentX = e.touches[0].clientX;
+      const currentY = e.touches[0].clientY;
+      
+      const diffX = Math.abs(currentX - startX);
+      const diffY = Math.abs(currentY - startY);
+      
+      // Determine if it's a horizontal swipe
+      if (!isHorizontalSwipe && diffX > 10 && diffX > diffY) {
+        isHorizontalSwipe = true;
+      }
+      
+      // If it's a horizontal swipe, prevent default to avoid scrolling
+      if (isHorizontalSwipe) {
+        e.preventDefault();
+      }
+    });
+
+    mainImgWrap.addEventListener('touchend', (e) => {
+      if (!isHorizontalSwipe) return;
+      
+      const endX = e.changedTouches[0].clientX;
+      const diff = endX - startX;
+      const swipeThreshold = 50;
+      
+      if (Math.abs(diff) > swipeThreshold) {
+        if (diff > 0) {
+          // Swipe right - previous image
+          document.getElementById('leftArrow').click();
+        } else {
+          // Swipe left - next image
+          document.getElementById('rightArrow').click();
+        }
+      }
+      
+      isHorizontalSwipe = false;
+    });
+
+    // Prevent image dragging on desktop
+    mainImage.addEventListener('dragstart', (e) => {
+      e.preventDefault();
+    });
+  }
+
   document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('orderForm').addEventListener('submit', function(event) {
       event.preventDefault();
       buyNow();
     });
     fetchProducts();
+    initSwipe();
   });
-// Add swipe functionality for mobile
-// ... your other JavaScript code ...
-
-function initSwipe() {
-  const mainImgWrap = document.getElementById('mainImgWrap');
-  const mainImage = document.getElementById('mainImage');
-  let startX = 0;
-  let startY = 0;
-  let currentX = 0;
-  let isSwiping = false;
-  let isHorizontalSwipe = false;
-
-  mainImgWrap.addEventListener('touchstart', (e) => {
-    startX = e.touches[0].clientX;
-    startY = e.touches[0].clientY;
-    currentX = startX;
-    isSwiping = true;
-    isHorizontalSwipe = false;
-    mainImage.style.transition = 'none';
-  });
-
-  mainImgWrap.addEventListener('touchmove', (e) => {
-    if (!isSwiping) return;
-    
-    currentX = e.touches[0].clientX;
-    const currentY = e.touches[0].clientY;
-    
-    const diffX = Math.abs(currentX - startX);
-    const diffY = Math.abs(currentY - startY);
-    
-    // Determine if it's a horizontal swipe (for image navigation)
-    // or vertical movement (for page scrolling)
-    if (!isHorizontalSwipe && diffX > 10 && diffX > diffY) {
-      isHorizontalSwipe = true;
-    }
-    
-    // If it's a horizontal swipe, move the image and prevent default
-    if (isHorizontalSwipe) {
-      const moveDiff = currentX - startX;
-      mainImage.style.transform = `translateX(${moveDiff}px)`;
-      e.preventDefault();
-    }
-    // Otherwise, allow natural scrolling behavior
-  });
-
-  mainImgWrap.addEventListener('touchend', () => {
-    if (!isSwiping) return;
-    
-    const diff = currentX - startX;
-    const swipeThreshold = 50;
-    
-    // Reset transform and re-enable transition
-    mainImage.style.transform = 'translateX(0)';
-    mainImage.style.transition = 'opacity 0.5s ease, opacity 0.3s ease';
-    
-    // Only trigger image change if it was a horizontal swipe
-    if (isHorizontalSwipe && Math.abs(diff) > swipeThreshold) {
-      if (diff > 0) {
-        document.getElementById('leftArrow').click();
-      } else {
-        document.getElementById('rightArrow').click();
-      }
-    }
-    
-    isSwiping = false;
-    isHorizontalSwipe = false;
-  });
-
-  // Add touchcancel event to handle interruptions
-  mainImgWrap.addEventListener('touchcancel', () => {
-    if (isSwiping) {
-      mainImage.style.transform = 'translateX(0)';
-      mainImage.style.transition = 'opacity 0.5s ease, opacity 0.3s ease';
-      isSwiping = false;
-      isHorizontalSwipe = false;
-    }
-  });
-}
-
-// ... the rest of your JavaScript code ...
-
-// Call this function in your DOMContentLoaded event
-document.addEventListener('DOMContentLoaded', function() {
-  document.getElementById('orderForm').addEventListener('submit', function(event) {
-    event.preventDefault();
-    buyNow();
-  });
-  fetchProducts();
-  initSwipe(); // Add this line
-});
 </script>
 </body>
 </html>
