@@ -602,49 +602,85 @@
     fetchProducts();
   });
 // Add swipe functionality for mobile
+// ... your other JavaScript code ...
+
 function initSwipe() {
   const mainImgWrap = document.getElementById('mainImgWrap');
+  const mainImage = document.getElementById('mainImage');
   let startX = 0;
+  let startY = 0;
   let currentX = 0;
   let isSwiping = false;
+  let isHorizontalSwipe = false;
 
   mainImgWrap.addEventListener('touchstart', (e) => {
     startX = e.touches[0].clientX;
+    startY = e.touches[0].clientY;
     currentX = startX;
     isSwiping = true;
+    isHorizontalSwipe = false;
+    mainImage.style.transition = 'none';
   });
 
   mainImgWrap.addEventListener('touchmove', (e) => {
     if (!isSwiping) return;
+    
     currentX = e.touches[0].clientX;
+    const currentY = e.touches[0].clientY;
+    
+    const diffX = Math.abs(currentX - startX);
+    const diffY = Math.abs(currentY - startY);
+    
+    // Determine if it's a horizontal swipe (for image navigation)
+    // or vertical movement (for page scrolling)
+    if (!isHorizontalSwipe && diffX > 10 && diffX > diffY) {
+      isHorizontalSwipe = true;
+    }
+    
+    // If it's a horizontal swipe, move the image and prevent default
+    if (isHorizontalSwipe) {
+      const moveDiff = currentX - startX;
+      mainImage.style.transform = `translateX(${moveDiff}px)`;
+      e.preventDefault();
+    }
+    // Otherwise, allow natural scrolling behavior
   });
 
   mainImgWrap.addEventListener('touchend', () => {
     if (!isSwiping) return;
     
     const diff = currentX - startX;
-    const swipeThreshold = 50; // Minimum swipe distance
+    const swipeThreshold = 50;
     
-    if (Math.abs(diff) > swipeThreshold) {
+    // Reset transform and re-enable transition
+    mainImage.style.transform = 'translateX(0)';
+    mainImage.style.transition = 'opacity 0.5s ease, transform 0.3s ease';
+    
+    // Only trigger image change if it was a horizontal swipe
+    if (isHorizontalSwipe && Math.abs(diff) > swipeThreshold) {
       if (diff > 0) {
-        // Swipe right - go to previous image
         document.getElementById('leftArrow').click();
       } else {
-        // Swipe left - go to next image
         document.getElementById('rightArrow').click();
       }
     }
     
     isSwiping = false;
+    isHorizontalSwipe = false;
   });
 
-  // Prevent default behavior for touch events to avoid scrolling while swiping
-  mainImgWrap.addEventListener('touchmove', (e) => {
+  // Add touchcancel event to handle interruptions
+  mainImgWrap.addEventListener('touchcancel', () => {
     if (isSwiping) {
-      e.preventDefault();
+      mainImage.style.transform = 'translateX(0)';
+      mainImage.style.transition = 'opacity 0.5s ease, transform 0.3s ease';
+      isSwiping = false;
+      isHorizontalSwipe = false;
     }
-  }, { passive: false });
+  });
 }
+
+// ... the rest of your JavaScript code ...
 
 // Call this function in your DOMContentLoaded event
 document.addEventListener('DOMContentLoaded', function() {
