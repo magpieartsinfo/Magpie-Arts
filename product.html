@@ -395,42 +395,60 @@
   }
 
   function updateImage(newIndex) {
-    if (newIndex === currentImageIndex) return;
+  if (newIndex === currentImageIndex) return;
+  
+  const images = [
+    currentProduct.image,
+    'https://raw.githubusercontent.com/magpieartsinfo/magpiearts-assets/main/magpie-arts-site/images/size-selector.png',
+    'https://raw.githubusercontent.com/magpieartsinfo/magpiearts-assets/main/magpie-arts-site/images/kit-includes.png'
+  ];
+  
+  // Get the current main image
+  const currentMainImage = document.getElementById('mainImage');
+  
+  // Create new image element
+  const newImg = document.createElement('img');
+  newImg.src = images[newIndex];
+  newImg.alt = newIndex === 0 ? currentProduct.title + " main image" : 
+              (newIndex === 1 ? "Size selector" : "Kit includes");
+  newImg.style.opacity = '0';
+  newImg.style.position = 'absolute';
+  newImg.style.top = '0';
+  newImg.style.left = '0';
+  newImg.style.width = '100%';
+  newImg.style.height = '100%';
+  newImg.style.objectFit = 'cover';
+  newImg.style.borderRadius = '15px';
+  newImg.style.transition = 'opacity 0.4s ease-in-out';
+  
+  // Add new image to container
+  mainImgWrap.appendChild(newImg);
+  
+  // Fade in new image while fading out current image
+  setTimeout(() => {
+    newImg.style.opacity = '1';
+    currentMainImage.style.opacity = '0';
+  }, 10);
+  
+  // Remove old image after transition completes and update reference
+  setTimeout(() => {
+    // Remove the old image
+    if (currentMainImage.parentNode) {
+      currentMainImage.parentNode.removeChild(currentMainImage);
+    }
     
-    const images = [
-      currentProduct.image,
-      'https://raw.githubusercontent.com/magpieartsinfo/magpiearts-assets/main/magpie-arts-site/images/size-selector.png',
-      'https://raw.githubusercontent.com/magpieartsinfo/magpiearts-assets/main/magpie-arts-site/images/kit-includes.png'
-    ];
+    // Set ID and z-index for the new image
+    newImg.id = 'mainImage';
+    newImg.style.zIndex = '1';
     
-    // Create new image element
-    const newImg = document.createElement('img');
-    newImg.src = images[newIndex];
-    newImg.alt = newIndex === 0 ? currentProduct.title + " main image" : 
-                (newIndex === 1 ? "Size selector" : "Kit includes");
-    newImg.style.opacity = '0';
-    newImg.style.zIndex = '2';
+    // Update current index
+    currentImageIndex = newIndex;
     
-    // Add new image to container
-    mainImgWrap.appendChild(newImg);
-    
-    // Fade in new image while fading out current image
-    setTimeout(() => {
-      newImg.style.opacity = '1';
-      mainImage.style.opacity = '0';
-    }, 10);
-    
-    // Remove old image after transition completes
-    setTimeout(() => {
-      mainImgWrap.removeChild(mainImage);
-      newImg.id = 'mainImage'; // Set ID to new image
-      currentImageIndex = newIndex;
-      
-      // Update thumbnails selection
-      Array.from(thumbsContainer.children).forEach((thumb, idx) => 
-        thumb.classList.toggle('selected', idx === newIndex));
-    }, 400);
-  }
+    // Update thumbnails selection
+    Array.from(thumbsContainer.children).forEach((thumb, idx) => 
+      thumb.classList.toggle('selected', idx === newIndex));
+  }, 400);
+}
 
   function setupProduct() {
     if (!currentProduct) return;
