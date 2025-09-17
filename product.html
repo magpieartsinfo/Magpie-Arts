@@ -13,6 +13,7 @@
       color: #222;
     }
     .prod-viewer {
+      position: relative; /* needed for absolute child */
       max-width: 1200px;
       margin: 40px auto 30px auto;
       display: flex;
@@ -23,31 +24,32 @@
       padding: 2.5rem 2.5rem 1.5rem 2.5rem;
       user-select: none;
       flex-wrap: nowrap;
-      position: relative; /* Added for absolute positioning of back button */
     }
     .back-arrow-icon {
-      position: absolute; /* Changed from relative to absolute */
-      top: 20px; /* Position from top of prod-viewer */
-      left: 20px; /* Position from left of prod-viewer */
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      z-index: 1001;
+      width: 50px;
+      height: 50px;
       background: none;
       border: none;
-      padding: 0;
       cursor: pointer;
+      padding: 0;
+      outline: none;
       display: flex;
       align-items: center;
       justify-content: center;
-      outline: none;
-      box-shadow: none;
-      width: 50px;
-      height: 50px;
-      z-index: 10; /* Ensure it's above other content */
+    }
+    .back-arrow-icon svg {
+      display: none;
     }
     .back-arrow-icon::before {
       content: "";
       display: block;
       width: 50px;
       height: 50px;
-      background: url("https://raw.githubusercontent.com/magpieartsinfo/magpie-arts-site/main/SVG/undo.svg") no-repeat center center;
+      background: url("https://raw.githubusercontent.com/magpieartsinfo/magpie-site/SVG/undo.svg") no-repeat center;
       background-size: contain;
     }
     .img-section {
@@ -58,6 +60,7 @@
       align-items: center;
       gap: 0.8rem;
       touch-action: none;
+      position: relative;
     }
     .main-img-wrap {
       position: relative;
@@ -298,21 +301,16 @@
       .add-cart-row button {
         width: 100%;
       }
-      /* Mobile back button positioning */
       .back-arrow-icon {
-        position: absolute;
-        top: -20px;
-        left: 8px;
-        z-index: 10;
+        top: 12px;
+        left: 12px;
       }
     }
   </style>
 </head>
 <body>
   <div class="prod-viewer" id="prodViewer">
-    <!-- Back button moved to top level (outside img-section) -->
     <button class="back-arrow-icon" title="Back to Shop" onclick="goBack()" aria-label="Back to Shop"></button>
-    
     <div class="img-section" id="imgSection">
       <div class="main-img-wrap" id="mainImgWrap">
         <button id="leftArrow" class="arrow left" aria-label="Previous image">&lt;</button>
@@ -365,11 +363,9 @@
   function goBack() {
     window.location.href = 'https://magpieartsinfo.github.io/magpie-arts-site/shop.html';
   }
-
   function goToCart() {
     window.location.href = 'https://magpieartsinfo.github.io/magpie-arts-site/cart.html';
   }
-
   async function fetchProducts() {
     try {
       const response = await fetch('https://raw.githubusercontent.com/magpieartsinfo/magpie-arts-site/main/products.json');
@@ -382,36 +378,28 @@
       descAreaElem.textContent = "Please check your internet connection and try again.";
     }
   }
-
   function loadProduct() {
     const urlParams = new URLSearchParams(window.location.search);
     const index = parseInt(urlParams.get('index'), 10);
-
     if (isNaN(index) || index < 0 || index >= products.length) {
       productTitleElem.textContent = "Product Not Found";
       descAreaElem.textContent = "The requested product could not be found.";
       return;
     }
-
     currentProduct = products[index];
     setupProduct();
   }
-
   function setupProduct() {
     if (!currentProduct) return;
-
     productTitleElem.textContent = currentProduct.title;
     descAreaElem.textContent = currentProduct.desc;
-
     const images = [
       currentProduct.image,
       'https://raw.githubusercontent.com/magpieartsinfo/magpiearts-assets/main/magpie-arts-site/images/size-selector.png',
       'https://raw.githubusercontent.com/magpieartsinfo/magpiearts-assets/main/magpie-arts-site/images/kit-includes.png'
     ];
-
     mainImage.src = images[0];
     let currentImageIndex = 0;
-
     thumbsContainer.innerHTML = '';
     images.forEach((src, i) => {
       const thumb = document.createElement('img');
@@ -422,46 +410,29 @@
       thumb.addEventListener('click', () => updateImage(i));
       thumbsContainer.appendChild(thumb);
     });
-
     document.getElementById('leftArrow').onclick = () =>
       updateImage((currentImageIndex - 1 + images.length) % images.length);
-
     document.getElementById('rightArrow').onclick = () =>
       updateImage((currentImageIndex + 1) % images.length);
-let touchStartX = 0;
-let touchEndX = 0;
-const swipeThreshold = 50;
-
-const mainImage = document.getElementById('mainImage');
-
-mainImage.addEventListener('touchstart', e => {
-  if (e.touches.length === 1) {
-    touchStartX = e.touches[0].clientX;
-  }
-}, { passive: true });
-
-mainImage.addEventListener('touchmove', e => {
-  if (e.touches.length === 1) {
-    touchEndX = e.touches[0].clientX;
-  }
-}, { passive: true });
-
-mainImage.addEventListener('touchend', e => {
-  const distance = touchEndX - touchStartX;
-  if (Math.abs(distance) > swipeThreshold) {
-    if (distance > 0) {
-      // Swipe right - previous image
-      document.getElementById('leftArrow').click();
-    } else {
-      // Swipe left - next image
-      document.getElementById('rightArrow').click();
-    }
-  }
-  touchStartX = 0;
-  touchEndX = 0;
-});
-
-
+    // Swipe support on mainImage
+    let startX = 0;
+    let endX = 0;
+    const swipeThreshold = 50;
+    mainImage.addEventListener('touchstart', e => {
+      if (e.touches.length === 1) startX = e.touches[0].clientX;
+    }, {passive: true});
+    mainImage.addEventListener('touchmove', e => {
+      if (e.touches.length === 1) endX = e.touches[0].clientX;
+    }, {passive: true});
+    mainImage.addEventListener('touchend', () => {
+      const deltaX = endX - startX;
+      if (Math.abs(deltaX) > swipeThreshold) {
+        if (deltaX > 0) document.getElementById('leftArrow').click();
+        else document.getElementById('rightArrow').click();
+      }
+      startX = 0;
+      endX = 0;
+    });
     function updateImage(index) {
       if (index === currentImageIndex) return;
       mainImage.src = images[index];
@@ -469,24 +440,19 @@ mainImage.addEventListener('touchend', e => {
       Array.from(thumbsContainer.children).forEach((thumb, idx) =>
         thumb.classList.toggle('selected', idx === index));
     }
-
     const sizes = [
       { label: '10x12 Inch', value: '10x12' },
       { label: '18x20 Inch', value: '18x20' }
     ];
-
     const palettes = [
       { label: '16 colors', value: 16 },
       { label: '20 colors', value: 20 },
       { label: '24 colors', value: 24 }
     ];
-
     createOptionButtons(sizeOptionsElem, sizes, 'size');
     createOptionButtons(paletteOptionsElem, palettes, 'palette');
-
     updatePaletteOptions(selectedOpts.size);
     updatePrice();
-
     if (currentProduct.isCustomKit) {
       uploadPhotoRow.style.display = "block";
       uploadInput.required = true;
@@ -495,7 +461,6 @@ mainImage.addEventListener('touchend', e => {
       uploadInput.required = false;
     }
   }
-
   function createOptionButtons(container, options, groupName) {
     container.innerHTML = '';
     options.forEach((opt, idx) => {
@@ -509,22 +474,16 @@ mainImage.addEventListener('touchend', e => {
       container.appendChild(btn);
     });
   }
-
   function selectOption(group, idx) {
     selectedOpts[group] = idx;
     const container = group === 'size' ? sizeOptionsElem : paletteOptionsElem;
     Array.from(container.children).forEach((btn, i) =>
       btn.classList.toggle('selected', i === idx));
-
-    if (group === 'size') {
-      updatePaletteOptions(idx);
-    }
+    if (group === 'size') updatePaletteOptions(idx);
     updatePrice();
   }
-
   function updatePaletteOptions(sizeIdx) {
     const paletteBtns = paletteOptionsElem.querySelectorAll(".option-btn");
-
     if (sizeIdx === 0) {
       paletteBtns[0].disabled = false;
       paletteBtns[1].disabled = false;
@@ -537,7 +496,6 @@ mainImage.addEventListener('touchend', e => {
       if (selectedOpts.palette === 0) selectOption('palette', 1);
     }
   }
-
   function updatePrice() {
     if (!currentProduct) return;
     let price = 0;
@@ -547,25 +505,21 @@ mainImage.addEventListener('touchend', e => {
     else if (selectedOpts.size === 1 && selectedOpts.palette === 2) price = currentProduct.priceS2C24 || 0;
     productPriceElem.innerText = 'Rs. ' + price.toLocaleString();
   }
-
   function addToCart() {
     if (!currentProduct) {
       alert("Invalid product");
       return;
     }
-
     const sizeOption = selectedOpts.size === 0 ? '10x12 Inch' : '18x20 Inch';
     let paletteOption = '';
     if (selectedOpts.palette === 0) paletteOption = '16 colors';
     else if (selectedOpts.palette === 1) paletteOption = '20 colors';
     else if (selectedOpts.palette === 2) paletteOption = '24 colors';
-
     let price = 0;
     if (selectedOpts.size === 0 && selectedOpts.palette === 0) price = currentProduct.priceS1C16;
     else if (selectedOpts.size === 0 && selectedOpts.palette === 1) price = currentProduct.priceS1C20;
     else if (selectedOpts.size === 1 && selectedOpts.palette === 1) price = currentProduct.priceS2C20;
     else if (selectedOpts.size === 1 && selectedOpts.palette === 2) price = currentProduct.priceS2C24;
-
     const cartItem = {
       id: currentProduct.id || Date.now(),
       title: currentProduct.title,
@@ -576,42 +530,35 @@ mainImage.addEventListener('touchend', e => {
       image: currentProduct.image,
       isCustomKit: currentProduct.isCustomKit
     };
-
     let cart = JSON.parse(localStorage.getItem('cart')) || [];
     const existingIndex = cart.findIndex(item =>
       item.id === cartItem.id &&
       item.size === cartItem.size &&
       item.palette === cartItem.palette
     );
-
     if (existingIndex !== -1) {
       cart[existingIndex].quantity += 1;
     } else {
       cart.push(cartItem);
     }
-
     localStorage.setItem('cart', JSON.stringify(cart));
     alert("Product added to cart!");
   }
-
   function buyNow() {
     if (!currentProduct) {
       alert("Invalid product");
       return;
     }
-
     const sizeOption = selectedOpts.size === 0 ? '10x12 Inch' : '18x20 Inch';
     let paletteOption = '';
     if (selectedOpts.palette === 0) paletteOption = '16 colors';
     else if (selectedOpts.palette === 1) paletteOption = '20 colors';
     else paletteOption = '24 colors';
-
     let price = 0;
     if (selectedOpts.size === 0 && selectedOpts.palette === 0) price = currentProduct.priceS1C16;
     else if (selectedOpts.size === 0 && selectedOpts.palette === 1) price = currentProduct.priceS1C20;
     else if (selectedOpts.size === 1 && selectedOpts.palette === 1) price = currentProduct.priceS2C20;
     else if (selectedOpts.size === 1 && selectedOpts.palette === 2) price = currentProduct.priceS2C24;
-
     const orderItem = {
       id: currentProduct.id || Date.now(),
       title: currentProduct.title,
@@ -622,11 +569,9 @@ mainImage.addEventListener('touchend', e => {
       image: currentProduct.image,
       isCustomKit: currentProduct.isCustomKit
     };
-
     sessionStorage.setItem('directOrder', JSON.stringify(orderItem));
     window.location.href = 'https://magpieartsinfo.github.io/magpie-arts-site/checkout.html';
   }
-
   document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('orderForm').addEventListener('submit', function(event) {
       event.preventDefault();
