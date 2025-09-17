@@ -428,28 +428,28 @@
 
     document.getElementById('rightArrow').onclick = () =>
       updateImage((currentImageIndex + 1) % images.length);
+let touchStartX = 0;
+let touchEndX = 0;
+const swipeThreshold = 50;
 
 const mainImage = document.getElementById('mainImage');
-let startX = 0;
-let endX = 0;
-const swipeThreshold = 50; // minimum px to consider swipe
 
-mainImage.addEventListener('touchstart', (e) => {
+mainImage.addEventListener('touchstart', e => {
   if (e.touches.length === 1) {
-    startX = e.touches[0].clientX;
+    touchStartX = e.touches[0].clientX;
   }
 }, { passive: true });
 
-mainImage.addEventListener('touchmove', (e) => {
+mainImage.addEventListener('touchmove', e => {
   if (e.touches.length === 1) {
-    endX = e.touches[0].clientX;
+    touchEndX = e.touches[0].clientX;
   }
 }, { passive: true });
 
-mainImage.addEventListener('touchend', () => {
-  const diffX = endX - startX;
-  if (Math.abs(diffX) > swipeThreshold) {
-    if (diffX > 0) {
+mainImage.addEventListener('touchend', e => {
+  const distance = touchEndX - touchStartX;
+  if (Math.abs(distance) > swipeThreshold) {
+    if (distance > 0) {
       // Swipe right - previous image
       document.getElementById('leftArrow').click();
     } else {
@@ -457,8 +457,8 @@ mainImage.addEventListener('touchend', () => {
       document.getElementById('rightArrow').click();
     }
   }
-  startX = 0;
-  endX = 0;
+  touchStartX = 0;
+  touchEndX = 0;
 });
 
 
