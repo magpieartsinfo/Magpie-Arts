@@ -38,6 +38,8 @@
   position: absolute;
   width: 52px;
   height: 52px;
+  background: none;      /* No background, removes both circle and square */
+  border-radius: 0;      /* No rounded corner, ensures no circle or square */
   box-shadow: 0 7px 24px 0 rgba(80,108,210,0.29), 0 3px 10px 0 rgba(50,50,100,0.13), 0 15px 30px 0 rgba(85,125,240,0.16);
   padding: 0;
   display: flex;
@@ -49,32 +51,26 @@
   cursor: pointer;
   border: none;
   outline: none;
-  transition: box-shadow 0.2s, background 0.2s;
+  transition: box-shadow 0.2s;
 }
-
-.home-icon-link {
-  left: 30px;   /* Fix: explicitly position on left */
-  right: auto;
-}
-
-.menu-icon {
-  right: 30px;  /* Fix: explicitly position on right */
-  left: auto;
-}
-
-.menu-icon svg, .home-icon-link svg {
+.menu-icon { right: 24px; left: auto; }
+.home-icon-link { left: 24px; right: auto; }
+.menu-icon svg, .menu-icon img, .home-icon-link svg, .home-icon-link img {
   width: 44px;
   height: 44px;
   display: block;
-  pointer-events: none;
+  background: none;
+  border-radius: 0;
+  box-shadow: none;
   user-select: none;
+  pointer-events: none;
   margin: auto;
 }
-
 .menu-icon:hover, .home-icon-link:hover {
   box-shadow: 0 10px 36px 0 rgba(80,108,210,0.38), 0 5px 16px 0 rgba(50,50,100,0.16), 0 20px 40px 0 rgba(85,125,240,0.21);
   background: none;
 }
+
 
     .pie-logo-center {
       margin: 0 auto; 
