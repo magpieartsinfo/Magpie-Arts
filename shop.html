@@ -14,13 +14,13 @@
       --primary: 220 91% 56%;
     }
     body {
-      font-family: 'Candara', Arial, sans-serif;
-      background: hsl(var(--background));
-      color: hsl(var(--foreground));
-      min-height: 100vh;
-      padding-top: 190px; /* Space for fixed header */
-      padding-bottom: 80px;
-    }
+  font-family: 'Candara', Arial, sans-serif;
+  background: hsl(var(--background));
+  color: hsl(var(--foreground));
+  min-height: 100vh;
+  padding-top: 200px; /* Header + enough for categories (110+18+padding+buffer) */
+  padding-bottom: 80px;
+}
     .header-bar {
       position: fixed; /* Fixed to top */
       top: 0;
