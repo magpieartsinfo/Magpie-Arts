@@ -429,39 +429,6 @@
     document.getElementById('rightArrow').onclick = () =>
       updateImage((currentImageIndex + 1) % images.length);
 
-let touchStartX = 0;
-let touchEndX = 0;
-const swipeThreshold = 50;
-
-const mainImage = document.getElementById('mainImage');
-
-mainImage.addEventListener('touchstart', e => {
-  if (e.touches.length === 1) {
-    touchStartX = e.touches[0].clientX;
-  }
-}, { passive: true });
-
-mainImage.addEventListener('touchmove', e => {
-  if (e.touches.length === 1) {
-    touchEndX = e.touches[0].clientX;
-  }
-}, { passive: true });
-
-mainImage.addEventListener('touchend', e => {
-  const distance = touchEndX - touchStartX;
-  if (Math.abs(distance) > swipeThreshold) {
-    if (distance > 0) {
-      // Swipe right - previous image
-      document.getElementById('leftArrow').click();
-    } else {
-      // Swipe left - next image
-      document.getElementById('rightArrow').click();
-    }
-  }
-  touchStartX = 0;
-  touchEndX = 0;
-});
-
     function updateImage(index) {
       if (index === currentImageIndex) return;
       mainImage.src = images[index];
