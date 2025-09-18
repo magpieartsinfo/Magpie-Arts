@@ -27,6 +27,13 @@
     align-items: center;
     justify-content: center;
   }
+
+.back-arrow-btn img {
+  width: 40px;
+  height: 40px;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+}
+
   .back-arrow-btn:hover {
     background: #e0eaff;
   }
@@ -160,10 +167,9 @@
 </div>
 
   <button class="back-arrow-btn" onclick="history.back()" aria-label="Go Back">
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
-      <path d="M15 18l-6-6 6-6" stroke="#3c59ff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-    </svg>
-  </button>
+  <img src="https://raw.githubusercontent.com/magpieartsinfo/magpie-arts-site/refs/heads/main/SVG/undo.svg" alt="Back" />
+</button>
+
   <h1>Checkout</h1>
   <div id="successMessage" class="success-message" role="alert"></div>
   <div id="errorMessage" class="error-message" role="alert"></div>
