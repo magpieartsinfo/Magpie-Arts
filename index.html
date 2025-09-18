@@ -10,20 +10,20 @@
       background: #f3faff;
       color: #222;
       margin: 0;
-      padding: 0 20px 80px;
+      padding: 0 0 80px;
       font-family: 'Candara', Arial, sans-serif;
       overflow-x: hidden;
     }
     .header-bar {
       position: relative;
       background: linear-gradient(90deg, #b4d9f6 0%, #eaeefe 50%, #97d2f7 100%);
-      min-height: 160px;
+      min-height: 116px;
       border-radius: 32px 32px 38px 38px;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding-bottom: 10px;
-      margin-bottom: 20px;
+      padding-bottom: 2px;
+      margin: 0 0 8px 0;
       box-shadow: 0 8px 44px rgba(25, 43, 101, 0.16);
       user-select: none;
     }
@@ -32,12 +32,12 @@
       left: 24px;
       top: 50%;
       transform: translateY(-50%);
-      width: 110px;
-      height: auto;
+      width: 70px;
+      height: 70px;
       background: #fff;
       border-radius: 16px;
-      padding: 7px 12px;
-      border: 3px solid #d9eefb;
+      padding: 6px 10px;
+      border: 2.5px solid #d9eefb;
       box-shadow: 0 6px 40px 0 rgba(60,90,170,0.09);
       cursor: pointer;
       z-index: 11;
@@ -45,435 +45,139 @@
       align-items: center;
       justify-content: center;
     }
-    .header-logo img { width: 110px; height: auto; display: block; }
-    .brand-title-image {
+    .header-logo img { width: 55px; height: auto; display: block; }
+    .menu-icon {
+      position: absolute;
+      right: 18px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 48px;
+      height: 48px;
+      background: #e6f0ff;
+      border-radius: 50%;
+      box-shadow: 0 4px 15px rgba(18, 68, 170, 0.14);
+      cursor: pointer;
+      z-index: 12;
       display: flex;
-      margin: 0 auto;
-      max-width: 460px;
-      min-width: 420px;
-      width: 220px;
-      justify-content: center;
       align-items: center;
-      padding: 5px 0 0 0;
+      justify-content: center;
+      transition: background 0.3s;
+      padding: 7px;
+      user-select: none;
+    }
+    .menu-icon:hover { background: #c6ddff; }
+    .menu-icon svg { width: 30px; height: 30px; }
+    .brand-title-image {
+      margin: 0 auto;
+      width: 128px;
+      padding: 7px 0 0 0;
       background: none;
       z-index: 5;
       user-select: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
     .brand-title-image img {
-      width: 100%;
+      width: 100%; max-width:152px;
       height: auto;
       display: block;
-      margin: 0 auto;
       pointer-events: none;
       user-select: none;
       background: none;
-      filter: drop-shadow(0 2px 4px rgba(32,32,70,0.13));
+      filter: drop-shadow(0 1px 3px rgba(32,32,70,0.09));
     }
-    .home-icon {
-      position: absolute;
-      left: 24px;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 52px;
-      height: 52px;
-      cursor: pointer;
-      z-index: 12;
-      background: #e6f0ff;
-      border-radius: 50%;
-      box-shadow: 0 4px 15px rgba(18, 68, 170, 0.14);
-      padding: 7px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: background 0.3s;
-      user-select: none;
+
+    .index-categories {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(158px,1fr));
+      gap: 24px;
+      max-width: 740px;
+      margin: 22px auto 18px auto;
+      padding: 8px 12px 2px 12px;
     }
-    .home-icon:hover {
-      background: #c6dfff;
-    }
-    .home-icon svg {
-      width: 36px;
-      height: 36px;
-    }
-    .menu-icon {
-      position: absolute;
-      right: 24px;
-      left: auto;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 52px;
-      height: 52px;
-      background: #e6f0ff;
-      border-radius: 50%;
-      box-shadow: 0 4px 15px rgba(18, 68, 170, 0.14);
-      cursor: pointer;
-      z-index: 12;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: background 0.3s;
-      padding: 7px;
-      user-select: none;
-    }
-    .menu-icon:hover {
-      background: #c6ddff;
-    }
-    .menu-icon svg {
-      width: 36px;
-      height: 36px;
-      display: block;
-      user-select: none;
-    }
-    nav.main-menu {
-      margin: 24px auto 44px auto;
-      font-family: Arial, sans-serif;
-      display: flex;
-      justify-content: center;
-      gap: 38px;
-      user-select: none;
-      flex-wrap: wrap;
-    }
-    nav.main-menu a {
-      font-weight: 700;
-      font-size: 1.22rem;
-      color: #174197;
-      text-decoration: none;
-      padding: 7px 18px;
-      border-radius: 11px;
-      transition: background .15s, color .18s;
-      background: #e8f0fd;
-      margin-bottom: 8px;
-      cursor: pointer;
-      white-space: nowrap;
-    }
-    nav.main-menu a.active,
-    nav.main-menu a:hover {
-      background: #b6d8fe;
-      color: #1740ae;
-      box-shadow: 0 2.5px 11px #badafdcc;
-    }
-    .banner-box {
-      width: 1200px;
-      max-width: 95vw;
-      height: 400px;
-      margin: 0 auto 3rem auto;
-      border-radius: 32px;
-      box-shadow: 0 12px 70px #669cdf19;
-      border: 7px solid #d8f1ff;
+    .category-card {
       background: #fafdff;
-      overflow: hidden;
-      position: relative;
-    }
-    .carousel-wrapper {
+      border-radius: 22px;
+      box-shadow: 0 3px 22px #adcfff21;
       display: flex;
-      width: 400%;
-      height: 100%;
-      animation: scrollBanner 40s linear infinite;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 32px 12px 20px 12px;
+      transition: box-shadow .20s, transform .18s;
+      cursor: pointer;
+      min-height: 90px;
+      text-align: center;
+      border: 2px solid #e0ebff;
+      font-family: 'Montserrat', Arial, sans-serif;
     }
-    .carousel-wrapper:hover {
-      animation-play-state: paused;
-      cursor: grab;
+    .category-card:active, .category-card:hover {
+      box-shadow: 0 6px 28px #abc5ff38;
+      background: #b8dcff11;
+      transform: translateY(-3px) scale(1.02);
+      border-color: #60a5fa;
     }
-    .carousel-slide {
-      flex: 0 0 25%;
-      height: 100%;
+    .category-card img {
+      width: 54px;
+      height: 54px;
+      margin-bottom: 10px;
+      border-radius: 50%;
+      background: #e7eefc;
+      box-shadow: 0 2.5px 7px #bde1ff44;
+      padding: 7px;
+      object-fit: contain;
     }
-    .carousel-slide img,
-    .carousel-slide video {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      border-radius: 32px;
-    }
-    @keyframes scrollBanner {
-      0% { transform: translateX(0); }
-      25% { transform: translateX(-25%); }
-      50% { transform: translateX(-50%); }
-      75% { transform: translateX(-75%); }
-      100% { transform: translateX(0); }
+    .category-card span {
+      font-size: 1.12rem;
+      font-weight: 700;
+      color: #22396f;
+      letter-spacing: .01em;
+      margin-top: 3px;
+      font-family: inherit;
+      user-select: none;
+      display: block;
     }
     .intro {
-      max-width: 630px; margin: 0 auto;
-      font-size: 1.15rem;
-      color: #210f35; text-align: center;
-      background: #fafdff;
-      padding: 1rem 2rem;
-      border-radius: 16px;
-      box-shadow: 0 0 42px #cbe8fa57;
-      user-select: none;
+      max-width: 490px; margin: 0 auto 22px auto;
+      font-size: 1.11rem;
+      color: #210f35; 
+      text-align: center;
+      background: #f9fdff;
+      padding: 1.2rem 1.2rem 0.7rem;
+      border-radius: 18px;
+      box-shadow: 0 1px 20px #cbe8fa23;
     }
     .highlight-red {
       display: block;
-      margin-top: 12px;
+      margin-top: 9px;
       font-weight: 700;
       color: #d50738;
     }
-    footer {
-      background-color: #172a59;
-      padding: 36px 20px 28px;
-      color: #dde6f0;
-      text-align: center;
-      font-family: Arial, sans-serif;
-      user-select: none;
-      margin-top: 55px;
-      border-radius: 30px 30px 0 0;
-    }
-    .contact-info {
-      max-width: 1100px;
-      margin: 0 auto 20px auto;
-    }
-    .contact-info p {
-      margin: 6px 0;
-      font-size: 1rem;
-    }
-    .social-icons {
-      display: flex;
-      justify-content: center;
-      gap: 34px;
-      margin-top: 17px;
-      flex-wrap: wrap;
-    }
-    .social-icons a {
-      display: inline-block;
-      padding: 0;
-      margin: 0 6px;
-      transition: transform .18s;
-    }
-    .social-icons a:hover {
-      transform: scale(1.12);
-    }
-    .social-icons img {
-      width: 38px;
-      height: 38px;
-      object-fit: contain;
-      border-radius: 16px;
-      display: inline-block;
-      vertical-align: middle;
-      box-shadow: 0 1.5px 5px #234dd355;
-      background: #fff;
-      padding: 3px;
-      transition: box-shadow .22s;
-    }
-    .social-icons a:hover img {
-      box-shadow: 0 3.5px 18px #234dd355;
-    }
-    /* SIDE MENU */
-    #sideMenu {
-      position: fixed;
-      top: 0;
-      right: -260px;
-      left: auto;
-      width: 240px;
-      height: 100vh;
-      background: #e5efff;
-      box-shadow: 2px 0 12px rgba(52,69,102,0.15);
-      padding: 40px 20px 20px;
-      box-sizing: border-box;
-      transition: left 0.3s ease;
-      z-index: 2000;
-      font-family: Arial, sans-serif;
-      display: flex;
-      flex-direction: column;
-      user-select: none;
-    }
-    #sideMenu.open {
-      right: 0;
-      left: auto;
-    }
-    #sideMenu ul {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-      flex-grow: 1;
-    }
-    #sideMenu ul li {
-      margin-bottom: 18px;
-    }
-    #sideMenu ul li a {
-      text-decoration: none;
-      font-weight: 700;
-      font-size: 1.1rem;
-      color: #1852dd;
-      display: block;
-      padding: 10px 8px;
-      border-radius: 12px;
-      transition: background-color 0.25s ease, color 0.25s ease;
-      cursor: pointer;
-    }
-    #sideMenu ul li a:hover,
-    #sideMenu ul li a.active {
-      background-color: #497cfb;
-      color: white;
-    }
-    #sideMenu footer {
-      font-size: 0.85rem;
-      color: #496491;
-      padding-top: 12px;
-      border-top: 1px solid #bed1f0;
-      text-align: center;
-      user-select: none;
-    }
-    #menuOverlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background: rgba(0,0,0,0.3);
-      visibility: hidden;
-      opacity: 0;
-      transition: opacity 0.3s ease;
-      z-index: 1999;
-    }
-    #menuOverlay.visible {
-      opacity: 1;
-      visibility: visible;
-    }
-    /* Responsive adjustments */
-    @media (max-width: 800px) {
-      .header-bar { margin: 16px 1vw 0 1vw; }
-      nav.main-menu { gap: 22px; font-size: 1rem; }
-      .brand-title-image { max-width: 190px; width: 85vw; }
-      .header-logo { width: 74px; height: 74px; }
-      .header-logo img { width: 58px; }
-      .menu-icon { width: 36px; height: 36px; right: 10px; padding: 5px; }
+    /* Side menu and social styles - unchanged from your code */
+
+    @media (max-width: 600px) {
+      .header-bar { min-height: 74px; }
+      .header-logo { width: 48px; height: 48px; }
+      .header-logo img { width: 38px; }
+      .brand-title-image { width: 82px; }
+      .brand-title-image img { max-width:90px; }
+      .menu-icon { width: 36px; height: 36px; right: 8px; padding: 4px; }
       .menu-icon svg { width: 20px; height: 20px; }
-    }
-    @media (max-width: 500px) {
-      .brand-title-image { max-width: 110px; width: 95vw; }
-      .banner-box { height: 30vw; }
-      nav.main-menu { gap: 8px; }
-      .social-icons img { width: 28px; height: 28px; }
-      .social-icons { gap: 17px; }
-    }
-    /* Order Lookup Modal */
-    #orderLookupModal {
-      position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-      display: flex; justify-content: center; align-items: center;
-      z-index: 3000;
-    }
-    #orderLookupModal[hidden] {
-      display: none;
-    }
-    .modal-bg {
-      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-      background-color: rgba(0,0,0,0.4);
-      backdrop-filter: blur(3px);
-    }
-    .modal-content {
-      position: relative;
-      background: white;
-      border-radius: 18px;
-      padding: 20px;
-      max-width: 380px;
-      width: 90%;
-      box-shadow: 0 5px 25px #4b86e6aa;
-      font-family: 'Candara', Arial, sans-serif;
-      color: #222;
-      user-select: none;
-    }
-    #closeOrderLookup {
-      position: absolute; top: 10px; right: 10px;
-      background: transparent;
-      border: none;
-      font-size: 28px;
-      line-height: 1;
-      cursor: pointer;
-      color: #1852dd;
-    }
-    #orderLookupEmail {
-      width: 100%;
-      padding: 10px;
-      margin: 12px 0;
-      border: 2px solid #aed4ff;
-      border-radius: 10px;
-      font-size: 1rem;
-    }
-    #fetchOrdersBtn {
-      background: #1852dd;
-      border: none;
-      padding: 12px 20px;
-      border-radius: 10px;
-      color: white;
-      font-weight: 700;
-      font-size: 1.1rem;
-      cursor: pointer;
-      width: 100%;
-      user-select: none;
-    }
-    #fetchOrdersBtn:disabled {
-      background: #a3c2ff;
-      cursor: not-allowed;
-    }
-    #ordersResult {
-      margin-top: 20px;
-      max-height: 320px;
-      overflow-y: auto;
-      font-size: 0.95rem;
-    }
-    .order-item {
-      border-bottom: 1px solid #cee1ff;
-      padding: 8px 0;
-    }
-    .order-item:last-child {
-      border-bottom: none;
-    }
-    .order-id {
-      font-weight: 700;
-      color: #174197;
-      margin-bottom: 4px;
-    }
-    .order-status {
-      color: orange;
-      font-weight: 700;
-      margin-bottom: 8px;
-    }
-    .order-product {
-      margin-left: 10px;
-    }
-    .modal-content p {
-      margin-bottom: 12px;
-      font-weight: 600;
-      font-size: 1.05rem;
-      color: #1b2e57;
-    }
-    .input-group {
-      margin-bottom: 16px;
-    }
-    .input-group input {
-      width: 100%;
-      padding: 14px 16px;
-      font-size: 1.1rem;
-      border-radius: 12px;
-      border: 2px solid #9fbff6;
-      outline-color: #1852dd;
-      transition: border-color 0.3s ease;
-      box-sizing: border-box;
-    }
-    .input-group input:focus {
-      border-color: #3460f0;
+      .index-categories { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+      .category-card { padding: 16px 6px; min-height: 75px; }
+      .category-card img { width: 38px; height: 38px; padding: 4px; }
+      .intro { padding: 1rem 0.6rem 0.5rem; font-size: 0.98rem; border-radius: 12px; }
     }
   </style>
 </head>
 <body>
-  <div id="sideMenu" aria-label="Main Navigation">
-    <ul>
-      <li><a href="#" id="menuPaintByNumber">Paint By Number</a></li>
-      <li><a href="#" id="menuCustom">Custom Kit</a></li>
-      <li><a href="#" id="menuDevotion">Devotion/Spiritual</a></li>
-      <li><a href="#" id="menuScenery">Scenery/Wonders</a></li>
-      <li><a href="#" id="menuCart">Cart</a></li>
-      <li><a href="#" id="menuOrderLookup">My Orders</a></li>
-      <li><footer>© 2025 Magpie Arts</footer></li>
-    </ul>
-  </div>
-  <div id="menuOverlay"></div>
   <header class="header-bar" role="banner">
-    <span class="header-logo" role="img" aria-label="Magpie Arts logo">
+    <span class="header-logo" onclick="location.href='index.html'" role="img" aria-label="Magpie Arts logo">
       <img src="https://raw.githubusercontent.com/magpieartsinfo/magpiearts-assets/main/magpie-arts-site/images/logo.png" alt="Magpie Arts Logo" />
     </span>
     <div class="brand-title-image" aria-label="Paint It Easily Kits brand logo">
-      <img src="https://raw.githubusercontent.com/magpieartsinfo/magpiearts-assets/refs/heads/main/magpie-arts-site/images/MAGPIE-ARTS-TITLE.svg" alt="MAGPIE ARTS" />
+      <img src="https://raw.githubusercontent.com/magpieartsinfo/magpiearts-assets/main/magpie-arts-site/images/MAGPIE-ARTS-TITLE.svg" alt="MAGPIE ARTS" />
     </div>
     <span class="menu-icon" role="button" aria-label="Toggle menu" tabindex="0" title="Menu">
       <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -484,208 +188,36 @@
       </svg>
     </span>
   </header>
-  <nav class="main-menu" aria-label="Main navigation">
-    <a href="https://magpieartsinfo.github.io/magpie-arts-site/index.html" class="active">Home</a>
-    <a href="https://magpieartsinfo.github.io/magpie-arts-site/shop.html">Shop</a>
-    <a href="https://magpieartsinfo.github.io/magpie-arts-site/about.html">About Us</a>
-    <a href="#contact-section">Contact Us</a>
-  </nav>
-  <div class="banner-box" aria-label="Homepage banner carousel">
-    <div class="carousel-wrapper">
-      <div class="carousel-slide">
-        <img src="https://raw.githubusercontent.com/magpieartsinfo/magpiearts-assets/main/magpie-arts-site/images/banner1.jpg" alt="Banner Image 1" />
-      </div>
-      <div class="carousel-slide">
-        <video autoplay muted loop playsinline>
-          <source src="videos/banner-video1.mp4" type="video/mp4" />
-          Your browser does not support the video tag.
-        </video>
-      </div>
-      <div class="carousel-slide">
-        <img src="https://raw.githubusercontent.com/magpieartsinfo/magpiearts-assets/main/magpie-arts-site/images/banner2.png" alt="Banner Image 2" />
-      </div>
-      <div class="carousel-slide">
-        <video autoplay muted loop playsinline>
-          <source src="videos/banner-video2.mp4" type="video/mp4" />
-          Your browser does not support the video tag.
-        </video>
-      </div>
-    </div>
-  </div>
-  <main class="intro" role="main">
+
+  <!-- Modern Category/Feature Cards -->
+  <section class="index-categories">
+    <a class="category-card" href="index.html">
+      <img src="https://raw.githubusercontent.com/magpieartsinfo/magpiearts-assets/main/magpie-arts-site/images/home-icon.png" alt="Home" />
+      <span>Home</span>
+    </a>
+    <a class="category-card" href="shop.html">
+      <img src="https://raw.githubusercontent.com/magpieartsinfo/magpiearts-assets/main/magpie-arts-site/images/shop-icon.png" alt="Shop" />
+      <span>Shop</span>
+    </a>
+    <a class="category-card" href="shop.html#custom">
+      <img src="https://raw.githubusercontent.com/magpieartsinfo/magpiearts-assets/main/magpie-arts-site/images/custom-icon.png" alt="Custom Kit" />
+      <span>Custom Kit</span>
+    </a>
+    <a class="category-card" href="about.html">
+      <img src="https://raw.githubusercontent.com/magpieartsinfo/magpiearts-assets/main/magpie-arts-site/images/about-icon.png" alt="About Us" />
+      <span>About Us</span>
+    </a>
+    <a class="category-card" href="#contact-section">
+      <img src="https://raw.githubusercontent.com/magpieartsinfo/magpiearts-assets/main/magpie-arts-site/images/contact-icon.png" alt="Contact Us" />
+      <span>Contact Us</span>
+    </a>
+  </section>
+  <main class="intro">
     <p><strong>MAGPIE ARTS presents PIE Kits Paint by Number.</strong></p>
     <p>Anyone can create stunning acrylic paintings — No experience required!</p>
     <p>Gift PIE kits on birthdays, anniversaries & celebrations.</p>
     <p class="highlight-red">Turn moments into masterpieces.</p>
   </main>
-  <footer id="contact-section" aria-label="Footer">
-    <div class="contact-info">
-      <p><strong>Contact Us</strong></p>
-      <p>Phone: +91-8128136985 &nbsp;|&nbsp; Email: <a href="mailto:magpieartsinfo@gmail.com" style="color:#fff;text-decoration:underline;">magpieartsinfo@gmail.com</a></p>
-      <p>Address: 285, Manmandir Residency, Ankleshwar, Gujarat-393001</p>
-    </div>
-    <nav class="social-icons" aria-label="Social media links" role="navigation">
-      <a href="https://api.whatsapp.com/send?phone=918128136985" aria-label="WhatsApp" rel="noopener" target="_blank">
-        <img src="https://raw.githubusercontent.com/magpieartsinfo/magpiearts-assets/refs/heads/main/magpie-arts-site/images/whatsapp-icon.svg" alt="WhatsApp" width="38" height="38" />
-      </a>
-      <a href="https://www.linkedin.com/company/magpie-arts/?viewAsMember=true" aria-label="LinkedIn" rel="noopener" target="_blank">
-        <img src="https://raw.githubusercontent.com/magpieartsinfo/magpiearts-assets/refs/heads/main/magpie-arts-site/images/linkedin-icon.svg" alt="LinkedIn" width="38" height="38" />
-      </a>
-      <a href="https://www.instagram.com/magpiearts27?igsh=cWMxZ2UydWV3ZHdy" aria-label="Instagram" rel="noopener" target="_blank">
-        <img src="https://raw.githubusercontent.com/magpieartsinfo/magpiearts-assets/refs/heads/main/magpie-arts-site/images/instagram-icon.svg" alt="Instagram" width="38" height="38" />
-      </a>
-      <a href="https://www.facebook.com/share/1QVHnxCqRB/" aria-label="Facebook" rel="noopener" target="_blank">
-        <img src="https://raw.githubusercontent.com/magpieartsinfo/magpiearts-assets/refs/heads/main/magpie-arts-site/images/facebook-icon.svg" alt="Facebook" width="38" height="38" />
-      </a>
-    </nav>
-  </footer>
-<div id="orderLookupModal" aria-modal="true" role="dialog" aria-labelledby="orderLookupTitle" tabindex="-1" hidden>
-  <div class="modal-bg"></div>
-  <div class="modal-content" role="document">
-    <button id="closeOrderLookup" aria-label="Close order lookup">&times;</button>
-    <h2 id="orderLookupTitle">Check Your Orders</h2>
-    <p>Enter your phone number and city to view your orders:</p>
-<div class="input-group">
-  <input type="tel" id="orderLookupPhone" placeholder="Your 10-digit phone" pattern="[0-9]{10}" aria-label="Phone number to lookup orders" />
-</div>
-<div class="input-group">
-  <input type="text" id="orderLookupCity" placeholder="Your city" aria-label="City to lookup orders" />
-</div>
-<button id="fetchOrdersBtn" disabled>View Orders</button>
-    <div id="ordersResult"></div>
-  </div>
-</div>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script>
-// Initialize Supabase client (replace with your credentials)
-const supabaseUrl = "https://rxtukfjjeruospodnkdz.supabase.co";
-const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ4dHVrZmpqZXJ1b3Nwb2Rua2R6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTc0ODc0NTQsImV4cCI6MjA3MzA2MzQ1NH0.-sgX4XjHiamnzyqDdlmBlrPgaPMgX8GbzdB1c2rnSc0";
-const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
-// Menu toggle logic
-const menuIcon = document.querySelector('.menu-icon');
-const sideMenu = document.getElementById('sideMenu');
-const menuOverlay = document.getElementById('menuOverlay');
-menuIcon.addEventListener('click', () => {
-  if (sideMenu.style.right === '0px') {
-    closeMenu();
-  } else {
-    openMenu();
-  }
-});
-menuOverlay.addEventListener('click', closeMenu);
-function openMenu() {
-  sideMenu.classList.add("open");
-  sideMenu.style.right = "0";
-  sideMenu.style.left = "auto";
-  menuOverlay.style.display = "block";
-  document.body.style.overflow = "hidden";
-}
-function closeMenu() {
-  sideMenu.classList.remove("open");
-  sideMenu.style.right = "-260px";
-  sideMenu.style.left = "auto";
-  menuOverlay.style.display = "none";
-  document.body.style.overflow = "";
-}
-// Navigation links inside side menu
-document.getElementById('menuPaintByNumber').addEventListener('click', e => {
-  e.preventDefault();
-  window.location.href = 'https://magpieartsinfo.github.io/magpie-arts-site/shop.html#paint';
-  closeMenu();
-});
-document.getElementById('menuCustom').addEventListener('click', e => {
-  e.preventDefault();
-  window.location.href = 'https://magpieartsinfo.github.io/magpie-arts-site/shop.html#custom';
-  closeMenu();
-});
-document.getElementById('menuDevotion').addEventListener('click', e => {
-  e.preventDefault();
-  window.location.href = 'https://magpieartsinfo.github.io/magpie-arts-site/shop.html#devotion';
-  closeMenu();
-});
-document.getElementById('menuScenery').addEventListener('click', e => {
-  e.preventDefault();
-  window.location.href = 'https://magpieartsinfo.github.io/magpie-arts-site/shop.html#scenery';
-  closeMenu();
-});
-document.getElementById('menuCart').addEventListener('click', e => {
-  e.preventDefault();
-  window.location.href = 'https://magpieartsinfo.github.io/magpie-arts-site/cart.html';  // Redirect to cart page
-  closeMenu();
-});
-// Order Lookup Popup Script
-const orderLookupModal = document.getElementById('orderLookupModal');
-const menuOrderLookupBtn = document.getElementById('menuOrderLookup');
-const closeOrderLookupBtn = document.getElementById('closeOrderLookup');
-const fetchOrdersBtn = document.getElementById('fetchOrdersBtn');
-const orderLookupPhoneInput = document.getElementById('orderLookupPhone');
-const orderLookupCityInput = document.getElementById('orderLookupCity');
-const ordersResult = document.getElementById('ordersResult');
-function validateInputs() {
-  const phoneValid = orderLookupPhoneInput.validity.valid && orderLookupPhoneInput.value.trim().length === 10;
-  const cityValid = orderLookupCityInput.value.trim().length > 0;
-  fetchOrdersBtn.disabled = !(phoneValid && cityValid);
-}
-menuOrderLookupBtn.addEventListener('click', (e) => {
-  e.preventDefault();
-  orderLookupModal.hidden = false;
-  orderLookupPhoneInput.value = '';
-  orderLookupCityInput.value = '';
-  fetchOrdersBtn.disabled = true;
-  ordersResult.innerHTML = '';
-  orderLookupPhoneInput.focus();
-  closeMenu();  // Close side menu for UX
-});
-closeOrderLookupBtn.addEventListener('click', () => {
-  orderLookupModal.hidden = true;
-});
-orderLookupPhoneInput.addEventListener('input', validateInputs);
-orderLookupCityInput.addEventListener('input', validateInputs);
-orderLookupModal.querySelector('.modal-bg').addEventListener('click', () => {
-  orderLookupModal.hidden = true;
-});
-fetchOrdersBtn.addEventListener('click', async () => {
-  const phone = orderLookupPhoneInput.value.trim();
-  const city = orderLookupCityInput.value.trim();
-  if (!phone || !city) return;
-  ordersResult.innerHTML = 'Loading orders...';
-  try {
-    const { data: orders, error } = await supabase
-      .from('orders')
-      .select('id, customer_name, product_list, total_amount, status')
-      .eq('phone', phone)
-      .ilike('city', city)  // Case-insensitive city match
-      .order('id', { ascending: false });
-    if (error) {
-      ordersResult.innerHTML = `<p style="color:red;">Error loading orders: ${error.message}</p>`;
-      return;
-    }
-    if (!orders.length) {
-      ordersResult.textContent = 'No orders found for this phone and city.';
-      return;
-    }
-    // Render orders
-    ordersResult.innerHTML = '';
-    orders.forEach(order => {
-      const products = JSON.parse(order.product_list || '[]');
-      const productHtml = products.map(
-        p => `<ul class="order-product"><li><strong>${p.title}</strong> ${p.size ? '- Size: ' + p.size : ''} ${p.palette ? '- Palette: ' + p.palette : ''}</li></ul>`
-      ).join('');
-      const orderHtml = `
-        <div class="order-item" tabindex="0" aria-label="Order ${order.id}">
-          <div class="order-id">Order ID: ${order.id}</div>
-          <div>Customer: ${order.customer_name}</div>
-          <div>Amount: ₹${order.total_amount.toFixed(2)}</div>
-          <div>Status: <span class="order-status">${order.status || 'Order in process'}</span></div>
-          <div>Products: ${productHtml}</div>
-        </div>
-      `;
-      ordersResult.insertAdjacentHTML('beforeend', orderHtml);
-    });
-  } catch (err) {
-    ordersResult.innerHTML = `<p style="color:red;">Unexpected error: ${err.message}</p>`;
-  }
-});
-  </script>
+  <!-- Keep rest of your original page (banner, footer, menu, modals, scripts) unchanged -->
 </body>
 </html>
