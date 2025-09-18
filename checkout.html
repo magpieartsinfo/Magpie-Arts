@@ -12,6 +12,20 @@
     background: #f8faff;
     padding: 20px;
   }
+.checkout-header {
+  display: flex;
+  align-items: center;
+  gap: 12px; /* space between button and title */
+  margin-bottom: 20px;
+}
+
+.checkout-header h1 {
+  margin: 0;
+  font-size: 1.8rem; /* adjust as needed */
+  font-weight: bold;
+  color: #1e3a8a;
+}
+
   .back-arrow-btn {
     background: none;
     border: none;
@@ -166,11 +180,13 @@
   </a>
 </div>
 
+  <div class="checkout-header">
   <button class="back-arrow-btn" onclick="history.back()" aria-label="Go Back">
-  <img src="https://raw.githubusercontent.com/magpieartsinfo/magpie-arts-site/refs/heads/main/SVG/undo.svg" alt="Back" />
-</button>
-
+    <img src="https://raw.githubusercontent.com/magpieartsinfo/magpie-arts-site/refs/heads/main/SVG/undo.svg" alt="Back" />
+  </button>
   <h1>Checkout</h1>
+</div>
+
   <div id="successMessage" class="success-message" role="alert"></div>
   <div id="errorMessage" class="error-message" role="alert"></div>
   <div id="cartDescription" aria-label="Order Summary">
