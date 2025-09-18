@@ -6,6 +6,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@900&family=Roboto+Serif:ital,wght@0,400;0,700&display=swap" rel="stylesheet" />
   <style>
+    * {
+      box-sizing: border-box;
+    }
+    
     body {
       background: #f3faff;
       color: #222;
@@ -14,6 +18,7 @@
       font-family: 'Candara', Arial, sans-serif;
       overflow-x: hidden;
     }
+    
     .header-bar {
       position: relative;
       background: linear-gradient(90deg, #b4d9f6 0%, #eaeefe 50%, #97d2f7 100%);
@@ -27,6 +32,7 @@
       box-shadow: 0 8px 44px rgba(25, 43, 101, 0.16);
       user-select: none;
     }
+    
     .header-logo {
       position: absolute;
       left: 15px;
@@ -45,11 +51,13 @@
       align-items: center;
       justify-content: center;
     }
+    
     .header-logo img { 
       width: 100%; 
       height: auto; 
       display: block; 
     }
+    
     .brand-title-image {
       display: flex;
       margin: 0 auto;
@@ -62,6 +70,7 @@
       z-index: 5;
       user-select: none;
     }
+    
     .brand-title-image img {
       width: 100%;
       height: auto;
@@ -72,60 +81,37 @@
       background: none;
       filter: drop-shadow(0 2px 4px rgba(32,32,70,0.13));
     }
-    .home-icon {
-      position: absolute;
-      left: 15px;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 42px;
-      height: 42px;
-      cursor: pointer;
-      z-index: 12;
-      background: #e6f0ff;
-      border-radius: 50%;
-      box-shadow: 0 4px 15px rgba(18, 68, 170, 0.14);
-      padding: 7px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: background 0.3s;
-      user-select: none;
-    }
-    .home-icon:hover {
-      background: #c6dfff;
-    }
-    .home-icon svg {
-      width: 28px;
-      height: 28px;
-    }
+    
     .menu-icon {
-      position: absolute;
-      right: 15px;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 42px;
-      height: 42px;
-      background: #e6f0ff;
-      border-radius: 50%;
-      box-shadow: 0 4px 15px rgba(18, 68, 170, 0.14);
-      cursor: pointer;
-      z-index: 12;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: background 0.3s;
-      padding: 7px;
-      user-select: none;
-    }
-    .menu-icon:hover {
-      background: #c6ddff;
-    }
-    .menu-icon svg {
-      width: 28px;
-      height: 28px;
-      display: block;
-      user-select: none;
-    }
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 42px;
+  height: 42px;
+  cursor: pointer;
+  z-index: 12;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 7px;
+  user-select: none;
+  filter: drop-shadow(0 2px 8px rgba(50, 80, 150, 0.3));
+  transition: filter 0.3s;
+}
+
+.menu-icon:hover {
+  filter: drop-shadow(0 4px 12px rgba(50, 80, 150, 0.4));
+}
+
+.menu-icon img {
+  width: 28px;
+  height: 28px;
+  display: block;
+  user-select: none;
+}
+
+    
     nav.main-menu {
       margin: 15px auto 30px auto;
       font-family: Arial, sans-serif;
@@ -136,6 +122,7 @@
       flex-wrap: wrap;
       padding: 0 10px;
     }
+    
     nav.main-menu a {
       font-weight: 700;
       font-size: 1rem;
@@ -149,12 +136,14 @@
       cursor: pointer;
       white-space: nowrap;
     }
+    
     nav.main-menu a.active,
     nav.main-menu a:hover {
       background: #b6d8fe;
       color: #1740ae;
       box-shadow: 0 2.5px 11px #badafdcc;
     }
+    
     .banner-box {
       width: 100%;
       max-width: 100%;
@@ -167,20 +156,24 @@
       overflow: hidden;
       position: relative;
     }
+    
     .carousel-wrapper {
       display: flex;
       width: 400%;
       height: 100%;
       animation: scrollBanner 40s linear infinite;
     }
+    
     .carousel-wrapper:hover {
       animation-play-state: paused;
       cursor: grab;
     }
+    
     .carousel-slide {
       flex: 0 0 25%;
       height: 100%;
     }
+    
     .carousel-slide img,
     .carousel-slide video {
       width: 100%;
@@ -188,6 +181,7 @@
       object-fit: cover;
       border-radius: 12px;
     }
+    
     @keyframes scrollBanner {
       0% { transform: translateX(0); }
       25% { transform: translateX(-25%); }
@@ -195,6 +189,7 @@
       75% { transform: translateX(-75%); }
       100% { transform: translateX(0); }
     }
+    
     .intro {
       max-width: 90%; 
       margin: 0 auto;
@@ -207,12 +202,14 @@
       box-shadow: 0 0 20px #cbe8fa57;
       user-select: none;
     }
+    
     .highlight-red {
       display: block;
       margin-top: 10px;
       font-weight: 700;
       color: #d50738;
     }
+    
     footer {
       background-color: #172a59;
       padding: 25px 15px 20px;
@@ -223,14 +220,17 @@
       margin-top: 40px;
       border-radius: 20px 20px 0 0;
     }
+    
     .contact-info {
       max-width: 100%;
       margin: 0 auto 15px auto;
     }
+    
     .contact-info p {
       margin: 6px 0;
       font-size: 0.9rem;
     }
+    
     .social-icons {
       display: flex;
       justify-content: center;
@@ -238,15 +238,18 @@
       margin-top: 15px;
       flex-wrap: wrap;
     }
+    
     .social-icons a {
       display: inline-block;
       padding: 0;
       margin: 0 4px;
       transition: transform .18s;
     }
+    
     .social-icons a:hover {
       transform: scale(1.12);
     }
+    
     .social-icons img {
       width: 32px;
       height: 32px;
@@ -259,9 +262,11 @@
       padding: 3px;
       transition: box-shadow .22s;
     }
+    
     .social-icons a:hover img {
       box-shadow: 0 3.5px 18px #234dd355;
     }
+    
     /* SIDE MENU */
     #sideMenu {
       position: fixed;
@@ -280,18 +285,22 @@
       flex-direction: column;
       user-select: none;
     }
+    
     #sideMenu.open {
       right: 0;
     }
+    
     #sideMenu ul {
       list-style: none;
       padding: 0;
       margin: 0;
       flex-grow: 1;
     }
+    
     #sideMenu ul li {
       margin-bottom: 15px;
     }
+    
     #sideMenu ul li a {
       text-decoration: none;
       font-weight: 700;
@@ -303,11 +312,13 @@
       transition: background-color 0.25s ease, color 0.25s ease;
       cursor: pointer;
     }
+    
     #sideMenu ul li a:hover,
     #sideMenu ul li a.active {
       background-color: #497cfb;
       color: white;
     }
+    
     #sideMenu footer {
       font-size: 0.8rem;
       color: #496491;
@@ -316,6 +327,7 @@
       text-align: center;
       user-select: none;
     }
+    
     #menuOverlay {
       position: fixed;
       top: 0;
@@ -328,20 +340,14 @@
       transition: opacity 0.3s ease;
       z-index: 1999;
     }
+    
     #menuOverlay.visible {
       opacity: 1;
       visibility: visible;
     }
-    /* Mobile menu icon */
-    .mobile-menu-icon {
-      display: block;
-      width: 30px;
-      height: 30px;
-    }
-    .mobile-menu-icon line {
-      stroke: #285be8;
-      stroke-width: 2;
-    }
+    
+    
+    
     /* Order Lookup Modal */
     #orderLookupModal {
       position: fixed; 
@@ -354,9 +360,11 @@
       align-items: center;
       z-index: 3000;
     }
+    
     #orderLookupModal[hidden] {
       display: none;
     }
+    
     .modal-bg {
       position: fixed; 
       top: 0; 
@@ -366,6 +374,7 @@
       background-color: rgba(0,0,0,0.4);
       backdrop-filter: blur(3px);
     }
+    
     .modal-content {
       position: relative;
       background: white;
@@ -379,6 +388,7 @@
       user-select: none;
       margin: 0 15px;
     }
+    
     #closeOrderLookup {
       position: absolute; 
       top: 10px; 
@@ -390,14 +400,7 @@
       cursor: pointer;
       color: #1852dd;
     }
-    #orderLookupEmail {
-      width: 100%;
-      padding: 10px;
-      margin: 12px 0;
-      border: 2px solid #aed4ff;
-      border-radius: 10px;
-      font-size: 1rem;
-    }
+    
     #fetchOrdersBtn {
       background: #1852dd;
       border: none;
@@ -410,45 +413,55 @@
       width: 100%;
       user-select: none;
     }
+    
     #fetchOrdersBtn:disabled {
       background: #a3c2ff;
       cursor: not-allowed;
     }
+    
     #ordersResult {
       margin-top: 20px;
       max-height: 320px;
       overflow-y: auto;
       font-size: 0.9rem;
     }
+    
     .order-item {
       border-bottom: 1px solid #cee1ff;
       padding: 8px 0;
     }
+    
     .order-item:last-child {
       border-bottom: none;
     }
+    
     .order-id {
       font-weight: 700;
       color: #174197;
       margin-bottom: 4px;
     }
+    
     .order-status {
       color: orange;
       font-weight: 700;
       margin-bottom: 8px;
     }
+    
     .order-product {
       margin-left: 10px;
     }
+    
     .modal-content p {
       margin-bottom: 12px;
       font-weight: 600;
       font-size: 1rem;
       color: #1b2e57;
     }
+    
     .input-group {
       margin-bottom: 16px;
     }
+    
     .input-group input {
       width: 100%;
       padding: 12px 14px;
@@ -459,6 +472,7 @@
       transition: border-color 0.3s ease;
       box-sizing: border-box;
     }
+    
     .input-group input:focus {
       border-color: #3460f0;
     }
@@ -471,30 +485,45 @@
         margin: 0 20px 20px;
         padding: 0 20px 10px;
       }
+      
       .header-logo {
         left: 24px;
         width: 110px;
         height: 110px;
         padding: 7px 12px;
       }
+      
       .brand-title-image {
         max-width: 460px;
         min-width: 420px;
         width: 220px;
       }
       
-      .menu-icon svg {
-        width: 50px;
-        height: 50px;
-      }
+      
+  .menu-icon {
+    width: 36px;
+    height: 36px;
+    right: 10px;
+    padding: 5px;
+  }
+  
+  .menu-icon img {
+    width: 20px;
+    height: 20px;
+  }
+
+
+      
       nav.main-menu {
         margin: 24px auto 44px auto;
         gap: 38px;
       }
+      
       nav.main-menu a {
         font-size: 1.22rem;
         padding: 7px 18px;
       }
+      
       .banner-box {
         width: 1200px;
         max-width: 95vw;
@@ -503,27 +532,33 @@
         border-radius: 32px;
         border: 7px solid #d8f1ff;
       }
+      
       .carousel-slide img,
       .carousel-slide video {
         border-radius: 25px;
       }
+      
       .intro {
         max-width: 630px;
         font-size: 1.15rem;
         padding: 1rem 2rem;
       }
+      
       footer {
         padding: 36px 20px 28px;
         margin-top: 55px;
         border-radius: 30px 30px 0 0;
       }
+      
       .contact-info p {
         font-size: 1rem;
       }
+      
       .social-icons {
         gap: 34px;
         margin-top: 17px;
       }
+      
       .social-icons img {
         width: 38px;
         height: 38px;
@@ -535,46 +570,63 @@
         min-height: 100px;
         padding: 10px;
       }
+      
       .header-logo {
         width: 60px;
         height: 60px;
         left: 10px;
       }
+      
       .brand-title-image {
         width: 50%;
         max-width: 180px;
       }
       
-      .menu-icon svg {
-        width: 50px;
-        height: 50px;
-      }
+       .menu-icon {
+    width: 36px;
+    height: 36px;
+    right: 10px;
+    padding: 5px;
+  }
+  
+  .menu-icon img {
+    width: 20px;
+    height: 20px;
+  }
+      
       nav.main-menu {
         gap: 8px;
         margin: 10px auto 20px auto;
       }
+      
       nav.main-menu a {
         font-size: 0.9rem;
         padding: 5px 10px;
       }
+      
       .banner-box {
         height: 160px;
         margin-bottom: 1.5rem;
       }
+      
       .intro {
         font-size: 0.9rem;
         padding: 0.8rem;
       }
+      
       footer {
         padding: 20px 10px 15px;
         margin-top: 30px;
       }
+      
       .contact-info p {
         font-size: 0.8rem;
       }
+      
       .social-icons {
         gap: 15px;
       }
+      
       .social-icons img {
         width: 28px;
         height: 28px;
@@ -600,12 +652,12 @@
       <img src="https://raw.githubusercontent.com/magpieartsinfo/magpiearts-assets/main/magpie-arts-site/images/logo.png" alt="Magpie Arts Logo" />
     </span>
     <div class="brand-title-image" aria-label="Paint It Easily Kits brand logo">
-      <img src="https://raw.githubusercontent.com/magpieartsinfo/magpiearts-assets/refs/heads/main/magpie-arts-site/images/MAGPIE-ARTS-TITLE.svg" alt="" />
+      <img src="https://raw.githubusercontent.com/magpieartsinfo/magpiearts-assets/refs/heads/main/magpie-arts-site/images/MAGPIE-ARTS-TITLE.svg" />
     </div>
     <span class="menu-icon" role="button" aria-label="Toggle menu" tabindex="0" title="Menu">
-      <svg class="mobile-menu-icon" viewBox="0 0 30 30" xmlns="https://raw.githubusercontent.com/magpieartsinfo/magpie-arts-site/main/SVG/menu%20icon.svg">
-      </svg>
-    </span>
+  <img src="https://raw.githubusercontent.com/magpieartsinfo/magpie-arts-site/refs/heads/main/SVG/menu%20icon.svg" alt="Menu" />
+</span>
+
   </header>
   <nav class="main-menu" aria-label="Main navigation">
     <a href="https://magpieartsinfo.github.io/magpie-arts-site/index.html" class="active">Home</a>
@@ -680,14 +732,16 @@
 </div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script>
-// Initialize Supabase client (replace with your credentials)
+// Initialize Supabase client
 const supabaseUrl = "https://rxtukfjjeruospodnkdz.supabase.co";
 const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ4dHVrZmpqZXJ1b3Nwb2Rua2R6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTc0ODc0NTQsImV4cCI6MjA3MzA2MzQ1NH0.-sgX4XjHiamnzyqDdlmBlrPgaPMgX8GbzdB1c2rnSc0";
 const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+
 // Menu toggle logic
 const menuIcon = document.querySelector('.menu-icon');
 const sideMenu = document.getElementById('sideMenu');
 const menuOverlay = document.getElementById('menuOverlay');
+
 menuIcon.addEventListener('click', () => {
   if (sideMenu.classList.contains('open')) {
     closeMenu();
@@ -695,43 +749,52 @@ menuIcon.addEventListener('click', () => {
     openMenu();
   }
 });
+
 menuOverlay.addEventListener('click', closeMenu);
+
 function openMenu() {
   sideMenu.classList.add("open");
   menuOverlay.classList.add("visible");
   document.body.style.overflow = "hidden";
 }
+
 function closeMenu() {
   sideMenu.classList.remove("open");
   menuOverlay.classList.remove("visible");
   document.body.style.overflow = "";
 }
+
 // Navigation links inside side menu
 document.getElementById('menuPaintByNumber').addEventListener('click', e => {
   e.preventDefault();
   window.location.href = 'https://magpieartsinfo.github.io/magpie-arts-site/shop.html#paint';
   closeMenu();
 });
+
 document.getElementById('menuCustom').addEventListener('click', e => {
   e.preventDefault();
   window.location.href = 'https://magpieartsinfo.github.io/magpie-arts-site/shop.html#custom';
   closeMenu();
 });
+
 document.getElementById('menuDevotion').addEventListener('click', e => {
   e.preventDefault();
   window.location.href = 'https://magpieartsinfo.github.io/magpie-arts-site/shop.html#devotion';
   closeMenu();
 });
+
 document.getElementById('menuScenery').addEventListener('click', e => {
   e.preventDefault();
   window.location.href = 'https://magpieartsinfo.github.io/magpie-arts-site/shop.html#scenery';
   closeMenu();
 });
+
 document.getElementById('menuCart').addEventListener('click', e => {
   e.preventDefault();
-  window.location.href = 'https://magpieartsinfo.github.io/magpie-arts-site/cart.html';  // Redirect to cart page
+  window.location.href = 'https://magpieartsinfo.github.io/magpie-arts-site/cart.html';
   closeMenu();
 });
+
 // Order Lookup Popup Script
 const orderLookupModal = document.getElementById('orderLookupModal');
 const menuOrderLookupBtn = document.getElementById('menuOrderLookup');
@@ -740,11 +803,13 @@ const fetchOrdersBtn = document.getElementById('fetchOrdersBtn');
 const orderLookupPhoneInput = document.getElementById('orderLookupPhone');
 const orderLookupCityInput = document.getElementById('orderLookupCity');
 const ordersResult = document.getElementById('ordersResult');
+
 function validateInputs() {
   const phoneValid = orderLookupPhoneInput.validity.valid && orderLookupPhoneInput.value.trim().length === 10;
   const cityValid = orderLookupCityInput.value.trim().length > 0;
   fetchOrdersBtn.disabled = !(phoneValid && cityValid);
 }
+
 menuOrderLookupBtn.addEventListener('click', (e) => {
   e.preventDefault();
   orderLookupModal.hidden = false;
@@ -753,36 +818,45 @@ menuOrderLookupBtn.addEventListener('click', (e) => {
   fetchOrdersBtn.disabled = true;
   ordersResult.innerHTML = '';
   orderLookupPhoneInput.focus();
-  closeMenu();  // Close side menu for UX
+  closeMenu();
 });
+
 closeOrderLookupBtn.addEventListener('click', () => {
   orderLookupModal.hidden = true;
 });
+
 orderLookupPhoneInput.addEventListener('input', validateInputs);
 orderLookupCityInput.addEventListener('input', validateInputs);
+
 orderLookupModal.querySelector('.modal-bg').addEventListener('click', () => {
   orderLookupModal.hidden = true;
 });
+
 fetchOrdersBtn.addEventListener('click', async () => {
   const phone = orderLookupPhoneInput.value.trim();
   const city = orderLookupCityInput.value.trim();
   if (!phone || !city) return;
+  
   ordersResult.innerHTML = 'Loading orders...';
+  
   try {
     const { data: orders, error } = await supabase
       .from('orders')
       .select('id, customer_name, product_list, total_amount, status')
       .eq('phone', phone)
-      .ilike('city', city)  // Case-insensitive city match
+      .ilike('city', city)
       .order('id', { ascending: false });
+      
     if (error) {
       ordersResult.innerHTML = `<p style="color:red;">Error loading orders: ${error.message}</p>`;
       return;
     }
+    
     if (!orders.length) {
       ordersResult.textContent = 'No orders found for this phone and city.';
       return;
     }
+    
     // Render orders
     ordersResult.innerHTML = '';
     orders.forEach(order => {
@@ -790,6 +864,7 @@ fetchOrdersBtn.addEventListener('click', async () => {
       const productHtml = products.map(
         p => `<ul class="order-product"><li><strong>${p.title}</strong> ${p.size ? '- Size: ' + p.size : ''} ${p.palette ? '- Palette: ' + p.palette : ''}</li></ul>`
       ).join('');
+      
       const orderHtml = `
         <div class="order-item" tabindex="0" aria-label="Order ${order.id}">
           <div class="order-id">Order ID: ${order.id}</div>
