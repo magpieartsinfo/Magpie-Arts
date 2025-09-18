@@ -111,7 +111,22 @@
   user-select: none;
 }
 
-    
+ nav.main-menu a.highlighted-menu-item {
+  background: linear-gradient(90deg, #285be8, #6b9cff);
+  color: white;
+  font-weight: 900;
+  padding: 9px 18px;
+  box-shadow: 0 5px 15px rgba(40, 91, 232, 0.4);
+  border-radius: 14px;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+nav.main-menu a.highlighted-menu-item:hover,
+nav.main-menu a.highlighted-menu-item:focus {
+  background: linear-gradient(90deg, #1b429c, #527dcf);
+  color: #e0e7ff;
+  box-shadow: 0 8px 24px rgba(40, 91, 232, 0.6);
+}
+   
     nav.main-menu {
       margin: 15px auto 30px auto;
       font-family: Arial, sans-serif;
@@ -661,7 +676,7 @@
   </header>
   <nav class="main-menu" aria-label="Main navigation">
     <a href="https://magpieartsinfo.github.io/magpie-arts-site/index.html" class="active">Home</a>
-    <a href="https://magpieartsinfo.github.io/magpie-arts-site/shop.html">Shop</a>
+    <a href="https://magpieartsinfo.github.io/magpie-arts-site/shop.html" class="highlighted-menu-item">Shop</a>
     <a href="https://magpieartsinfo.github.io/magpie-arts-site/about.html">About Us</a>
     <a href="#contact-section">Contact Us</a>
   </nav>
