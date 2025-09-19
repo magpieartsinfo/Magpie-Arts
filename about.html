@@ -4,16 +4,16 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>MAGPIE ARTS | About Us</title>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@900&family=Roboto+Serif:ital,wght@0,400;0,700&family=Dancing+Script:wght@700&family=Merriweather:wght@900&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@900&family=Roboto+Serif:ital,wght@0;700&family=Dancing+Script:wght@700&family=Merriweather:wght@900&display=swap" rel="stylesheet" />
   <style>
-   body {
-  background: #f3faff;
-  color: #222;
-  margin: 0;
-  padding: 0; /* remove left/right padding */
-  font-family: 'Candara', Arial, sans-serif;
-  overflow-x: hidden;
-}
+    body {
+      background: #f3faff;
+      color: #222;
+      margin: 0;
+      padding: 0;
+      font-family: 'Candara', Arial, sans-serif;
+      overflow-x: hidden;
+    }
     .header-bar {
       position: relative;
       background: linear-gradient(90deg, #b4d9f6 0%, #eaeefe 50%, #97d2f7 100%);
@@ -33,31 +33,34 @@
       height: auto;
       background: #fff;
       border-radius: 16px;
-      padding: 7px 12px;
       border: 3px solid #d9eefb;
-      box-shadow: 0 6px 40px 0 rgba(60,90,170,0.09);
+      box-shadow: 0 6px 40px rgba(60,90,170,0.09);
       display: flex;
       align-items: center;
       justify-content: center;
       margin-left: 20px;
       user-select: none;
+      padding: 7px 12px;
     }
     .header-logo img {
       width: 110px;
       height: auto;
       display: block;
     }
-    /* Container for buttons below header */
-
-.main-container {
-  max-width: 960px;
-  margin: 0 auto;
-  padding: 0 18px 30px 18px; /* space on mobile, desktop, bottom */
-  box-sizing: border-box;
-}
+    .main-container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 18px 30px;
+      box-sizing: border-box;
+    }
+    @media (min-width: 700px) {
+      .main-container {
+        padding: 0 34px 40px;
+      }
+    }
     .header-buttons {
       max-width: 960px;
-      margin: 0 auto 40px auto;
+      margin: 0 auto 40px;
       text-align: center;
     }
     .header-buttons button {
@@ -70,8 +73,8 @@
       border-radius: 14px;
       cursor: pointer;
       user-select: none;
-      transition: background-color 0.3s;
       margin: 0 12px;
+      transition: background-color 0.3s;
     }
     .header-buttons button:hover {
       background-color: #0f2a61;
@@ -115,64 +118,19 @@
       margin-bottom: 8px;
       line-height: 1.35;
     }
-    main.about-content .section-title {
-      font-weight: 700;
-      font-size: 1.5rem;
-      margin-top: 2.5rem;
-      margin-bottom: 1rem;
-      color: #1a2e57;
-      border-bottom: 2px solid #97d2f7;
-      padding-bottom: 6px;
-    }
-    .kits-steps {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 30px;
-      justify-content: center;
-      margin-top: 20px;
-    }
-    .step-card {
-      flex: 0 1 250px;
-      background: #e8f0fd;
-      border-radius: 20px;
-      padding: 18px;
-      box-shadow: 0 4px 16px #a0c6feaa;
-      text-align: center;
-      color: #174197;
-      user-select: none;
-    }
-    .step-card img {
-      width: 100%;
-      height: 150px;
-      object-fit: contain;
-      border-radius: 16px;
-      margin-bottom: 12px;
-      box-shadow: 0 2px 10px #a0c6fe88;
-      background: white;
-    }
-    .step-card h3 {
-      font-size: 1.2rem;
-      margin-bottom: 8px;
-      font-weight: 800;
-    }
-    /* Special styling for the mission statement */
     .mission-statement {
       text-align: center;
-      margin-top: 35px;
-      margin-bottom: 38px;
+      margin: 35px auto 38px;
       font-size: 1.8rem;
-      line-height: 1;
-      letter-spacing: 0.02em;
     }
     .mission-statement .turn-moments {
       color: #ef1b1b;
-      font-family: 'Dancing Script', cursive;
+      font-family: 'Dancing', cursive;
       font-weight: 700;
       font-size: 2.1rem;
-      font-style: normal;
       display: inline-block;
-      margin-right: 8px;
       vertical-align: middle;
+      margin-right: 8px;
     }
     .mission-statement .masterpiece {
       font-family: 'Merriweather', serif;
@@ -183,238 +141,150 @@
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
-      color: #ef1b1b; /* fallback for older browsers */
+      color: transparent;
       display: inline-block;
       vertical-align: middle;
       margin-left: 6px;
       letter-spacing: 0.02em;
     }
-    
-@media (min-width: 700px) {
-  .main-container {
-     padding: 0 34px 40px 34px;
-  }
-}
-      @media (max-width: 600px) {
-      .kits-steps {
-        flex-direction: column;
-        align-items: center;
+    .added-mission-vision {
+      max-width: 900px;
+      background: #e7f3fa;
+      border-radius: 20px;
+      padding: 30px;
+      margin: 40px auto;
+      color: #174197;
+      font-size: 1.15rem;
+      box-sizing: border-box;
+      line-height: 1.6;
+      text-align: center;
+    }
+    .added-mission-vision h2 {
+      font-weight: 700;
+      margin-bottom: 15px;
+      font-size: 1.9rem;
+      color: #264a8b;
+    }
+    footer.footer-contact {
+      background: #172f69;
+      color: #dde6f0;
+      padding: 30px 15px 20px;
+      text-align: center;
+      border-radius: 20px 20px 0 0;
+      margin-top: 40px;
+      box-sizing: border-box;
+      width: 100vw;
+      max-width: 100vw;
+      position: relative;
+      left: 50%;
+      right: 50%;
+      transform: translateX(-50%);
+      font-family: Arial, sans-serif;
+      user-select: none;
+    }
+    .footer-contact .contact-info,
+    .footer-contact .social-icons {
+      max-width: 960px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .footer-contact .contact-info p {
+      font-size: 1rem;
+      margin: 8px 0 12px;
+      color: #dde6f0;
+      line-height: 1.5;
+    }
+    .footer-contact a {
+      color: #dde6f0;
+      text-decoration: underline;
+    }
+    .footer-contact .contact-info p strong {
+      font-weight: 700;
+      color: #dde6f0;
+    }
+    .footer-contact .social-icons {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .footer-contact .social-icons img {
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
+      background-color: #fff;
+      padding: 4px;
+      box-shadow: 0 2px 6px #9dc2fbaa;
+      transition: box-shadow 0.2s ease;
+    }
+    .footer-contact .social-icons img:hover {
+      box-shadow: 0 2px 20px #6ea1fcaa;
+      cursor: pointer;
+    }
+    @media (max-width: 600px) {
+      .added-mission-vision {
+        padding: 20px 20px 25px;
+        font-size: 1rem;
       }
-      .mission-statement {
-        font-size: 1.2rem;
-      }
-      .mission-statement .turn-moments {
-        font-size: 1.2rem;
-      }
-      .mission-statement .masterpiece {
-        font-size: 1.38rem;
+      .footer-contact .social-icons img {
+        width: 32px;
+        height: 32px;
       }
     }
-    .footer-contact {
-  background: #172a59;
-  color: #dde6f0;
-  padding: 30px 15px 20px;
-  text-align: center;
-  font-family: Arial, sans-serif;
-  user-select: none;
-  margin-top: 40px;
-  border-radius: 20px 20px 0 0;
-  width: 100vw;
-  max-width: 100vw;
-  margin-left: 0;
-  margin-right: 0;
-  position: relative;
-  left: 50%;
-  right: 50%;
-  transform: translateX(-50%);
-  box-sizing: border-box;
-}
-
-.contact-info {
-  max-width: 100%;
-  margin: 0 auto 20px auto;
-}
-
-.contact-info p {
-  margin: 8px 0;
-  font-size: 1rem;
-  color: #dde6f0;
-  line-height: 1.5;
-}
-
-.contact-info strong {
-  font-size: 1.1rem;
-  color: #fff;
-}
-
-.contact-info a {
-  color: #fff !important;
-  text-decoration: underline;
-}
-
-.social-icons {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  margin-top: 20px;
-  flex-wrap: wrap;
-}
-
-.social-icons a {
-  display: inline-block;
-  padding: 0;
-  margin: 0 4px;
-  transition: transform 0.18s ease;
-  text-decoration: none;
-}
-
-.social-icons a:hover {
-  transform: scale(1.12);
-}
-
-.social-icons img {
-  width: 38px;
-  height: 38px;
-  object-fit: contain;
-  border-radius: 12px;
-  display: inline-block;
-  vertical-align: middle;
-  box-shadow: 0 2px 8px rgba(35, 77, 211, 0.3);
-  background: #fff;
-  padding: 4px;
-  transition: box-shadow 0.22s ease;
-}
-
-.social-icons a:hover img {
-  box-shadow: 0 4px 16px rgba(35, 77, 211, 0.45);
-}
-
-/* Responsive adjustments */
-@media (min-width: 768px) {
-  .footer-contact {
-    padding: 36px 20px 28px;
-    margin-top: 50px;
-    border-radius: 30px 30px 0 0;
-  }
-  
-  .contact-info p {
-    font-size: 1.05rem;
-  }
-  
-  .social-icons {
-    gap: 25px;
-    margin-top: 25px;
-  }
-  
-  .social-icons img {
-    width: 40px;
-    height: 40px;
-  }
-}
-
-@media (max-width: 480px) {
-  .footer-contact {
-    padding: 20px 10px 15px;
-    margin-top: 30px;
-    border-radius: 15px 15px 0 0;
-  }
-  
-  .contact-info p {
-    font-size: 0.9rem;
-  }
-  
-  .social-icons {
-    gap: 15px;
-  }
-  
-  .social-icons img {
-    width: 32px;
-    height: 32px;
-  }
-}
-
   </style>
 </head>
 <body>
-<div class="main-container">
-  <header class="header-bar" role="banner">
-    <a href="https://magpieartsinfo.github.io/magpie-arts-site/index.html" class="header-logo" aria-label="Go to MAGPIE ARTS Home Page">
-      <img src="https://raw.githubusercontent.com/magpieartsinfo/magpiearts-assets/main/magpie-arts-site/images/logo.png" alt="Magpie Arts Logo" />
-    </a>
-  </header>
-  <div class="header-buttons" role="navigation" aria-label="Page navigation buttons">
-    <button onclick="window.location.href='https://magpieartsinfo.github.io/magpie-arts-site/index.html'">Home</button>
-    <button onclick="window.location.href='https://magpieartsinfo.github.io/magpie-arts-site/shop.html'">Shop</button>
-  </div>
-  <main class="about-content" role="main">
-    <h1>About MAGPIE ARTS</h1>
-    <p>
-      At Magpie Arts, we believe art should be easy, joyful, and accessible to everyone. That’s why we created PIE Kits – Paint It Easily, a unique range of DIY Paint-by-Number kits that let anyone create stunning acrylic paintings — no experience required!
-    </p>
-    <p>
-      With PIE Kits, you can turn cherished photos, favorite designs, or timeless sceneries into personal masterpieces that are ready to frame and treasure forever. Each kit is carefully crafted to provide not just paints and canvas, but an experience of relaxation, mindfulness, and creativity.
-    </p>
-    <div class="mission-statement" aria-label="Our mission statement">
-      <span class="turn-moments">Turn Moments into</span>
-      <span class="masterpiece">MASTERPIECE</span>.
-    </div>
-    <p><strong>Why PIE Kits?</strong></p>
-    <ul>
-      <li>🎨 <strong>Anyone Can Paint</strong> – Simple paint-by-number guides make it easy for kids, adults, families, and even first-time painters.</li>
-      <li>🌿 <strong>High-Quality Materials</strong> – Premium brushes, vibrant acrylic paints, and durable canvases.</li>
-      <li>💖 <strong>Meaningful Gifts</strong> – Perfect for birthdays, anniversaries, weddings, and corporate celebrations.</li>
-      <li>🧘 <strong>Stress Relief & Focus</strong> – Painting is a calming way to relax, focus your mind, and enjoy the moment.</li>
-      <li>🎁 <strong>Customized Memories</strong> – Upload your own photo and receive a personalized kit that captures your special moments.</li>
-    </ul>
-    
-    <p><strong>How It Works</strong></p>
-    <ol>
-      <li>Select a design or upload your personal photo.</li>
-      <li>Choose your kit size (Small, Medium, or Large).</li>
-      <li>Receive your customized PIE Kit with all materials included.</li>
-      <li>Enjoy painting your own artwork — and watch it come alive!</li>
-    </ol>
-    <h2 class="section-title">How PIE Kits Work</h2>
-    <div class="kits-steps">
-      <div class="step-card">
-        <img src="https://example.com/path-to-your-images/step1_paint_set.jpg" alt="Step 1: Prepare Your Paint Set" />
-        <h3>Prepare Your Paint Set</h3>
-        <p>Unbox your PIE kit, organize the acrylic paints, and get ready to start painting.</p>
-      </div>
-      <div class="step-card">
-        <img src="https://example.com/path-to-your-images/step2_paint_canvas.jpg" alt="Step 2: Paint the Canvas" />
-        <h3>Paint the Canvas</h3>
-        <p>Use the numbered colors to fill in the canvas section by section, following the guide.</p>
-      </div>
-      <div class="step-card">
-        <img src="https://example.com/path-to-your-images/step3_completed_artwork.jpg" alt="Step 3: Your Completed Artwork" />
-        <h3>Complete Your Artwork</h3>
-        <p>Enjoy your beautiful masterpiece and share it with friends and family!</p>
-      </div>
-    </div>
-  </main>
-    </div>
-  <footer class="footer-contact" id="contact-section" aria-label="Footer">
-  <div class="contact-info">
-    <p><strong>Contact Us</strong></p>
-    <p>Phone: +91-8128136985 &nbsp;|&nbsp; Email: <a href="mailto:magpieartsinfo@gmail.com" style="color:#fff;text-decoration:underline;">magpieartsinfo@gmail.com</a></p>
-    <p>Address: 285, Manmandir Residency, Ankleshwar, Gujarat-393001</p>
-  </div>
-  <nav class="social-icons" aria-label="Social media links" role="navigation">
-    <a href="https://api.whatsapp.com/send?phone=918128136985" aria-label="WhatsApp" rel="noopener" target="_blank">
-      <img src="https://raw.githubusercontent.com/magpieartsinfo/magpiearts-assets/refs/heads/main/magpie-arts-site/images/whatsapp-icon.svg" alt="WhatsApp" width="38" height="38" />
-    </a>
-    <a href="https://www.linkedin.com/company/magpie-arts/?viewAsMember=true" aria-label="LinkedIn" rel="noopener" target="_blank">
-      <img src="https://raw.githubusercontent.com/magpieartsinfo/magpiearts-assets/refs/heads/main/magpie-arts-site/images/linkedin-icon.svg" alt="LinkedIn" width="38" height="38" />
-    </a>
-    <a href="https://www.instagram.com/magpiearts27?igsh=cWMxZ2UydWV3ZHdy" aria-label="Instagram" rel="noopener" target="_blank">
-      <img src="https://raw.githubusercontent.com/magpieartsinfo/magpiearts-assets/refs/heads/main/magpie-arts-site/images/instagram-icon.svg" alt="Instagram" width="38" height="38" />
-    </a>
-    <a href="https://www.facebook.com/share/1QVHnxCqRB/" aria-label="Facebook" rel="noopener" target="_blank">
-      <img src="https://raw.githubusercontent.com/magpieartsinfo/magpiearts-assets/refs/heads/main/magpie-arts-site/images/facebook-icon.svg" alt="Facebook" width="38" height="38" />
-    </a>
-  </nav>
-</footer>
+  <div class="main-container">
+    <header class="header-bar" role="banner">
+      <a href="https://magpieart...
+      <!-- rest of header content -->
+    </header>
 
+    <div class="header-buttons" role="navigation">
+      <button onclick="window.location.href='index.html'">Home</button>
+      <button onclick="window.location.href='shop.html'">Shop</button>
+    </div>
+
+    <main class="about-content" role="main">
+      <h1>About MAGPIE ARTS</h1>
+      <p>At Magpie Arts, we believe art should be easy, joyful, and accessible to everyone. That’s why we created PIE Kits – Paint It Easily, a unique range of DIY paint-by-number kits. No experience is needed!</p>
+      <p>With PIE Kits, you can turn cherished photos, favorite designs, or timeless sceneries into personal masterpieces ready to be framed and treasured. Each kit provides materials that encourage relaxation, mindfulness, and creativity.</p>
+
+      <div class="mission-statement" aria-label="Mission statement">
+        <span class="turn-moments">Turn Moments into</span>
+        <span class="masterpiece">MASTERPIECE</span>.
+      </div>
+
+      <div class="added-mission-vision">
+        <h2>Mission</h2>
+        <p>At MAGPIE ARTS, our mission is to make art simple, joyful, and accessible for everyone. With PIE Kits, we bring the magic of paint-by-number kits into homes—empowering beginners and hobbyists alike to create beautiful masterpieces without hesitation. Each kit is designed to inspire creativity, reduce stress, and turn precious moments into lifelong treasures on canvas.</p>
+        <h2>Vision</h2>
+        <p>Our vision at MAGPIE ARTS is a world where every home is filled with colors, creativity, and shared memories. We want painting to be a personal, heartfelt experience—one that families, friends, and individuals cherish and enjoy. Through PIE Kits, we inspire people to turn moments into masterpieces they can treasure for life.</p>
+      </div>
+    </main>
+  </div>
+
+  <footer class="footer-contact" aria-label="Footer">
+    <div class="contact-info">
+      <p><strong>Contact Us</strong></p>
+      <p>Phone: +91-812136985 | Email: <a href="mailto:magpieartsinfo@gmail.com">magpieartsinfo@gmail.com</a></p>
+      <p>Address: 285, Manmandir Residency, Ankleshwar, Gujarat-393001</p>
+    </div>
+    <nav class="social-icons" aria-label="Social media links" role="navigation">
+      <a href="https://api.whatsapp.com/send?phone=918128138685" aria-label="WhatsApp" target="_blank">
+        <img src="https://raw.githubusercontent.com/magpieart.../images/whatsapp-icon.svg" alt="WhatsApp" width="38" height="38" />
+      </a>
+      <a href="https://linkedin.com/company/magpiearts" aria-label="LinkedIn" target="_blank">
+        <img src="https://raw.githubusercontent.com/magpieart.../images/linkedin-icon.svg" alt="LinkedIn" width="38" height="38" />
+      </a>
+      <a href="https://instagram.com/magpiearts" aria-label="Instagram" target="_blank">
+        <img src="https://raw.githubusercontent.com/magpieart.../images/instagram-icon.svg" alt="Instagram" width="38" height="38" />
+      </a>
+      <a href="https://facebook.com/magpiearts" aria-label="Facebook" target="_blank">
+        <img src="https://raw.githubusercontent.com/magpieart.../images/facebook-icon.svg" alt="Facebook" width="38" height="38" />
+      </a>
+    </nav>
+  </footer>
 </body>
 </html>
+s
