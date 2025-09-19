@@ -204,10 +204,15 @@
   text-align: center;
   font-family: Arial, sans-serif;
   user-select: none;
-  margin: 40px -20px 0 -20px; /* Negative margins to offset body padding */
+  margin: 40px -20px 0 -20px; /* Negative margins to break out of body padding */
   border-radius: 20px 20px 0 0;
-  width: calc(100% + 40px); /* Compensate for negative margins */
-  max-width: none; /* Remove max-width constraint */
+  width: calc(100vw); /* Full viewport width */
+  max-width: none;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw; /* Center and extend to full width */
+  margin-right: -50vw;
 }
 
 .contact-info {
