@@ -1,4 +1,4 @@
-x<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -99,18 +99,15 @@ x<!DOCTYPE html>
   filter: drop-shadow(0 2px 8px rgba(50, 80, 150, 0.3));
   transition: filter 0.3s;
 }
-
 .menu-icon:hover {
   filter: drop-shadow(0 4px 12px rgba(50, 80, 150, 0.4));
 }
-
 .menu-icon img {
   width: 40px;
   height: 40px;
   display: block;
   user-select: none;
 }
-
  nav.main-menu a.highlighted-menu-item {
   background: linear-gradient(90deg, #285be8, #6b9cff);
   color: white;
@@ -435,100 +432,36 @@ nav.main-menu a.highlighted-menu-item:focus {
     }
     
     #ordersResult {
-  max-height: 320px;
-  overflow-y: auto;
-  font-size: 0.9rem;
-  margin-top: 16px;
-}
-
-.order-item {
-  background: #f8fbff;
-  border: 1px solid #e1efff;
-  border-radius: 12px;
-  padding: 16px;
-  margin-bottom: 16px;
-  transition: all 0.2s ease;
-}
-
-.order-item:hover {
-  background: #f0f8ff;
-  border-color: #b3d9ff;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-}
-
-.order-item:last-child {
-  margin-bottom: 0;
-}
-
-.order-id {
-  font-weight: 700;
-  color: #174197;
-  margin-bottom: 8px;
-  font-size: 1rem;
-  border-bottom: 1px solid #e1efff;
-  padding-bottom: 6px;
-}
-
-.order-detail {
-  margin: 6px 0;
-  font-size: 0.95rem;
-  color: #333;
-}
-
-.order-detail strong {
-  color: #174197;
-  font-weight: 600;
-}
-
-.order-status {
-  color: #ff8c00;
-  font-weight: 700;
-  background: #fff4e6;
-  padding: 2px 8px;
-  border-radius: 6px;
-  font-size: 0.85rem;
-}
-
-.order-products {
-  margin-top: 12px;
-  padding-top: 12px;
-  border-top: 1px solid #e1efff;
-}
-
-.order-products-title {
-  font-weight: 600;
-  color: #174197;
-  margin-bottom: 8px;
-}
-
-.product-item {
-  background: #ffffff;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  padding: 10px;
-  margin: 6px 0;
-  font-size: 0.9rem;
-}
-
-.product-title {
-  font-weight: 600;
-  color: #2c5aa0;
-  margin-bottom: 4px;
-}
-
-.product-details {
-  color: #666;
-  font-size: 0.85rem;
-}
-
-/* Empty state styling */
-.no-orders-message {
-  text-align: center;
-  padding: 24px;
-  color: #666;
-  font-style: italic;
-}
-
+      margin-top: 20px;
+      max-height: 320px;
+      overflow-y: auto;
+      font-size: 0.9rem;
+    }
+    
+    .order-item {
+      border-bottom: 1px solid #cee1ff;
+      padding: 8px 0;
+    }
+    
+    .order-item:last-child {
+      border-bottom: none;
+    }
+    
+    .order-id {
+      font-weight: 700;
+      color: #174197;
+      margin-bottom: 4px;
+    }
+    
+    .order-status {
+      color: orange;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    
+    .order-product {
+      margin-left: 10px;
+    }
     
     .modal-content p {
       margin-bottom: 12px;
@@ -555,7 +488,6 @@ nav.main-menu a.highlighted-menu-item:focus {
     .input-group input:focus {
       border-color: #3460f0;
     }
-
     /* Responsive adjustments */
     @media (min-width: 768px) {
       .header-bar {
@@ -585,13 +517,10 @@ nav.main-menu a.highlighted-menu-item:focus {
     right: 15px;
     padding: 5px;
   }
-  
   .menu-icon img {
     width: 40px;
     height: 40px;
   }
-
-
       
       nav.main-menu {
         margin: 24px auto 44px auto;
@@ -643,7 +572,6 @@ nav.main-menu a.highlighted-menu-item:focus {
         height: 38px;
       }
     }
-
     @media (max-width: 480px) {
       .header-bar {
         min-height: 100px;
@@ -667,7 +595,6 @@ nav.main-menu a.highlighted-menu-item:focus {
     right: 15px;
     padding: 5px;
   }
-  
   .menu-icon img {
     width: 40px;
     height: 40px;
@@ -736,7 +663,6 @@ nav.main-menu a.highlighted-menu-item:focus {
     <span class="menu-icon" role="button" aria-label="Toggle menu" tabindex="0" title="Menu">
   <img src="https://raw.githubusercontent.com/magpieartsinfo/magpie-arts-site/refs/heads/main/SVG/menu%20icon.svg" alt="Menu" />
 </span>
-
   </header>
   <nav class="main-menu" aria-label="Main navigation">
     <a href="https://magpieartsinfo.github.io/magpie-arts-site/index.html" class="active">Home</a>
@@ -815,12 +741,10 @@ nav.main-menu a.highlighted-menu-item:focus {
 const supabaseUrl = "https://rxtukfjjeruospodnkdz.supabase.co";
 const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ4dHVrZmpqZXJ1b3Nwb2Rua2R6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTc0ODc0NTQsImV4cCI6MjA3MzA2MzQ1NH0.-sgX4XjHiamnzyqDdlmBlrPgaPMgX8GbzdB1c2rnSc0";
 const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
-
 // Menu toggle logic
 const menuIcon = document.querySelector('.menu-icon');
 const sideMenu = document.getElementById('sideMenu');
 const menuOverlay = document.getElementById('menuOverlay');
-
 menuIcon.addEventListener('click', () => {
   if (sideMenu.classList.contains('open')) {
     closeMenu();
@@ -828,52 +752,43 @@ menuIcon.addEventListener('click', () => {
     openMenu();
   }
 });
-
 menuOverlay.addEventListener('click', closeMenu);
-
 function openMenu() {
   sideMenu.classList.add("open");
   menuOverlay.classList.add("visible");
   document.body.style.overflow = "hidden";
 }
-
 function closeMenu() {
   sideMenu.classList.remove("open");
   menuOverlay.classList.remove("visible");
   document.body.style.overflow = "";
 }
-
 // Navigation links inside side menu
 document.getElementById('menuPaintByNumber').addEventListener('click', e => {
   e.preventDefault();
   window.location.href = 'https://magpieartsinfo.github.io/magpie-arts-site/shop.html#paint';
   closeMenu();
 });
-
 document.getElementById('menuCustom').addEventListener('click', e => {
   e.preventDefault();
   window.location.href = 'https://magpieartsinfo.github.io/magpie-arts-site/shop.html#custom';
   closeMenu();
 });
-
 document.getElementById('menuDevotion').addEventListener('click', e => {
   e.preventDefault();
   window.location.href = 'https://magpieartsinfo.github.io/magpie-arts-site/shop.html#devotion';
   closeMenu();
 });
-
 document.getElementById('menuScenery').addEventListener('click', e => {
   e.preventDefault();
   window.location.href = 'https://magpieartsinfo.github.io/magpie-arts-site/shop.html#scenery';
   closeMenu();
 });
-
 document.getElementById('menuCart').addEventListener('click', e => {
   e.preventDefault();
   window.location.href = 'https://magpieartsinfo.github.io/magpie-arts-site/cart.html';
   closeMenu();
 });
-
 // Order Lookup Popup Script
 const orderLookupModal = document.getElementById('orderLookupModal');
 const menuOrderLookupBtn = document.getElementById('menuOrderLookup');
@@ -882,13 +797,11 @@ const fetchOrdersBtn = document.getElementById('fetchOrdersBtn');
 const orderLookupPhoneInput = document.getElementById('orderLookupPhone');
 const orderLookupCityInput = document.getElementById('orderLookupCity');
 const ordersResult = document.getElementById('ordersResult');
-
 function validateInputs() {
   const phoneValid = orderLookupPhoneInput.validity.valid && orderLookupPhoneInput.value.trim().length === 10;
   const cityValid = orderLookupCityInput.value.trim().length > 0;
   fetchOrdersBtn.disabled = !(phoneValid && cityValid);
 }
-
 menuOrderLookupBtn.addEventListener('click', (e) => {
   e.preventDefault();
   orderLookupModal.hidden = false;
@@ -899,25 +812,19 @@ menuOrderLookupBtn.addEventListener('click', (e) => {
   orderLookupPhoneInput.focus();
   closeMenu();
 });
-
 closeOrderLookupBtn.addEventListener('click', () => {
   orderLookupModal.hidden = true;
 });
-
 orderLookupPhoneInput.addEventListener('input', validateInputs);
 orderLookupCityInput.addEventListener('input', validateInputs);
-
 orderLookupModal.querySelector('.modal-bg').addEventListener('click', () => {
   orderLookupModal.hidden = true;
 });
-
 fetchOrdersBtn.addEventListener('click', async () => {
   const phone = orderLookupPhoneInput.value.trim();
   const city = orderLookupCityInput.value.trim();
   if (!phone || !city) return;
-  
   ordersResult.innerHTML = 'Loading orders...';
-  
   try {
     const { data: orders, error } = await supabase
       .from('orders')
@@ -962,3 +869,4 @@ fetchOrdersBtn.addEventListener('click', async () => {
   </script>
 </body>
 </html>
+
