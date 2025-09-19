@@ -200,6 +200,15 @@
       transition: background .13s, box-shadow .13s;
       outline: none;
     }
+.wishlist-icon {
+  width: 28px;
+  height: 28px;
+  transition: filter 0.18s;
+  user-select: none;
+  pointer-events: none;
+  display: block;
+  margin: 0 auto;
+}
     #wishlist-floating-btn:hover {
       background: #fff;
       box-shadow: 0 12px 22px #285be84f;
@@ -422,7 +431,21 @@
           </div>
           <div class="product-title">${prod.title}</div>
           <div class="product-price">Starting at Rs. ${getStartingPrice(prod).toLocaleString()}</div>
-          <span title="Add to Wishlist" class="wishlist-heart ${wishlist.includes(originalIndex) ? 'wishlisted' : ''}" onclick="toggleWishlist(event, ${originalIndex})">❤</span>
+         <span 
+  title="Add to Wishlist"
+  class="wishlist-heart"
+  onclick="toggleWishlist(event, ${originalIndex})"
+>
+  <img 
+    src="${wishlist.includes(originalIndex) 
+      ? 'https://raw.githubusercontent.com/magpieartsinfo/magpie-arts-site/refs/heads/main/SVG/wish.svg'
+      : 'https://raw.githubusercontent.com/magpieartsinfo/magpie-arts-site/refs/heads/main/SVG/wishoff.svg'}"
+    alt="Wishlist"
+    class="wishlist-icon"
+    width="28" height="28"
+    draggable="false"
+  />
+</span>
         `;
         productsGrid.appendChild(card);
       });
