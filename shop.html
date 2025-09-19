@@ -616,20 +616,46 @@
       loadProductsFromJson();
     });
 
-// Order Lookup Popup Script
 const orderLookupModal = document.getElementById('orderLookupModal');
-const menuOrderLookupBtn = document.getElementById('menuOrderLookup');
+const orderLookupBtn = document.getElementById('menuOrderLookup');
 const closeOrderLookupBtn = document.getElementById('closeOrderLookup');
 const fetchOrdersBtn = document.getElementById('fetchOrdersBtn');
-const orderLookupPhoneInput = document.getElementById('orderLookupPhone');
-const orderLookupCityInput = document.getElementById('orderLookupCity');
+const phoneInput = document.getElementById('orderLookupPhone');
+const cityInput = document.getElementById('orderLookupCity');
 const ordersResult = document.getElementById('ordersResult');
+orderLookupBtn.addEventListener('click', function(e) {
+  e.preventDefault();
+  orderLookupModal.hidden = false;
+  phoneInput.value = '';
+  cityInput.value = '';
+  fetchOrdersBtn.disabled = true;
+  ordersResult.innerHTML = '';
+  phoneInput.focus();
 
+  // Close side menu if open
+  if (sideMenu.classList.contains('open')) {
+    sideMenu.classList.remove('open');
+    menuOverlay.classList.remove('visible');
+  }
+});
+
+closeOrderLookupBtn.addEventListener('click', () => {
+  orderLookupModal.hidden = true;
+});
+
+orderLookupModal.querySelector('.modal-bg').addEventListener('click', () => {
+  orderLookupModal.hidden = true;
+});
+
+// Enable fetch button only when both inputs are valid
 function validateInputs() {
-  const phoneValid = orderLookupPhoneInput.validity.valid && orderLookupPhoneInput.value.trim().length === 10;
-  const cityValid = orderLookupCityInput.value.trim().length > 0;
+  const phoneValid = phoneInput.validity.valid && phoneInput.value.trim().length === 10;
+  const cityValid = cityInput.value.trim().length > 0;
   fetchOrdersBtn.disabled = !(phoneValid && cityValid);
 }
+phoneInput.addEventListener('input', validateInputs);
+cityInput.addEventListener('input', validateInputs);
+
 
 menuOrderLookupBtn.addEventListener('click', (e) => {
   e.preventDefault();
@@ -641,22 +667,6 @@ menuOrderLookupBtn.addEventListener('click', (e) => {
   orderLookupPhoneInput.focus();
   closeMenu();
 });
-
-closeOrderLookupBtn.addEventListener('click', () => {
-  orderLookupModal.hidden = true;
-});
-
-orderLookupPhoneInput.addEventListener('input', validateInputs);
-orderLookupCityInput.addEventListener('input', validateInputs);
-
-orderLookupModal.querySelector('.modal-bg').addEventListener('click', () => {
-  orderLookupModal.hidden = true;
-});
-
-fetchOrdersBtn.addEventListener('click', async () => {
-  const phone = orderLookupPhoneInput.value.trim();
-  const city = orderLookupCityInput.value.trim();
-  if (!phone || !city) return;
 
 closeOrderLookupBtn.addEventListener('click', () => {
   orderLookupModal.hidden = true;
