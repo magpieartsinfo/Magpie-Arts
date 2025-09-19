@@ -10,7 +10,7 @@
   background: #f3faff;
   color: #222;
   margin: 0;
-  padding: 0; /* Remove the left/right padding! */
+  padding: 0; /* remove left/right padding */
   font-family: 'Candara', Arial, sans-serif;
   overflow-x: hidden;
 }
@@ -48,6 +48,13 @@
       display: block;
     }
     /* Container for buttons below header */
+
+.main-container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 18px 30px 18px; /* space on mobile, desktop, bottom */
+  box-sizing: border-box;
+}
     .header-buttons {
       max-width: 960px;
       margin: 0 auto 40px auto;
@@ -182,7 +189,13 @@
       margin-left: 6px;
       letter-spacing: 0.02em;
     }
-    @media (max-width: 600px) {
+    
+@media (min-width: 700px) {
+  .main-container {
+     padding: 0 34px 40px 34px;
+  }
+}
+      @media (max-width: 600px) {
       .kits-steps {
         flex-direction: column;
         align-items: center;
