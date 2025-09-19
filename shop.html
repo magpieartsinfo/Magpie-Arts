@@ -225,16 +225,8 @@
     .wishlist-item img { width: 54px; height: 72px; object-fit: cover; border-radius: 12px; margin-right: 14px;}
     .wish-title { flex-grow: 1; font-weight: 700; font-size: 0.97rem; color: #1b3a8d; text-align: left;}
     .remove-wish { font-size: 1.31rem; color: #e84265; cursor: pointer; font-weight: 900; padding-left: 10px; user-select: none;}
-    .footer-contact-shop {
-      background: #172a59;
-      color: #fff; padding: 30px 10px 20px 10px;
-      border-radius: 28px; text-align: center; margin: 27px auto 10px auto;
-      font-family: Arial, sans-serif; width: 99vw; max-width: 740px;
-    }
-    .footer-contact-shop .contact-info p { margin: 5px 0; font-size: 1.03rem; color: #fff; line-height: 1.5;}
-    .social-icons { margin-top: 20px; display: flex; justify-content: center; gap: 18px;}
-    .social-icons a { text-decoration: none; }
-    @media (max-width: 960px) {
+    
+       @media (max-width: 960px) {
       .header-bar { padding: 0 2vw; }
       .pie-logo-center { width: 28vw; }
     }
@@ -503,7 +495,121 @@
   cursor: pointer;
 }
 
+.footer-contact {
+  background: #172a59;
+  color: #dde6f0;
+  padding: 30px 15px 20px;
+  text-align: center;
+  font-family: Arial, sans-serif;
+  user-select: none;
+  margin-top: 40px;
+  border-radius: 20px 20px 0 0;
+  width: 100%;
+  max-width: 100vw;
+}
 
+.contact-info {
+  max-width: 100%;
+  margin: 0 auto 20px auto;
+}
+
+.contact-info p {
+  margin: 8px 0;
+  font-size: 1rem;
+  color: #dde6f0;
+  line-height: 1.5;
+}
+
+.contact-info strong {
+  font-size: 1.1rem;
+  color: #fff;
+}
+
+.contact-info a {
+  color: #fff !important;
+  text-decoration: underline;
+}
+
+.social-icons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 20px;
+  flex-wrap: wrap;
+}
+
+.social-icons a {
+  display: inline-block;
+  padding: 0;
+  margin: 0 4px;
+  transition: transform 0.18s ease;
+  text-decoration: none;
+}
+
+.social-icons a:hover {
+  transform: scale(1.12);
+}
+
+.social-icons img {
+  width: 38px;
+  height: 38px;
+  object-fit: contain;
+  border-radius: 12px;
+  display: inline-block;
+  vertical-align: middle;
+  box-shadow: 0 2px 8px rgba(35, 77, 211, 0.3);
+  background: #fff;
+  padding: 4px;
+  transition: box-shadow 0.22s ease;
+}
+
+.social-icons a:hover img {
+  box-shadow: 0 4px 16px rgba(35, 77, 211, 0.45);
+}
+
+/* Responsive adjustments */
+@media (min-width: 768px) {
+  .footer-contact {
+    padding: 36px 20px 28px;
+    margin-top: 50px;
+    border-radius: 30px 30px 0 0;
+  }
+  
+  .contact-info p {
+    font-size: 1.05rem;
+  }
+  
+  .social-icons {
+    gap: 25px;
+    margin-top: 25px;
+  }
+  
+  .social-icons img {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer-contact {
+    padding: 20px 10px 15px;
+    margin-top: 30px;
+    border-radius: 15px 15px 0 0;
+  }
+  
+  .contact-info p {
+    font-size: 0.9rem;
+  }
+  
+  .social-icons {
+    gap: 15px;
+  }
+  
+  .social-icons img {
+    width: 32px;
+    height: 32px;
+  }
+}
   </style>
 </head>
 <body>
@@ -564,29 +670,28 @@
 </div>
 
   <div id="menuOverlay" class="menu-overlay" tabindex="-1" aria-hidden="true"></div>
-  <footer class="footer-contact-shop">
-    <div class="contact-info">
-      <p><strong>Contact Us</strong></p>
-      <p>Phone: +91-8128136985 &nbsp;|&nbsp;
-        Email: <a href="mailto:magpieartsinfo@gmail.com" style="color:#fff;text-decoration:underline;">magpieartsinfo@gmail.com</a>
-      </p>
-      <p>Address: 285, Manmandir Residency, Ankleshwar, Gujarat-393001</p>
-    </div>
-    <nav class="social-icons" aria-label="Social media links" role="navigation">
-      <a href="https://api.whatsapp.com/send?phone=9181283685" target="_blank" aria-label="WhatsApp">
-        <img src="https://raw.githubusercontent.com/magpieartsinfo/magpiearts-assets/refs/heads/main/magpie-arts-site/images/whatsapp-icon.svg" alt="WhatsApp" width="38" height="38" />
-      </a>
-      <a href="https://www.linkedin.com/company/magpie-arts/?viewAsMember=true" target="_blank" aria-label="LinkedIn">
-        <img src="https://raw.githubusercontent.com/magpieartsinfo/magpiearts-assets/refs/heads/main/magpie-arts-site/images/linkedin-icon.svg" alt="LinkedIn" width="38" height="38" />
-      </a>
-      <a href="https://www.instagram.com/magpiearts27?igsh=cWMxZ2UydWV3ZHdy" target="_blank" aria-label="Instagram">
-        <img src="https://raw.githubusercontent.com/magpieartsinfo/magpiearts-assets/refs/heads/main/magpie-arts-site/images/instagram-icon.svg" alt="Instagram" width="38" height="38" />
-      </a>
-      <a href="https://www.facebook.com/share/1QVHnxCqRB/" target="_blank" aria-label="Facebook">
-        <img src="https://raw.githubusercontent.com/magpieartsinfo/magpiearts-assets/refs/heads/main/magpie-arts-site/images/facebook-icon.svg" alt="Facebook" width="38" height="38" />
-      </a>
-    </nav>
-  </footer>
+  <footer class="footer-contact" id="contact-section" aria-label="Footer">
+  <div class="contact-info">
+    <p><strong>Contact Us</strong></p>
+    <p>Phone: +91-8128136985 &nbsp;|&nbsp; Email: <a href="mailto:magpieartsinfo@gmail.com" style="color:#fff;text-decoration:underline;">magpieartsinfo@gmail.com</a></p>
+    <p>Address: 285, Manmandir Residency, Ankleshwar, Gujarat-393001</p>
+  </div>
+  <nav class="social-icons" aria-label="Social media links" role="navigation">
+    <a href="https://api.whatsapp.com/send?phone=918128136985" aria-label="WhatsApp" rel="noopener" target="_blank">
+      <img src="https://raw.githubusercontent.com/magpieartsinfo/magpiearts-assets/refs/heads/main/magpie-arts-site/images/whatsapp-icon.svg" alt="WhatsApp" width="38" height="38" />
+    </a>
+    <a href="https://www.linkedin.com/company/magpie-arts/?viewAsMember=true" aria-label="LinkedIn" rel="noopener" target="_blank">
+      <img src="https://raw.githubusercontent.com/magpieartsinfo/magpiearts-assets/refs/heads/main/magpie-arts-site/images/linkedin-icon.svg" alt="LinkedIn" width="38" height="38" />
+    </a>
+    <a href="https://www.instagram.com/magpiearts27?igsh=cWMxZ2UydWV3ZHdy" aria-label="Instagram" rel="noopener" target="_blank">
+      <img src="https://raw.githubusercontent.com/magpieartsinfo/magpiearts-assets/refs/heads/main/magpie-arts-site/images/instagram-icon.svg" alt="Instagram" width="38" height="38" />
+    </a>
+    <a href="https://www.facebook.com/share/1QVHnxCqRB/" aria-label="Facebook" rel="noopener" target="_blank">
+      <img src="https://raw.githubusercontent.com/magpieartsinfo/magpiearts-assets/refs/heads/main/magpie-arts-site/images/facebook-icon.svg" alt="Facebook" width="38" height="38" />
+    </a>
+  </nav>
+</footer>
+
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
