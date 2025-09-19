@@ -346,9 +346,28 @@
       <li><a href="#" onclick="menuFilter('Devotion/Spiritual');return false;">Devotion/Spiritual</a></li>
       <li><a href="#" onclick="menuFilter('Scenery/Wonders');return false;">Scenery/Wonders</a></li>
       <li><a href="#" onclick="closeMenu();">Cart</a></li>
+      <li><a href="#" id="menuOrderLookup" onclick="openOrderLookup(); return false;">My Orders</a></li>
       <li style="color:#7080a3;font-weight:400;font-size:.95rem;margin-top:30px;">&copy; 2025 Magpie Arts</li>
     </ul>
   </div>
+
+<div id="orderLookupModal" aria-modal="true" role="dialog" aria-labelledby="orderLookupTitle" tabindex="-1" hidden>
+  <div class="modal-bg"></div>
+  <div class="modal-content" role="document">
+    <button id="closeOrderLookup" aria-label="Close order lookup">&times;</button>
+    <h2 id="orderLookupTitle">Check Your Orders</h2>
+    <p>Enter your phone number and city to view your orders:</p>
+    <div class="input-group">
+      <input type="tel" id="orderLookupPhone" placeholder="Your 10-digit phone" pattern="[0-9]{10}" aria-label="Phone number to lookup orders" />
+    </div>
+    <div class="input-group">
+      <input type="text" id="orderLookupCity" placeholder="Your city" aria-label="City to lookup orders" />
+    </div>
+    <button id="fetchOrdersBtn" disabled>View Orders</button>
+    <div id="ordersResult"></div>
+  </div>
+</div>
+
   <div id="menuOverlay" class="menu-overlay" tabindex="-1" aria-hidden="true"></div>
   <footer class="footer-contact-shop">
     <div class="contact-info">
@@ -551,6 +570,90 @@
       currentCategory = selection.cat;
       loadProductsFromJson();
     });
+
+const orderLookupModal = document.getElementById('orderLookupModal');
+const menuOrderLookupBtn = document.getElementById('menuOrderLookup');
+const closeOrderLookupBtn = document.getElementById('closeOrderLookup');
+const fetchOrdersBtn = document.getElementById('fetchOrdersBtn');
+const orderLookupPhoneInput = document.getElementById('orderLookupPhone');
+const orderLookupCityInput = document.getElementById('orderLookupCity');
+const ordersResult = document.getElementById('ordersResult');
+
+function validateInputs() {
+  const phoneValid = orderLookupPhoneInput.validity.valid && orderLookupPhoneInput.value.trim().length === 10;
+  const cityValid = orderLookupCityInput.value.trim().length > 0;
+  fetchOrdersBtn.disabled = !(phoneValid && cityValid);
+}
+
+menuOrderLookupBtn.addEventListener('click', (e) => {
+  e.preventDefault();
+  orderLookupModal.hidden = false;
+  orderLookupPhoneInput.value = '';
+  orderLookupCityInput.value = '';
+  fetchOrdersBtn.disabled = true;
+  ordersResult.innerHTML = '';
+  orderLookupPhoneInput.focus();
+  closeMenu();
+});
+
+closeOrderLookupBtn.addEventListener('click', () => {
+  orderLookupModal.hidden = true;
+});
+
+orderLookupPhoneInput.addEventListener('input', validateInputs);
+orderLookupCityInput.addEventListener('input', validateInputs);
+
+orderLookupModal.querySelector('.modal-bg').addEventListener('click', () => {
+  orderLookupModal.hidden = true;
+});
+
+fetchOrdersBtn.addEventListener('click', async () => {
+  const phone = orderLookupPhoneInput.value.trim();
+  const city = orderLookupCityInput.value.trim();
+  if (!phone || !city) return;
+  ordersResult.innerHTML = 'Loading orders...';
+  try {
+    const { data: orders, error } = await supabase
+      .from('orders')
+      .select('id, customer_name, product_list, total_amount, status')
+      .eq('phone', phone)
+      .ilike('city', city)
+      .order('id', { ascending: false });
+      
+    if (error) {
+      ordersResult.innerHTML = `<p style="color:red;">Error loading orders: ${error.message}</p>`;
+      return;
+    }
+    
+    if (!orders.length) {
+      ordersResult.textContent = 'No orders found for this phone and city.';
+      return;
+    }
+    
+    // Render orders
+    ordersResult.innerHTML = '';
+    orders.forEach(order => {
+      const products = JSON.parse(order.product_list || '[]');
+      const productHtml = products.map(
+        p => `<ul class="order-product"><li><strong>${p.title}</strong> ${p.size ? '- Size: ' + p.size : ''} ${p.palette ? '- Palette: ' + p.palette : ''}</li></ul>`
+      ).join('');
+      
+      const orderHtml = `
+        <div class="order-item" tabindex="0" aria-label="Order ${order.id}">
+          <div class="order-id">Order ID: ${order.id}</div>
+          <div>Customer: ${order.customer_name}</div>
+          <div>Amount: ₹${order.total_amount.toFixed(2)}</div>
+          <div>Status: <span class="order-status">${order.status || 'Order in process'}</span></div>
+          <div>Products: ${productHtml}</div>
+        </div>
+      `;
+      ordersResult.insertAdjacentHTML('beforeend', orderHtml);
+    });
+  } catch (err) {
+    ordersResult.innerHTML = `<p style="color:red;">Unexpected error: ${err.message}</p>`;
+  }
+});
+
   </script>
 </body>
 </html>
