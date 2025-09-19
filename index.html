@@ -912,13 +912,11 @@ orderLookupModal.querySelector('.modal-bg').addEventListener('click', () => {
 });
 
 fetchOrdersBtn.addEventListener('click', async () => {
-  const phone = phoneInput.value.trim();
-  const city = cityInput.value.trim();
-  
+  const phone = orderLookupPhoneInput.value.trim();
+  const city = orderLookupCityInput.value.trim();
   if (!phone || !city) return;
   
-  console.log("Fetching orders for phone:", phone, "city:", city);
-  ordersResult.innerHTML = '<div style="text-align:center; padding:20px; color:#666;">Loading orders...</div>';
+  ordersResult.innerHTML = 'Loading orders...';
   
   try {
     const { data: orders, error } = await supabase
@@ -928,54 +926,39 @@ fetchOrdersBtn.addEventListener('click', async () => {
       .ilike('city', city)
       .order('id', { ascending: false });
       
-    console.log("Response - Data:", orders, "Error:", error);
-      
     if (error) {
-      ordersResult.innerHTML = `<div style="color:red; text-align:center; padding:20px;">Error loading orders: ${error.message}</div>`;
+      ordersResult.innerHTML = `<p style="color:red;">Error loading orders: ${error.message}</p>`;
       return;
     }
     
-    if (!orders || orders.length === 0) {
-      ordersResult.innerHTML = '<div class="no-orders-message">No orders found for this phone and city.</div>';
+    if (!orders.length) {
+      ordersResult.textContent = 'No orders found for this phone and city.';
       return;
     }
     
-    // Render orders with improved styling
+    // Render orders
     ordersResult.innerHTML = '';
     orders.forEach(order => {
       const products = JSON.parse(order.product_list || '[]');
-      
-      const productHtml = products.map(p => `
-        <div class="product-item">
-          <div class="product-title">${p.title}</div>
-          <div class="product-details">
-            ${p.size ? `Size: ${p.size}` : ''}
-            ${p.size && p.palette ? ' • ' : ''}
-            ${p.palette ? `Palette: ${p.palette}` : ''}
-          </div>
-        </div>
-      `).join('');
+      const productHtml = products.map(
+        p => `<ul class="order-product"><li><strong>${p.title}</strong> ${p.size ? '- Size: ' + p.size : ''} ${p.palette ? '- Palette: ' + p.palette : ''}</li></ul>`
+      ).join('');
       
       const orderHtml = `
         <div class="order-item" tabindex="0" aria-label="Order ${order.id}">
           <div class="order-id">Order ID: ${order.id}</div>
-          <div class="order-detail"><strong>Customer:</strong> ${order.customer_name}</div>
-          <div class="order-detail"><strong>Amount:</strong> ₹${order.total_amount.toFixed(2)}</div>
-          <div class="order-detail"><strong>Status:</strong> <span class="order-status">${order.status || 'pending'}</span></div>
-          <div class="order-products">
-            <div class="order-products-title">Products:</div>
-            ${productHtml}
-          </div>
+          <div>Customer: ${order.customer_name}</div>
+          <div>Amount: ₹${order.total_amount.toFixed(2)}</div>
+          <div>Status: <span class="order-status">${order.status || 'Order in process'}</span></div>
+          <div>Products: ${productHtml}</div>
         </div>
       `;
       ordersResult.insertAdjacentHTML('beforeend', orderHtml);
     });
   } catch (err) {
-    console.error("Unexpected error:", err);
-    ordersResult.innerHTML = `<div style="color:red; text-align:center; padding:20px;">Unexpected error: ${err.message}</div>`;
+    ordersResult.innerHTML = `<p style="color:red;">Unexpected error: ${err.message}</p>`;
   }
 });
-
   </script>
 </body>
 </html>
