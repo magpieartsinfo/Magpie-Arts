@@ -400,7 +400,97 @@
   max-height: 320px;
   overflow-y: auto;
   font-size: 0.9rem;
+  margin-top: 16px;
 }
+
+.order-item {
+  background: #f8fbff;
+  border: 1px solid #e1efff;
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 16px;
+  transition: all 0.2s ease;
+}
+
+.order-item:hover {
+  background: #f0f8ff;
+  border-color: #b3d9ff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.order-item:last-child {
+  margin-bottom: 0;
+}
+
+.order-id {
+  font-weight: 700;
+  color: #174197;
+  margin-bottom: 8px;
+  font-size: 1rem;
+  border-bottom: 1px solid #e1efff;
+  padding-bottom: 6px;
+}
+
+.order-detail {
+  margin: 6px 0;
+  font-size: 0.95rem;
+  color: #333;
+}
+
+.order-detail strong {
+  color: #174197;
+  font-weight: 600;
+}
+
+.order-status {
+  color: #ff8c00;
+  font-weight: 700;
+  background: #fff4e6;
+  padding: 2px 8px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+}
+
+.order-products {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid #e1efff;
+}
+
+.order-products-title {
+  font-weight: 600;
+  color: #174197;
+  margin-bottom: 8px;
+}
+
+.product-item {
+  background: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 10px;
+  margin: 6px 0;
+  font-size: 0.9rem;
+}
+
+.product-title {
+  font-weight: 600;
+  color: #2c5aa0;
+  margin-bottom: 4px;
+}
+
+.product-details {
+  color: #666;
+  font-size: 0.85rem;
+}
+
+/* Empty state styling */
+.no-orders-message {
+  text-align: center;
+  padding: 24px;
+  color: #666;
+  font-style: italic;
+}
+
 
 #closeOrderLookup {
   position: absolute;
@@ -747,7 +837,7 @@ fetchOrdersBtn.addEventListener('click', async () => {
   if (!phone || !city) return;
   
   console.log("Fetching orders for phone:", phone, "city:", city);
-  ordersResult.innerHTML = 'Loading orders...';
+  ordersResult.innerHTML = '<div style="text-align:center; padding:20px; color:#666;">Loading orders...</div>';
   
   try {
     const { data: orders, error } = await supabase
@@ -760,39 +850,51 @@ fetchOrdersBtn.addEventListener('click', async () => {
     console.log("Response - Data:", orders, "Error:", error);
       
     if (error) {
-      ordersResult.innerHTML = `<p style="color:red;">Error loading orders: ${error.message}</p>`;
+      ordersResult.innerHTML = `<div style="color:red; text-align:center; padding:20px;">Error loading orders: ${error.message}</div>`;
       return;
     }
     
     if (!orders || orders.length === 0) {
-      ordersResult.textContent = 'No orders found for this phone and city.';
+      ordersResult.innerHTML = '<div class="no-orders-message">No orders found for this phone and city.</div>';
       return;
     }
     
-    // Render orders
+    // Render orders with improved styling
     ordersResult.innerHTML = '';
     orders.forEach(order => {
       const products = JSON.parse(order.product_list || '[]');
-      const productHtml = products.map(
-        p => `<ul class="order-product"><li><strong>${p.title}</strong> ${p.size ? '- Size: ' + p.size : ''} ${p.palette ? '- Palette: ' + p.palette : ''}</li></ul>`
-      ).join('');
+      
+      const productHtml = products.map(p => `
+        <div class="product-item">
+          <div class="product-title">${p.title}</div>
+          <div class="product-details">
+            ${p.size ? `Size: ${p.size}` : ''}
+            ${p.size && p.palette ? ' • ' : ''}
+            ${p.palette ? `Palette: ${p.palette}` : ''}
+          </div>
+        </div>
+      `).join('');
       
       const orderHtml = `
         <div class="order-item" tabindex="0" aria-label="Order ${order.id}">
           <div class="order-id">Order ID: ${order.id}</div>
-          <div>Customer: ${order.customer_name}</div>
-          <div>Amount: ₹${order.total_amount.toFixed(2)}</div>
-          <div>Status: <span class="order-status">${order.status || 'Order in process'}</span></div>
-          <div>Products: ${productHtml}</div>
+          <div class="order-detail"><strong>Customer:</strong> ${order.customer_name}</div>
+          <div class="order-detail"><strong>Amount:</strong> ₹${order.total_amount.toFixed(2)}</div>
+          <div class="order-detail"><strong>Status:</strong> <span class="order-status">${order.status || 'pending'}</span></div>
+          <div class="order-products">
+            <div class="order-products-title">Products:</div>
+            ${productHtml}
+          </div>
         </div>
       `;
       ordersResult.insertAdjacentHTML('beforeend', orderHtml);
     });
   } catch (err) {
     console.error("Unexpected error:", err);
-    ordersResult.innerHTML = `<p style="color:red;">Unexpected error: ${err.message}</p>`;
+    ordersResult.innerHTML = `<div style="color:red; text-align:center; padding:20px;">Unexpected error: ${err.message}</div>`;
   }
 });
+
 </script>
 
 </body>
