@@ -497,7 +497,13 @@
       </a>
     </nav>
   </footer>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script>
+// Initialize Supabase client
+const supabaseUrl = "https://rxtukfjjeruospodnkdz.supabase.co";
+const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ4dHVrZmpqZXJ1b3Nwb2Rua2R6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTc0ODc0NTQsImV4cCI6MjA3MzA2MzQ1NH0.-sgX4XjHiamnzyqDdlmBlrPgaPMgX8GbzdB1c2rnSc0";
+const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+
     let products = [];
     let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
     const productsGrid = document.getElementById('productsGrid');
@@ -743,7 +749,9 @@ fetchOrdersBtn.addEventListener('click', async () => {
   const phone = orderLookupPhoneInput.value.trim();
   const city = orderLookupCityInput.value.trim();
   if (!phone || !city) return;
+
   ordersResult.innerHTML = 'Loading orders...';
+
   try {
     const { data: orders, error } = await supabase
       .from('orders')
