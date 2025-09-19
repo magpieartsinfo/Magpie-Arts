@@ -318,7 +318,7 @@
   justify-content: center; 
   align-items: center;
   background-color: rgba(0,0,0,0.35);
-  z-index: 100000;
+  z-index: 100000; /* Increased from 3000 to 100000 */
 }
 
 #orderLookupModal[hidden] {
@@ -498,190 +498,209 @@
     </nav>
   </footer>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
 // Initialize Supabase client
 const supabaseUrl = "https://rxtukfjjeruospodnkdz.supabase.co";
 const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ4dHVrZmpqZXJ1b3Nwb2Rua2R6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTc0ODc0NTQsImV4cCI6MjA3MzA2MzQ1NH0.-sgX4XjHiamnzyqDdlmBlrPgaPMgX8GbzdB1c2rnSc0";
 const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
 
-    let products = [];
-    let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
-    const productsGrid = document.getElementById('productsGrid');
-    const wishlistModal = document.getElementById('wishlistModal');
-    const wishlistItems = document.getElementById('wishlistItems');
-    const wishlistBtn = document.getElementById('wishlist-floating-btn');
-    const catBtns = Array.from(document.querySelectorAll('.category-btn'));
-    const sideMenu = document.getElementById('sideMenu');
-    const menuOverlay = document.getElementById('menuOverlay');
-    let currentCategory = 'All';
-    async function loadProductsFromJson() {
-      try {
-        productsGrid.innerHTML = '<div class="loading-indicator">Loading products...</div>';
-        const response = await fetch('https://raw.githubusercontent.com/magpieartsinfo/magpie-arts-site/main/products.json');
-        if (!response.ok) throw new Error('Could not fetch products.json');
-        products = await response.json();
-        renderProducts();
-      } catch (error) {
-        productsGrid.innerHTML = `<div class="error-message">
-          Failed to load products.<br>
-          Please check your internet connection and try again.<br>
-          <button onclick="loadProductsFromJson()" style="padding: 10px 20px; border-radius: 8px; background:#3c59ff; color:white;">Retry</button>
-        </div>`;
-        console.error(error);
-      }
-    }
-    function renderProducts() {
-      productsGrid.innerHTML = '';
-      if (!products || products.length === 0) {
-        productsGrid.innerHTML = '<div class="error-message">No products available.</div>';
-        return;
-      }
-      let filteredProducts;
-      if (currentCategory === 'All') {
-        let customKitProduct = products.find(p => p.isCustomKit);
-        let notCustomKit = products.filter(p => !p.isCustomKit);
-        filteredProducts = [];
-        if(customKitProduct) filteredProducts.push(customKitProduct);
-        filteredProducts = filteredProducts.concat(notCustomKit);
-      } else {
-        filteredProducts = products.filter(p => p.category === currentCategory);
-      }
-      if (filteredProducts.length === 0) {
-        productsGrid.innerHTML = `<p style="text-align:center; font-size:1.3rem; width:100%;">No products found in this category.</p>`;
-        return;
-      }
-      filteredProducts.forEach(prod => {
-        const originalIndex = products.findIndex(p => p === prod);
-        const card = document.createElement('div');
-        card.className = 'product-card';
-        card.onclick = () => openProductPage(originalIndex);
-        card.innerHTML = `
-          <div class="product-img-window">
-            <img src="${prod.image}" alt="${prod.title}" class="product-img" loading="lazy"/>
-          </div>
-          <div class="product-title">${prod.title}</div>
-          <div class="product-price">Starting at Rs. ${getStartingPrice(prod).toLocaleString()}</div>
-         <span 
-  title="Add to Wishlist"
-  class="wishlist-heart"
-  onclick="toggleWishlist(event, ${originalIndex})"
->
-  <img 
-    src="${wishlist.includes(originalIndex) 
-      ? 'https://raw.githubusercontent.com/magpieartsinfo/magpie-arts-site/refs/heads/main/SVG/wish.svg'
-      : 'https://raw.githubusercontent.com/magpieartsinfo/magpie-arts-site/refs/heads/main/SVG/wishoff.svg'}"
-    alt="Wishlist"
-    class="wishlist-icon"
-    width="28" height="28"
-    draggable="false"
-  />
-</span>
-        `;
-        productsGrid.appendChild(card);
-      });
-    }
-    function getStartingPrice(prod) {
-      const prices = [prod.priceS1C16, prod.priceS1C20, prod.priceS2C20, prod.priceS2C24].filter(p => typeof p === 'number' && p > 0);
-      if (prices.length === 0) return "N/A";
-      return Math.min(...prices);
-    }
-    function openProductPage(index) {
-      window.location.href = `https://magpieartsinfo.github.io/magpie-arts-site/product.html?index=${index}`;
-    }
-    function filterCategory(cat, el) {
-      currentCategory = cat;
-      catBtns.forEach(cb => cb.classList.remove('active'));
-      if (el) el.classList.add('active');
-      renderProducts();
-      closeWishlistModal();
-    }
-    function saveWishlist() {
-      localStorage.setItem('wishlist', JSON.stringify(wishlist));
-    }
-    function toggleWishlist(e, index) {
-      e.stopPropagation();
-      if (wishlist.includes(index)) {
-        wishlist = wishlist.filter(i => i !== index);
-      } else {
-        wishlist.push(index);
-      }
-      saveWishlist();
-      renderProducts();
-      renderWishlist();
-    }
-    function toggleWishlistModal() {
-      if (wishlistModal.style.display === 'block') {
-        closeWishlistModal();
-      } else {
-        renderWishlist();
-        wishlistModal.style.display = 'block';
-      }
-    }
-    function closeWishlistModal() {
-      wishlistModal.style.display = 'none';
-    }
-    function removeFromWishlist(index) {
-      wishlist = wishlist.filter(i => i !== index);
-      saveWishlist();
-      renderProducts();
-      renderWishlist();
-    }
-    function renderWishlist() {
-      if (wishlist.length === 0) {
-        wishlistItems.innerHTML = '<p style="text-align:center; font-size:1.1rem; margin-top:1.2rem;">Your wishlist is empty.</p>';
-        return;
-      }
-      wishlistItems.innerHTML = '';
-      wishlist.forEach(index => {
-        const prod = products[index];
-        if (!prod) return;
-        const item = document.createElement('div');
-        item.className = 'wishlist-item';
-        item.onclick = () => openProductPage(index);
-        item.innerHTML = `
-          <img src="${prod.image}" alt="${prod.title}" />
-          <div class="wish-title">${prod.title}</div>
-          <div class="remove-wish" title="Remove from wishlist" onclick="removeFromWishlist(${index}); event.stopPropagation();">&times;</div>
-        `;
-        wishlistItems.appendChild(item);
-      });
-    }
-    function openMenu() {
-      sideMenu.classList.add('open');
-      menuOverlay.classList.add('open');
-      document.body.style.overflow = 'hidden';
-    }
-    function closeMenu() {
-      sideMenu.classList.remove('open');
-      menuOverlay.classList.remove('open');
-      document.body.style.overflow = '';
-    }
-    function menuFilter(cat) {
-      closeMenu();
-      filterCategory(cat, catBtns.find(btn => btn.textContent.toLowerCase().includes(cat.toLowerCase())));
-    }
-    menuOverlay.addEventListener('click', closeMenu);
-    document.addEventListener('click', function(event) {
-      if (wishlistModal.style.display === 'block' && !wishlistModal.contains(event.target) && event.target !== wishlistBtn) {
-        closeWishlistModal();
-      }
-    });
-    document.addEventListener('DOMContentLoaded', () => {
-      const hash = window.location.hash.substring(1).toLowerCase();
-      const categoryMap = {
-        'paint': { btn: 'Paint By Number Kit', cat: 'All' },
-        'custom': { btn: 'Custom Kit', cat: 'Custom' },
-        'devotion': { btn: 'Devotion/Spiritual', cat: 'Devotion/Spiritual' },
-        'scenery': { btn: 'Scenery/Wonders', cat: 'Scenery/Wonders' }
-      };
-      const selection = categoryMap[hash] || { btn: 'Paint By Number Kit', cat: 'All' };
-      const targetBtn = catBtns.find(btn => btn.textContent.trim().toLowerCase() === selection.btn.toLowerCase());
-      catBtns.forEach(a => a.classList.remove('active'));
-      if (targetBtn) targetBtn.classList.add('active');
-      currentCategory = selection.cat;
-      loadProductsFromJson();
-    });
+let products = [];
+let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+const productsGrid = document.getElementById('productsGrid');
+const wishlistModal = document.getElementById('wishlistModal');
+const wishlistItems = document.getElementById('wishlistItems');
+const wishlistBtn = document.getElementById('wishlist-floating-btn');
+const catBtns = Array.from(document.querySelectorAll('.category-btn'));
+const sideMenu = document.getElementById('sideMenu');
+const menuOverlay = document.getElementById('menuOverlay');
+let currentCategory = 'All';
 
+async function loadProductsFromJson() {
+  try {
+    productsGrid.innerHTML = '<div class="loading-indicator">Loading products...</div>';
+    const response = await fetch('https://raw.githubusercontent.com/magpieartsinfo/magpie-arts-site/main/products.json');
+    if (!response.ok) throw new Error('Could not fetch products.json');
+    products = await response.json();
+    renderProducts();
+  } catch (error) {
+    productsGrid.innerHTML = `<div class="error-message">
+      Failed to load products.<br>
+      Please check your internet connection and try again.<br>
+      <button onclick="loadProductsFromJson()" style="padding: 10px 20px; border-radius: 8px; background:#3c59ff; color:white;">Retry</button>
+    </div>`;
+    console.error(error);
+  }
+}
+
+function renderProducts() {
+  productsGrid.innerHTML = '';
+  if (!products || products.length === 0) {
+    productsGrid.innerHTML = '<div class="error-message">No products available.</div>';
+    return;
+  }
+  let filteredProducts;
+  if (currentCategory === 'All') {
+    let customKitProduct = products.find(p => p.isCustomKit);
+    let notCustomKit = products.filter(p => !p.isCustomKit);
+    filteredProducts = [];
+    if(customKitProduct) filteredProducts.push(customKitProduct);
+    filteredProducts = filteredProducts.concat(notCustomKit);
+  } else {
+    filteredProducts = products.filter(p => p.category === currentCategory);
+  }
+  if (filteredProducts.length === 0) {
+    productsGrid.innerHTML = `<p style="text-align:center; font-size:1.3rem; width:100%;">No products found in this category.</p>`;
+    return;
+  }
+  filteredProducts.forEach(prod => {
+    const originalIndex = products.findIndex(p => p === prod);
+    const card = document.createElement('div');
+    card.className = 'product-card';
+    card.onclick = () => openProductPage(originalIndex);
+    card.innerHTML = `
+      <div class="product-img-window">
+        <img src="${prod.image}" alt="${prod.title}" class="product-img" loading="lazy"/>
+      </div>
+      <div class="product-title">${prod.title}</div>
+      <div class="product-price">Starting at Rs. ${getStartingPrice(prod).toLocaleString()}</div>
+     <span 
+title="Add to Wishlist"
+class="wishlist-heart"
+onclick="toggleWishlist(event, ${originalIndex})"
+>
+<img 
+  src="${wishlist.includes(originalIndex) 
+    ? 'https://raw.githubusercontent.com/magpieartsinfo/magpie-arts-site/refs/heads/main/SVG/wish.svg'
+    : 'https://raw.githubusercontent.com/magpieartsinfo/magpie-arts-site/refs/heads/main/SVG/wishoff.svg'}"
+  alt="Wishlist"
+  class="wishlist-icon"
+  width="28" height="28"
+  draggable="false"
+/>
+</span>
+    `;
+    productsGrid.appendChild(card);
+  });
+}
+
+function getStartingPrice(prod) {
+  const prices = [prod.priceS1C16, prod.priceS1C20, prod.priceS2C20, prod.priceS2C24].filter(p => typeof p === 'number' && p > 0);
+  if (prices.length === 0) return "N/A";
+  return Math.min(...prices);
+}
+
+function openProductPage(index) {
+  window.location.href = `https://magpieartsinfo.github.io/magpie-arts-site/product.html?index=${index}`;
+}
+
+function filterCategory(cat, el) {
+  currentCategory = cat;
+  catBtns.forEach(cb => cb.classList.remove('active'));
+  if (el) el.classList.add('active');
+  renderProducts();
+  closeWishlistModal();
+}
+
+function saveWishlist() {
+  localStorage.setItem('wishlist', JSON.stringify(wishlist));
+}
+
+function toggleWishlist(e, index) {
+  e.stopPropagation();
+  if (wishlist.includes(index)) {
+    wishlist = wishlist.filter(i => i !== index);
+  } else {
+    wishlist.push(index);
+  }
+  saveWishlist();
+  renderProducts();
+  renderWishlist();
+}
+
+function toggleWishlistModal() {
+  if (wishlistModal.style.display === 'block') {
+    closeWishlistModal();
+  } else {
+    renderWishlist();
+    wishlistModal.style.display = 'block';
+  }
+}
+
+function closeWishlistModal() {
+  wishlistModal.style.display = 'none';
+}
+
+function removeFromWishlist(index) {
+  wishlist = wishlist.filter(i => i !== index);
+  saveWishlist();
+  renderProducts();
+  renderWishlist();
+}
+
+function renderWishlist() {
+  if (wishlist.length === 0) {
+    wishlistItems.innerHTML = '<p style="text-align:center; font-size:1.1rem; margin-top:1.2rem;">Your wishlist is empty.</p>';
+    return;
+  }
+  wishlistItems.innerHTML = '';
+  wishlist.forEach(index => {
+    const prod = products[index];
+    if (!prod) return;
+    const item = document.createElement('div');
+    item.className = 'wishlist-item';
+    item.onclick = () => openProductPage(index);
+    item.innerHTML = `
+      <img src="${prod.image}" alt="${prod.title}" />
+      <div class="wish-title">${prod.title}</div>
+      <div class="remove-wish" title="Remove from wishlist" onclick="removeFromWishlist(${index}); event.stopPropagation();">&times;</div>
+    `;
+    wishlistItems.appendChild(item);
+  });
+}
+
+function openMenu() {
+  sideMenu.classList.add('open');
+  menuOverlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeMenu() {
+  sideMenu.classList.remove('open');
+  menuOverlay.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function menuFilter(cat) {
+  closeMenu();
+  filterCategory(cat, catBtns.find(btn => btn.textContent.toLowerCase().includes(cat.toLowerCase())));
+}
+
+menuOverlay.addEventListener('click', closeMenu);
+
+document.addEventListener('click', function(event) {
+  if (wishlistModal.style.display === 'block' && !wishlistModal.contains(event.target) && event.target !== wishlistBtn) {
+    closeWishlistModal();
+  }
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+  const hash = window.location.hash.substring(1).toLowerCase();
+  const categoryMap = {
+    'paint': { btn: 'Paint By Number Kit', cat: 'All' },
+    'custom': { btn: 'Custom Kit', cat: 'Custom' },
+    'devotion': { btn: 'Devotion/Spiritual', cat: 'Devotion/Spiritual' },
+    'scenery': { btn: 'Scenery/Wonders', cat: 'Scenery/Wonders' }
+  };
+  const selection = categoryMap[hash] || { btn: 'Paint By Number Kit', cat: 'All' };
+  const targetBtn = catBtns.find(btn => btn.textContent.trim().toLowerCase() === selection.btn.toLowerCase());
+  catBtns.forEach(a => a.classList.remove('active'));
+  if (targetBtn) targetBtn.classList.add('active');
+  currentCategory = selection.cat;
+  loadProductsFromJson();
+});
+
+// Order Lookup Modal - FIXED VERSION
 const orderLookupModal = document.getElementById('orderLookupModal');
 const orderLookupBtn = document.getElementById('menuOrderLookup');
 const closeOrderLookupBtn = document.getElementById('closeOrderLookup');
@@ -689,6 +708,13 @@ const fetchOrdersBtn = document.getElementById('fetchOrdersBtn');
 const phoneInput = document.getElementById('orderLookupPhone');
 const cityInput = document.getElementById('orderLookupCity');
 const ordersResult = document.getElementById('ordersResult');
+
+function validateInputs() {
+  const phoneValid = phoneInput.validity.valid && phoneInput.value.trim().length === 10;
+  const cityValid = cityInput.value.trim().length > 0;
+  fetchOrdersBtn.disabled = !(phoneValid && cityValid);
+}
+
 orderLookupBtn.addEventListener('click', function(e) {
   e.preventDefault();
   orderLookupModal.hidden = false;
@@ -697,11 +723,9 @@ orderLookupBtn.addEventListener('click', function(e) {
   fetchOrdersBtn.disabled = true;
   ordersResult.innerHTML = '';
   phoneInput.focus();
-
-  // Close side menu if open
+  
   if (sideMenu.classList.contains('open')) {
-    sideMenu.classList.remove('open');
-    menuOverlay.classList.remove('visible');
+    closeMenu();
   }
 });
 
@@ -713,45 +737,18 @@ orderLookupModal.querySelector('.modal-bg').addEventListener('click', () => {
   orderLookupModal.hidden = true;
 });
 
-// Enable fetch button only when both inputs are valid
-function validateInputs() {
-  const phoneValid = phoneInput.validity.valid && phoneInput.value.trim().length === 10;
-  const cityValid = cityInput.value.trim().length > 0;
-  fetchOrdersBtn.disabled = !(phoneValid && cityValid);
-}
 phoneInput.addEventListener('input', validateInputs);
 cityInput.addEventListener('input', validateInputs);
 
-
-menuOrderLookupBtn.addEventListener('click', (e) => {
-  e.preventDefault();
-  orderLookupModal.hidden = false;
-  orderLookupPhoneInput.value = '';
-  orderLookupCityInput.value = '';
-  fetchOrdersBtn.disabled = true;
-  ordersResult.innerHTML = '';
-  orderLookupPhoneInput.focus();
-  closeMenu();
-});
-
-closeOrderLookupBtn.addEventListener('click', () => {
-  orderLookupModal.hidden = true;
-});
-
-orderLookupPhoneInput.addEventListener('input', validateInputs);
-orderLookupCityInput.addEventListener('input', validateInputs);
-
-orderLookupModal.querySelector('.modal-bg').addEventListener('click', () => {
-  orderLookupModal.hidden = true;
-});
-
 fetchOrdersBtn.addEventListener('click', async () => {
-  const phone = orderLookupPhoneInput.value.trim();
-  const city = orderLookupCityInput.value.trim();
+  const phone = phoneInput.value.trim();
+  const city = cityInput.value.trim();
+  
   if (!phone || !city) return;
-
+  
+  console.log("Fetching orders for phone:", phone, "city:", city);
   ordersResult.innerHTML = 'Loading orders...';
-
+  
   try {
     const { data: orders, error } = await supabase
       .from('orders')
@@ -760,12 +757,14 @@ fetchOrdersBtn.addEventListener('click', async () => {
       .ilike('city', city)
       .order('id', { ascending: false });
       
+    console.log("Response - Data:", orders, "Error:", error);
+      
     if (error) {
       ordersResult.innerHTML = `<p style="color:red;">Error loading orders: ${error.message}</p>`;
       return;
     }
     
-    if (!orders.length) {
+    if (!orders || orders.length === 0) {
       ordersResult.textContent = 'No orders found for this phone and city.';
       return;
     }
@@ -790,10 +789,11 @@ fetchOrdersBtn.addEventListener('click', async () => {
       ordersResult.insertAdjacentHTML('beforeend', orderHtml);
     });
   } catch (err) {
+    console.error("Unexpected error:", err);
     ordersResult.innerHTML = `<p style="color:red;">Unexpected error: ${err.message}</p>`;
   }
 });
+</script>
 
-  </script>
 </body>
 </html>
