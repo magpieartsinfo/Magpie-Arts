@@ -6,14 +6,14 @@
   <title>MAGPIE ARTS | About Us</title>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@900&family=Roboto+Serif:ital,wght@0,400;0,700&family=Dancing+Script:wght@700&family=Merriweather:wght@900&display=swap" rel="stylesheet" />
   <style>
-    body {
-      background: #f3faff;
-      color: #222;
-      margin: 0;
-      padding: 0 20px 80px;
-      font-family: 'Candara', Arial, sans-serif;
-      overflow-x: hidden;
-    }
+   body {
+  background: #f3faff;
+  color: #222;
+  margin: 0;
+  padding: 0; /* Remove the left/right padding! */
+  font-family: 'Candara', Arial, sans-serif;
+  overflow-x: hidden;
+}
     .header-bar {
       position: relative;
       background: linear-gradient(90deg, #b4d9f6 0%, #eaeefe 50%, #97d2f7 100%);
@@ -204,16 +204,12 @@
   text-align: center;
   font-family: Arial, sans-serif;
   user-select: none;
-  margin: 40px -20px 0 -20px; /* Negative margins to break out of body padding */
+  margin-top: 40px;
   border-radius: 20px 20px 0 0;
-  width: calc(100vw); /* Full viewport width */
-  max-width: none;
-  position: relative;
-  left: 50%;
-  right: 50%;
-  margin-left: -50vw; /* Center and extend to full width */
-  margin-right: -50vw;
+  width: 100%;
+  max-width: 100vw;
 }
+
 
 .contact-info {
   max-width: 100%;
