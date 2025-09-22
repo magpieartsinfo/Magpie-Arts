@@ -310,6 +310,16 @@
   width: 100%;
   opacity: 0.8;
 }
+.option-title {
+  display: block;
+  font-weight: 700;
+  font-size: 1.05rem;
+  margin-bottom: 8px;
+  color: #174197;
+  font-family: Arial, sans-serif;
+  user-select: none;
+}
+
 
   </style>
 </head>
@@ -336,8 +346,10 @@
       </div>
       <form id="orderForm" onsubmit="event.preventDefault();">
         <div class="prod-options">
+         <label class="option-title">Canvas Size</label>
           <div class="option-group" id="sizeOptions"></div>
 	<hr class="options-divider" />
+        <label class="option-title">Color Palette</label>
           <div class="option-group" id="paletteOptions"></div>
         </div>
         <div class="form-row upload-photo-row" id="uploadPhotoRow">
