@@ -187,11 +187,15 @@ nav.main-menu a.highlighted-menu-item:focus {
     }
     
     .carousel-slide img,
-    .carousel-slide video {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      border-radius: 12px;
+.carousel-slide video {
+  height: 100%;            /* Full height of banner */
+  width: auto;             /* Width adjusts to keep aspect ratio */
+  object-fit: contain;     /* Entire image visible, no cropping */
+  border-radius: 12px;     /* Optional: keep your border radius */
+  margin: 0;               /* Remove any margin */
+  padding: 0;              /* Remove any padding */
+  display: block;          /* Avoid extra inline space */
+
     }
     
     @keyframes scrollBanner {
