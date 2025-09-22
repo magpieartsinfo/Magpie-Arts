@@ -180,7 +180,7 @@
     .prod-options .option-group button {
       font-family: inherit;
       font-size: 1rem;
-      padding: 8px 18px;
+      padding: 8px 16px;
       border-radius: 7px;
       border: 2.2px solid #80b6fca6;
       background: #fafdff;
@@ -302,6 +302,15 @@
         z-index: 10;
       }
     }
+.options-divider {
+  border: 0;
+  height: 1.5px;
+  background: #e5e6ef;
+  margin: 8px 0 12px 0;
+  width: 100%;
+  opacity: 0.8;
+}
+
   </style>
 </head>
 <body>
@@ -328,6 +337,7 @@
       <form id="orderForm" onsubmit="event.preventDefault();">
         <div class="prod-options">
           <div class="option-group" id="sizeOptions"></div>
+	<hr class="options-divider" />
           <div class="option-group" id="paletteOptions"></div>
         </div>
         <div class="form-row upload-photo-row" id="uploadPhotoRow">
