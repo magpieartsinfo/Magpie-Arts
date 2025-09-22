@@ -170,31 +170,43 @@ nav.main-menu a.highlighted-menu-item:focus {
     }
     
     .carousel-wrapper {
-      display: flex;
-      width: 400%;
-      height: 100%;
-      animation: scrollBanner 20s linear infinite;
-    }
+  display: flex;
+  width: 100%;                 /* Full width container */
+  height: 100%;
+  overflow-x: auto;            /* horizontal scroll */
+  scroll-snap-type: x mandatory; /* scroll snapping */
+  -webkit-overflow-scrolling: touch; /* smooth scrolling on iOS */
+  scroll-behavior: smooth;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  cursor: grab;
+}
     
     .carousel-wrapper:hover {
-      animation-play-state: paused;
-      cursor: grab;
+      cursor: grabbing;
     }
     
     .carousel-slide {
-      flex: 0 0 25%;
-      height: 100%;
+       flex: 0 0 100%;              /* Each slide full width */
+  scroll-snap-align: start;    /* snap position */
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
     }
     
     .carousel-slide img,
 .carousel-slide video {
-  height: 100%;            /* Full height of banner */
-  width: auto;             /* Width adjusts to keep aspect ratio */
-  object-fit: contain;     /* Entire image visible, no cropping */
-  border-radius: 12px;     /* Optional: keep your border radius */
-  margin: 0;               /* Remove any margin */
-  padding: 0;              /* Remove any padding */
-  display: block;          /* Avoid extra inline space */
+   height: 100%;                /* full height */
+  width: auto;                 /* width auto to keep aspect */
+  object-fit: contain;         /* contain full image/video */
+  border-radius: 12px;
+  margin: 0;
+  padding: 0;
+  display: block;
+  user-select: none;
+  pointer-events: none;
 
     }
     
