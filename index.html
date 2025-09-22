@@ -171,12 +171,12 @@ nav.main-menu a.highlighted-menu-item:focus {
     
     .carousel-wrapper {
       display: flex;
-      width: 400%;
+      width: 800%;
       height: 100%;
       margin: 0;
       padding: 0;
       gap: 0;
-      animation: scrollBanner 15s linear infinite;
+      animation: scrollBanner 30s linear infinite;
     }
     
     .carousel-wrapper:hover {
@@ -185,7 +185,7 @@ nav.main-menu a.highlighted-menu-item:focus {
     }
     
     .carousel-slide {
-      flex: 0 0 25%;
+      flex: 0 0 12.5%;
       height: 100%;
   margin: 0;
   padding: 0;
@@ -208,7 +208,7 @@ nav.main-menu a.highlighted-menu-item:focus {
     transform: translateX(0);
   }
   100% {
-    transform: translateX(-100%);
+    transform: translateX(-50%);
   }
 }
     .intro {
@@ -683,6 +683,30 @@ nav.main-menu a.highlighted-menu-item:focus {
     <a href="#contact-section">Contact Us</a>
     <a href="https://magpieartsinfo.github.io/Magpie-Arts/shop.html" class="highlighted-menu-item">Shop</a>
   </nav>
+  <div class="banner-box" aria-label="Homepage banner carousel">
+    <div class="carousel-wrapper">
+      <div class="carousel-slide">
+        <img src="https://raw.githubusercontent.com/magpieartsinfo/Magpie-Arts/main/images/banner1.png" alt="Banner Image 1" />
+      </div>
+      <div class="carousel-slide">
+        <video autoplay muted loop playsinline>
+          <source src="https://raw.githubusercontent.com/magpieartsinfo/Magpie-Arts/main/video/banner-video1.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+      </div>
+      <div class="carousel-slide">
+        <img src="https://raw.githubusercontent.com/magpieartsinfo/Magpie-Arts/main/images/banner2.png" alt="Banner Image 2" />
+      </div>
+      <div class="carousel-slide">
+        <video autoplay muted loop playsinline>
+          <source src="https://raw.githubusercontent.com/magpieartsinfo/Magpie-Arts/main/video/banner-video2.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+      </div>
+    </div>
+
+ <!-- Duplicate 4 slides -->
+
   <div class="banner-box" aria-label="Homepage banner carousel">
     <div class="carousel-wrapper">
       <div class="carousel-slide">
