@@ -170,44 +170,31 @@ nav.main-menu a.highlighted-menu-item:focus {
     }
     
     .carousel-wrapper {
-  display: flex;
-  width: 100%;                 /* Full width container */
-  height: 100%;
-  overflow-x: auto;            /* horizontal scroll */
-  scroll-snap-type: x mandatory; /* scroll snapping */
-  -webkit-overflow-scrolling: touch; /* smooth scrolling on iOS */
-  scroll-behavior: smooth;
-  gap: 0;
-  margin: 0;
-  padding: 0;
-  cursor: grab;
-}
+      display: flex;
+      width: 400%;
+      height: 100%;
+      animation: scrollBanner 40s linear infinite;
+    }
     
     .carousel-wrapper:hover {
-      cursor: grabbing;
+      animation-play-state: paused;
+      cursor: grab;
     }
     
     .carousel-slide {
-       flex: 0 0 100%;              /* Each slide full width */
-  scroll-snap-align: start;    /* snap position */
-  height: 100%;
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+      flex: 0 0 25%;
+      height: 100%;
     }
     
     .carousel-slide img,
-.carousel-slide video {
-   height: 100%;                /* full height */
-  width: auto;                 /* width auto to keep aspect */
-  object-fit: contain;         /* contain full image/video */
+    .carousel-slide video {
+      height: 100%;
+  width: auto;
+  object-fit: contain;
   border-radius: 12px;
   margin: 0;
   padding: 0;
   display: block;
-  user-select: none;
-  pointer-events: none;
-
     }
     
     @keyframes scrollBanner {
