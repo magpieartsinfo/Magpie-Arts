@@ -287,6 +287,16 @@
       text-decoration: none;
       cursor: pointer;
     }
+
+.product-rating {
+  margin-top: 4px;
+  user-select: none;
+  color: #999;
+}
+.product-rating span {
+  font-size: 1.1rem;
+}
+
     .menu-overlay {
       position: fixed;
       top: 0;
@@ -711,6 +721,42 @@ const sideMenu = document.getElementById('sideMenu');
 const menuOverlay = document.getElementById('menuOverlay');
 let currentCategory = 'All';
 
+function getRatingKey(product) {
+  return "review_" + (product.title || "").replace(/\s+/g, "_");
+}
+
+function loadRatings(product) {
+  const key = getRatingKey(product);
+  return JSON.parse(localStorage.getItem(key) || "[]");
+}
+
+function getAverageRating(product) {
+  const reviews = loadRatings(product);
+  if (reviews.length === 0) return { avg: 0, count: 0 };
+  const sum = reviews.reduce((acc, r) => acc + r.stars, 0);
+  return { avg: sum / reviews.length, count: reviews.length };
+}
+
+function renderStaticRating(container, avg, count) {
+  container.innerHTML = "";
+  const totalStars = 5;
+  for(let i=1; i<=totalStars; i++){
+    const star = document.createElement('span');
+    star.textContent = "★";
+    star.style.color = (i <= Math.round(avg)) ? "#ffbc0a" : "#bbb";
+    star.style.fontSize = "1.1rem";
+    star.style.userSelect = "none";
+    star.style.pointerEvents = "none"; // disable interaction
+    container.appendChild(star);
+  }
+  if(count > 0) {
+    const cntSpan = document.createElement('span');
+    cntSpan.textContent = ` (${count} review${count>1 ? 's' : ''})`;
+    cntSpan.style.marginLeft = "6px";
+    container.appendChild(cntSpan);
+  }
+}
+
 async function loadProductsFromJson() {
   try {
     productsGrid.innerHTML = '<div class="loading-indicator">Loading products...</div>';
@@ -776,6 +822,14 @@ onclick="toggleWishlist(event, ${originalIndex})"
 </span>
     `;
     productsGrid.appendChild(card);
+const ratingContainer = document.createElement('div');
+ratingContainer.className = 'product-rating';
+ratingContainer.id = 'rating_' + prod.title.replace(/\s+/g, "_");
+card.appendChild(ratingContainer);
+
+const { avg, count } = getAverageRating(prod);
+renderStaticRating(ratingContainer, avg, count);
+
   });
 }
 
