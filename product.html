@@ -481,7 +481,9 @@
     if (!currentProduct) return;
 
     productTitleElem.textContent = currentProduct.title;
-    descAreaElem.textContent = currentProduct.desc;
+    let descParagraphs = currentProduct.desc.split(/\n{2,}/);
+    descAreaElem.innerHTML = descParagraphs
+    .map(p => `<p>${p.replace(/\n/g, '<br/>')}</p>`).join('');
 
     const images = [
       currentProduct.image,
