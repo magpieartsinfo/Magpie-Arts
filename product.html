@@ -584,70 +584,69 @@
       uploadInput.required = false;
     }
 
-let selectedRating = 0;
+let selectedRating = 0; // Store selected star value
 const stars = [...document.querySelectorAll("#starReview .star")];
 const submitBtn = document.getElementById("submitReviewBtn");
 
-// Highlight stars on hover and after selection
+// Highlight stars upto rating (for hover and selected)
 function highlightStars(rating) {
   stars.forEach((star, i) => {
     star.classList.toggle("selected", i < rating);
   });
 }
 
-// Star hover effect
+// Hover effect and select star (no saving yet)
 stars.forEach((star, idx) => {
   star.addEventListener("mouseenter", () => highlightStars(idx + 1));
   star.addEventListener("mouseleave", () => highlightStars(selectedRating));
   star.addEventListener("click", () => {
     selectedRating = idx + 1;
     highlightStars(selectedRating);
-    submitBtn.disabled = false;
+    submitBtn.disabled = false; // Enable submit button
     submitBtn.setAttribute("aria-disabled", "false");
   });
 });
 
-// Submit button click
+// Submit button click: save and update rating count
 submitBtn.addEventListener("click", () => {
-  if (selectedRating === 0) return;
+  if (selectedRating === 0) return; // No rating selected
 
-  // Save the rating
+  // Save rating to localStorage
   saveReview(currentProduct, selectedRating);
 
   // Reset selection and disable button
   selectedRating = 0;
+  highlightStars(0);
   submitBtn.disabled = true;
   submitBtn.setAttribute("aria-disabled", "true");
 
-  // Refresh display
+  // Update UI
   renderReview(currentProduct);
 
   alert("Thank you for submitting your review!");
 });
 
-// Update renderReview function: ensure it resets the selectedRating and disables submit
+// Render saved reviews and rating display
 function renderReview(product) {
   const starContainer = document.getElementById("starReview");
   if (!starContainer) return;
   const stars = [...starContainer.querySelectorAll(".star")];
   let reviews = loadReview(product);
-  let avg = (reviews.reduce((a, r) => a + r.stars, 0) / (reviews.length || 1)).toFixed(1);
+  let avg = (reviews.reduce((acc, r) => acc + r.stars, 0) / (reviews.length || 1)).toFixed(1);
   let count = reviews.length;
 
-  stars.forEach((star, i) => {
-    star.classList.toggle("selected", i < Math.round(avg));
-    star.classList.remove("highlight");
-    // Remove click handlers to prevent double inits, or re-bind if needed
-  });
+  stars.forEach(star => star.classList.remove("highlight"));
+  stars.forEach((star, i) => star.classList.toggle("selected", i < Math.round(avg)));
 
-  document.getElementById("reviewCount").textContent = count ? `(${count} review${count > 1 ? "s" : ""}, avg ${avg}★)` : "(0 reviews)";
-  
-  // Reset selection and submit button state
-  selectedRating = 0;
+  document.getElementById("reviewCount").textContent =
+    count ? `(${count} review${count > 1 ? "s" : ""}, avg ${avg}★)` : "(0 reviews)";
+
+  // Reset submit button state in case
   submitBtn.disabled = true;
   submitBtn.setAttribute("aria-disabled", "true");
 }
 
+// Use these functions as before (loadReview, saveReview)
 function getReviewKey(product) {
   return "review_" + (product.title || "").replace(/\s+/g, "_");
 }
@@ -655,44 +654,16 @@ function getReviewKey(product) {
 function loadReview(product) {
   const key = getReviewKey(product);
   const data = JSON.parse(localStorage.getItem(key) || "[]");
-  return data; // Array of {stars: 5}
+  return data; // Returns array of reviews
 }
 
 function saveReview(product, stars) {
   const key = getReviewKey(product);
   const oldData = loadReview(product);
-  oldData.push({stars: stars, ts: Date.now()});
+  oldData.push({ stars, ts: Date.now() });
   localStorage.setItem(key, JSON.stringify(oldData));
 }
 
-function renderStarReview(product) {
-  const starReview = document.getElementById("starReview");
-  if (!starReview) return;
-  const stars = [...starReview.querySelectorAll(".star")];
-  let data = loadReview(product);
-  let avg = (data.reduce((acc, r) => acc+r.stars, 0) / (data.length || 1)).toFixed(1);
-  let cnt = data.length;
-  // Set display
-  stars.forEach((star, idx) => {
-    star.classList.toggle("selected", idx < Math.round(avg));
-    // Hover
-    star.onmouseenter = () => {
-      stars.forEach((s, i) => s.classList.toggle("highlight", i <= idx));
-    };
-    star.onmouseleave = () => {
-      stars.forEach(s => s.classList.remove("highlight"));
-    };
-    // Click to rate
-    star.onclick = () => {
-      saveReview(product, idx+1);
-      renderStarReview(product);
-      alert("Thank you for your review!");
-    };
-  });
-  // Update count and average
-  document.getElementById("reviewCount").textContent =
-    cnt ? `(${cnt} review${cnt>1?"s":""}, avg ${avg}★)` : "(0 reviews)";
-}
 
   function createOptionButtons(container, options, groupName) {
     container.innerHTML = '';
