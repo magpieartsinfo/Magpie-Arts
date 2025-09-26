@@ -344,8 +344,23 @@
   margin-left: 8px;
   color: #222;
 }
-
-
+#submitReviewBtn {
+  margin-left: 12px;
+  padding: 5px 12px;
+  font-weight: 600;
+  background: #047cff;
+  border: none;
+  border-radius: 6px;
+  color: white;
+  cursor: pointer;
+  user-select: none;
+  font-size: 0.9rem;
+  transition: background-color 0.3s ease;
+}
+#submitReviewBtn:disabled {
+  background: #9ec9ff;
+  cursor: not-allowed;
+}
   </style>
 </head>
 <body>
@@ -369,6 +384,7 @@
   <span class="star" data-value="3">★</span>
   <span class="star" data-value="4">★</span>
   <span class="star" data-value="5">★</span>
+  <button id="submitReviewBtn" disabled aria-disabled="true" aria-label="Submit your rating">Submit</button>
   <span class="review-count" id="reviewCount">(0 reviews)</span>
 </div>
         <div id="descArea" class="desc-area"></div>
@@ -567,6 +583,71 @@
       uploadPhotoRow.style.display = "none";
       uploadInput.required = false;
     }
+
+let selectedRating = 0;
+const stars = [...document.querySelectorAll("#starReview .star")];
+const submitBtn = document.getElementById("submitReviewBtn");
+
+// Highlight stars on hover and after selection
+function highlightStars(rating) {
+  stars.forEach((star, i) => {
+    star.classList.toggle("selected", i < rating);
+  });
+}
+
+// Star hover effect
+stars.forEach((star, idx) => {
+  star.addEventListener("mouseenter", () => highlightStars(idx + 1));
+  star.addEventListener("mouseleave", () => highlightStars(selectedRating));
+  star.addEventListener("click", () => {
+    selectedRating = idx + 1;
+    highlightStars(selectedRating);
+    submitBtn.disabled = false;
+    submitBtn.setAttribute("aria-disabled", "false");
+  });
+});
+
+// Submit button click
+submitBtn.addEventListener("click", () => {
+  if (selectedRating === 0) return;
+
+  // Save the rating
+  saveReview(currentProduct, selectedRating);
+
+  // Reset selection and disable button
+  selectedRating = 0;
+  submitBtn.disabled = true;
+  submitBtn.setAttribute("aria-disabled", "true");
+
+  // Refresh display
+  renderReview(currentProduct);
+
+  alert("Thank you for submitting your review!");
+});
+
+// Update renderReview function: ensure it resets the selectedRating and disables submit
+function renderReview(product) {
+  const starContainer = document.getElementById("starReview");
+  if (!starContainer) return;
+  const stars = [...starContainer.querySelectorAll(".star")];
+  let reviews = loadReview(product);
+  let avg = (reviews.reduce((a, r) => a + r.stars, 0) / (reviews.length || 1)).toFixed(1);
+  let count = reviews.length;
+
+  stars.forEach((star, i) => {
+    star.classList.toggle("selected", i < Math.round(avg));
+    star.classList.remove("highlight");
+    // Remove click handlers to prevent double inits, or re-bind if needed
+  });
+
+  document.getElementById("reviewCount").textContent = count ? `(${count} review${count > 1 ? "s" : ""}, avg ${avg}★)` : "(0 reviews)";
+  
+  // Reset selection and submit button state
+  selectedRating = 0;
+  submitBtn.disabled = true;
+  submitBtn.setAttribute("aria-disabled", "true");
+}
+
 renderStarReview(currentProduct);
   }
 function getReviewKey(product) {
