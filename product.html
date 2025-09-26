@@ -648,8 +648,6 @@ function renderReview(product) {
   submitBtn.setAttribute("aria-disabled", "true");
 }
 
-renderStarReview(currentProduct);
-  }
 function getReviewKey(product) {
   return "review_" + (product.title || "").replace(/\s+/g, "_");
 }
