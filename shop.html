@@ -773,13 +773,6 @@ function renderStaticRating(container, avg, count) {
   `;
 }
 
-  if(count > 0) {
-    const cntSpan = document.createElement('span');
-    cntSpan.textContent = ` (${count} review${count>1 ? 's' : ''})`;
-    cntSpan.style.marginLeft = "6px";
-    container.appendChild(cntSpan);
-  }
-}
 
 async function loadProductsFromJson() {
   try {
