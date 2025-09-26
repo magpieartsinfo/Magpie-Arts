@@ -313,8 +313,9 @@
     width: 100%;
     text-align: center;
     color: #888;
-    font-size: 1.0rem;
+    font-size: 1rem;
     margin-top: 3px;
+    padding-bottom: 2px;
   }
 }
 
@@ -760,17 +761,18 @@ function getAverageRating(product) {
 }
 
 function renderStaticRating(container, avg, count) {
-  container.innerHTML = "";
-  const totalStars = 5;
-  for(let i=1; i<=totalStars; i++){
-    const star = document.createElement('span');
-    star.textContent = "★";
-    star.style.color = (i <= Math.round(avg)) ? "#ffbc0a" : "#bbb";
-    star.style.fontSize = "1.1rem";
-    star.style.userSelect = "none";
-    star.style.pointerEvents = "none"; // disable interaction
-    container.appendChild(star);
-  }
+  container.innerHTML = `
+    <div class="rating-stars-row">
+      ${Array.from({length: 5}, (_, i) =>
+        `<span style="color:${i < Math.round(avg) ? "#ffbc0a":"#bbb"};font-size:1.22rem;margin:0 2px;">★</span>`
+      ).join('')}
+    </div>
+    <div class="rating-review-row">
+      ${count > 0 ? `${count} review${count > 1 ? "s" : ""}` : "No reviews"}
+    </div>
+  `;
+}
+
   if(count > 0) {
     const cntSpan = document.createElement('span');
     cntSpan.textContent = ` (${count} review${count>1 ? 's' : ''})`;
