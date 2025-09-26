@@ -296,6 +296,27 @@
 .product-rating span {
   font-size: 1rem;
 }
+@media (max-width: 600px) {
+  .product-rating {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin-top: 8px;
+  }
+
+  .rating-stars-row {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+  .rating-review-row {
+    color: #888;
+    font-size: 1.0rem;
+    margin-top: 2px;
+    text-align: center;
+  }
+}
 
     .menu-overlay {
       position: fixed;
