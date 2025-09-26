@@ -324,6 +324,26 @@
   font-family: Arial, sans-serif;
   user-select: none;
 }
+.star-review {
+  font-size: 1.5rem;
+  color: #cacaca;
+  user-select: none;
+  margin-bottom: 0.7rem;
+}
+.star-review .star {
+  cursor: pointer;
+  transition: color 0.2s;
+  color: #bbb;
+}
+.star-review .star.selected,
+.star-review .star.highlight {
+  color: #ffbc0a;
+}
+.review-count {
+  font-size: 1rem;
+  margin-left: 8px;
+  color: #222;
+}
 
 
   </style>
@@ -342,6 +362,15 @@
     </div>
     <div class="detail-section">
       <div class="title-area">
+<div class="star-review" id="starReview">
+  <span class="star" data-value="1">★</span>
+  <span class="star" data-value="2">★</span>
+  <span class="star" data-value="3">★</span>
+  <span class="star" data-value="4">★</span>
+  <span class="star" data-value="5">★</span>
+  <span class="review-count" id="reviewCount">(0 reviews)</span>
+</div>
+
         <h1 id="productTitle">Loading...</h1>
         <div id="descArea" class="desc-area"></div>
         <span class="note-hl">* Prices above Rs. 1,399 qualify for free delivery.</span>
@@ -539,7 +568,53 @@
       uploadPhotoRow.style.display = "none";
       uploadInput.required = false;
     }
+renderStarReview(currentProduct);
   }
+function getReviewKey(product) {
+  return "review_" + (product.title || "").replace(/\s+/g, "_");
+}
+
+function loadReview(product) {
+  const key = getReviewKey(product);
+  const data = JSON.parse(localStorage.getItem(key) || "[]");
+  return data; // Array of {stars: 5}
+}
+
+function saveReview(product, stars) {
+  const key = getReviewKey(product);
+  const oldData = loadReview(product);
+  oldData.push({stars: stars, ts: Date.now()});
+  localStorage.setItem(key, JSON.stringify(oldData));
+}
+
+function renderStarReview(product) {
+  const starReview = document.getElementById("starReview");
+  if (!starReview) return;
+  const stars = [...starReview.querySelectorAll(".star")];
+  let data = loadReview(product);
+  let avg = (data.reduce((acc, r) => acc+r.stars, 0) / (data.length || 1)).toFixed(1);
+  let cnt = data.length;
+  // Set display
+  stars.forEach((star, idx) => {
+    star.classList.toggle("selected", idx < Math.round(avg));
+    // Hover
+    star.onmouseenter = () => {
+      stars.forEach((s, i) => s.classList.toggle("highlight", i <= idx));
+    };
+    star.onmouseleave = () => {
+      stars.forEach(s => s.classList.remove("highlight"));
+    };
+    // Click to rate
+    star.onclick = () => {
+      saveReview(product, idx+1);
+      renderStarReview(product);
+      alert("Thank you for your review!");
+    };
+  });
+  // Update count and average
+  document.getElementById("reviewCount").textContent =
+    cnt ? `(${cnt} review${cnt>1?"s":""}, avg ${avg}★)` : "(0 reviews)";
+}
 
   function createOptionButtons(container, options, groupName) {
     container.innerHTML = '';
