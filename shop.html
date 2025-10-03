@@ -726,7 +726,7 @@
 </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  
 <script>
 // Initialize Supabase client
 const supabaseUrl = "https://rxtukfjjeruospodnkdz.supabase.co";
@@ -791,6 +791,17 @@ async function loadProductsFromJson() {
   }
 }
 
+async function getAverageRatingFromSupabase(product) {
+  const { data, error } = await supabase
+    .from('reviews')
+    .select('stars')
+    .eq('product_title', product.title); // Or use product.id if ID is used
+  if (error || !data) return { avg: 0, count: 0 };
+  const count = data.length;
+  const sum = data.reduce((acc, r) => acc + Number(r.stars || 0), 0);
+  return { avg: count > 0 ? sum / count : 0, count };
+}
+
 function renderProducts() {
   productsGrid.innerHTML = '';
   if (!products || products.length === 0) {
@@ -844,8 +855,9 @@ ratingContainer.className = 'product-rating';
 ratingContainer.id = 'rating_' + prod.title.replace(/\s+/g, "_");
 card.appendChild(ratingContainer);
 
-const { avg, count } = getAverageRating(prod);
-renderStaticRating(ratingContainer, avg, count);
+getAverageRatingFromSupabase(prod).then(({ avg, count }) => {
+  renderStaticRating(ratingContainer, avg, count);
+});
 
   });
 }
