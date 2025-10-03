@@ -638,7 +638,6 @@ async function saveReviewToSupabase(product, stars) {
   const { error } = await supabase
     .from('reviews')
     .insert([{
-      product_id: product.id,
       product_title: product.title,
       stars: stars,
       timestamp: Date.now()
@@ -650,7 +649,7 @@ async function loadReviewsFromSupabase(product) {
   const { data, error } = await supabase
     .from('reviews')
     .select('*')
-    .eq('product_id', product.id);
+    .eq('product_title', product.title);
   return error ? [] : data || [];
 }
 
