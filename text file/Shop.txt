@@ -14,72 +14,68 @@
       --primary: 220 91% 56%;
     }
     body {
-      font-family: 'Candara', Arial, sans-serif;
-      background: hsl(var(--background));
-      color: hsl(var(--foreground));
-      min-height: 100vh;
-      padding-bottom: 80px;
-    }
+  font-family: 'Candara', Arial, sans-serif;
+  background: hsl(var(--background));
+  color: hsl(var(--foreground));
+  min-height: 100vh;
+  padding-top: 200px;  /* Reduced from 250px to 180px */
+  padding-bottom: 80px;
+}
+
     .header-bar {
-      background: linear-gradient(90deg, #b4d9f6 0%, #eaeefe 50%, #97d2f7 100%);
-      min-height: 110px; 
-      border-radius: 32px 0 32px 0;
-      display: flex; 
-      align-items: center; 
-      justify-content: center;
-      position: relative; 
-      box-shadow: 0 8px 26px #6599f3b2;
-      padding: 0 12vw; 
-      max-width: 100vw; 
-      width: 100vw;
-      margin: 0 auto;
-    }
-.menu-icon, .home-icon-link {
-  position: absolute;
-  width: auto;       /* Remove fixed width */
-  height: auto;      /* Remove fixed height */
-  background: none;  /* No background */
-  border: none;
-  border-radius: 0;
-  padding: 0;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  z-index: 10000;
+  background: linear-gradient(90deg, #b4d9f6 0%, #eaeefe 50%, #97d2f7 100%);
+  min-height: 110px;  /* Restored original height */
+  border-radius: 32px 0 32px 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 10002;
-  top: 50%;
-  transform: translateY(-50%);
-  cursor: pointer;
-  outline: none;
-  transition: filter 0.2s;
+  box-shadow: 0 8px 26px #6599f3b2;
+  padding: 0 12vw;
 }
-
-.menu-icon { right: 24px; left: auto; }
-.home-icon-link { left: 24px; right: auto; }
-
-.menu-icon svg, .menu-icon img, .home-icon-link svg, .home-icon-link img {
-  width: 44px;
-  height: 44px;
-  display: block;
-  background: none;
-  border: none;
-  border-radius: 0;
-  user-select: none;
-  pointer-events: none;
-  /* Apply shadow directly to the SVG/image */
-  filter: drop-shadow(0 7px 24px rgba(80,108,210,0.29)) 
-          drop-shadow(0 3px 10px rgba(50,50,100,0.13)) 
-          drop-shadow(0 15px 30px rgba(85,125,240,0.16));
-}
-
-.menu-icon:hover svg, .menu-icon:hover img, 
-.home-icon-link:hover svg, .home-icon-link:hover img {
-  filter: drop-shadow(0 10px 36px rgba(80,108,210,0.38)) 
-          drop-shadow(0 5px 16px rgba(50,50,100,0.16)) 
-          drop-shadow(0 20px 40px rgba(85,125,240,0.21));
-}
-
-
-
+    .menu-icon, .home-icon-link {
+      position: absolute;
+      width: auto;
+      height: auto;
+      background: none;
+      border: none;
+      border-radius: 0;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10002;
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
+      outline: none;
+      transition: filter 0.2s;
+    }
+    .menu-icon { right: 24px; left: auto; }
+    .home-icon-link { left: 24px; right: auto; }
+    .menu-icon svg, .menu-icon img, .home-icon-link svg, .home-icon-link img {
+      width: 50px;
+      height: 50px;
+      display: block;
+      background: none;
+      border: none;
+      border-radius: 0;
+      user-select: none;
+      pointer-events: none;
+      filter: drop-shadow(0 7px 24px rgba(80,108,210,0.29)) 
+              drop-shadow(0 3px 10px rgba(50,50,100,0.13)) 
+              drop-shadow(0 15px 30px rgba(85,125,240,0.16));
+    }
+    .menu-icon:hover svg, .menu-icon:hover img, 
+    .home-icon-link:hover svg, .home-icon-link:hover img {
+      filter: drop-shadow(0 10px 36px rgba(80,108,210,0.38)) 
+              drop-shadow(0 5px 16px rgba(50,50,100,0.16)) 
+              drop-shadow(0 20px 40px rgba(85,125,240,0.21));
+    }
     .pie-logo-center {
       margin: 0 auto; 
       max-width: 330px; 
@@ -104,15 +100,22 @@
       filter: drop-shadow(0 2px 5px #7eb8f72a);
     }
     .categories {
-      margin: 0 auto 8px auto;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 8px 14px;
-      max-width: 515px;
-      padding: 7px 0 0 0;
-      background: none;
-    }
+  position: fixed;
+  top: 140px;  /* Changed to match header height exactly */
+  left: 0;
+  right: 0;
+  width: 100vw;
+  z-index: 9998;  /* Lower z-index than header */
+  background: hsl(var(--background));
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 8px 14px;
+  padding: 15px 0;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
     .category-btn {
       font-weight: 600;
       font-size: 0.98rem;
@@ -129,7 +132,12 @@
       color: #1d388b;
     }
     nav { display: none; }
-    .shop-container { width: 100vw; max-width: 100vw; margin: 0 auto; padding: 0;}
+    .shop-container { 
+      width: 100vw; 
+      max-width: 100vw; 
+      margin: 0 auto; 
+      padding: 10px 0 0 0;
+    }
     .products-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -192,6 +200,15 @@
       transition: background .13s, box-shadow .13s;
       outline: none;
     }
+.wishlist-icon {
+  width: 28px;
+  height: 28px;
+  transition: filter 0.18s;
+  user-select: none;
+  pointer-events: none;
+  display: block;
+  margin: 0 auto;
+}
     #wishlist-floating-btn:hover {
       background: #fff;
       box-shadow: 0 12px 22px #285be84f;
@@ -201,50 +218,41 @@
       position: fixed; top: 90px; right: 20px; width: 340px; max-height: 500px;
       background: hsl(var(--card)); box-shadow: 0 0 40px rgba(30,78,170,0.25);
       border-radius: 20px; overflow-y: auto; padding: 21px 25px 25px 25px;
-      z-index: 2999; display: none;
+      z-index: 30000; display: none;
     }
     #wishlistModal h2 {font-weight: 800; text-align: center; margin: 0 0 15px 0; color: #1f3e83; font-size: 1.4rem;}
     .wishlist-item { display: flex; align-items: center; margin-bottom: 1rem; justify-content: space-between; cursor: pointer;}
     .wishlist-item img { width: 54px; height: 72px; object-fit: cover; border-radius: 12px; margin-right: 14px;}
     .wish-title { flex-grow: 1; font-weight: 700; font-size: 0.97rem; color: #1b3a8d; text-align: left;}
     .remove-wish { font-size: 1.31rem; color: #e84265; cursor: pointer; font-weight: 900; padding-left: 10px; user-select: none;}
-    .footer-contact-shop {
-      background: #172a59;
-      color: #fff; padding: 30px 10px 20px 10px;
-      border-radius: 28px; text-align: center; margin: 27px auto 10px auto;
-      font-family: Arial, sans-serif; width: 99vw; max-width: 740px;
-    }
-    .footer-contact-shop .contact-info p { margin: 5px 0; font-size: 1.03rem; color: #fff; line-height: 1.5;}
-    .social-icons { margin-top: 20px; display: flex; justify-content: center; gap: 18px;}
-    .social-icons a { text-decoration: none; }
-    @media (max-width: 960px) {
+    
+       @media (max-width: 960px) {
       .header-bar { padding: 0 2vw; }
       .pie-logo-center { width: 28vw; }
     }
     @media (max-width: 700px) {
+      body { padding-top: 80px; }
       .header-bar {border-radius: 0!important; min-height: 65px;}
-      .home-icon-link, .menu-icon { width: 42px; height: 42px; }
-      .home-icon-link svg, .menu-icon svg { width: 26px; height: 26px; }
+      .categories { top: 65px; }
+      .home-icon-link svg, .home-icon-link img, 
+      .menu-icon svg, .menu-icon img { width: 40px; height: 40px; }
       .pie-logo-center { width: 30vw; min-width: 75px; max-width: 110px; }
-      .categories { gap: 6px 5vw; margin-bottom: 0; }
+      .categories { gap: 6px 5vw; padding: 8px 0; }
       .category-btn { font-size: .94rem; padding: 3.5px 8px; border-radius: 7px;}
       .footer-contact-shop { border-radius: 15px; }
       .products-grid { grid-template-columns: repeat(2, 1fr)!important; gap: 10px 6px; width: 100vw; max-width: 100vw; }
-      .shop-container { max-width: 100vw; margin: 0; padding: 0;}
+      .shop-container { max-width: 100vw; margin: 0; padding: 50px 0 0 0;}
       #wishlistModal { width: 95vw; right: 2vw; }
       #wishlist-floating-btn { bottom: 15px; right: 18px; width: 52px; height: 52px; font-size: 1.6rem; }
-      /* Fix side menu z-index for mobile */
-      .side-menu { z-index: 30001 !important; }
-      .menu-overlay { z-index: 30000 !important; }
+      .side-menu { z-index: 40001 !important; }
+      .menu-overlay { z-index: 40000 !important; }
     }
     @media (max-width: 400px) {
       .pie-logo-center { width: 44vw; }
     }
-    /* Show floating wishlist always */
     #wishlist-floating-btn { display: flex; }
     .loading-indicator { text-align: center; padding: 24px; font-size: 1.15rem; color: #3897f0;}
     .error-message { text-align: center; padding: 24px; font-size: 1.13rem; color: #e84265;}
-    /* Fix side menu overlay */
     .side-menu {
       position: fixed;
       top: 0;
@@ -258,6 +266,8 @@
       transition: right 0.3s cubic-bezier(.77,0,.175,1);
       display: flex;
       flex-direction: column;
+      z-index: 50000;
+      border-radius: 0 0 0 20px;
     }
     .side-menu.open { right: 0 !important; }
     .side-menu ul {
@@ -277,6 +287,39 @@
       text-decoration: none;
       cursor: pointer;
     }
+
+.product-rating {
+  margin-top: 4px;
+  user-select: none;
+  color: #999;
+}
+.product-rating span {
+  font-size: 1rem;
+}
+@media (max-width: 600px) {
+  .product-rating {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    margin-top: 6px;
+  }
+  .rating-stars-row {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+  .rating-review-row {
+    width: 100%;
+    text-align: center;
+    color: #888;
+    font-size: 1rem;
+    margin-top: 3px;
+    padding-bottom: 2px;
+  }
+}
+
+
     .menu-overlay {
       position: fixed;
       top: 0;
@@ -285,26 +328,333 @@
       width: 100vw;
       height: 100vh;
       background: rgba(14, 42, 139, 0.15);
-      z-index: 30000;
+      z-index: 45000;
       display: none;
     }
     .menu-overlay.open {
       display: block;
     }
+
+#orderLookupModal {
+  position: fixed; 
+  top: 0; left: 0; 
+  width: 100vw; height: 100vh;
+  display: flex; 
+  justify-content: center; 
+  align-items: center;
+  background-color: rgba(0,0,0,0.35);
+  z-index: 100000; /* Increased from 3000 to 100000 */
+}
+
+#orderLookupModal[hidden] {
+  display: none;
+}
+
+#orderLookupModal .modal-bg {
+  position: fixed; 
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  background-color: rgba(0,0,0,0.4);
+  backdrop-filter: blur(3px);
+}
+
+#orderLookupModal .modal-content {
+  position: relative;
+  background: #fff;
+  border-radius: 24px;
+  padding: 24px;
+  max-width: 400px;
+  width: 95%;
+  box-shadow: 0 5px 25px #4b86e6aa;
+  font-family: 'Candara', Arial, sans-serif;
+  color: #222;
+  user-select: none;
+  margin: 0 15px;
+}
+
+#orderLookupModal h2 {
+  font-family: 'Montserrat', Arial, sans-serif;
+  font-size: 1.45rem;
+  margin-top: 0;
+}
+
+#orderLookupModal p {
+  margin-bottom: 8px;
+  font-size: 1.05rem;
+}
+
+#orderLookupModal .input-group {
+  margin-bottom: 16px;
+}
+
+#orderLookupModal input {
+  width: 100%;
+  padding: 12px 14px;
+  font-size: 1rem;
+  border: 2px solid #9fbff6;
+  border-radius: 12px;
+  outline-color: #3460a0;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease;
+}
+
+#orderLookupModal input:focus {
+  border-color: #3460a0;
+}
+
+#fetchOrdersBtn {
+  display: block;
+  width: 100%;
+  padding: 12px 20px;
+  background: #185dd5;
+  color: white;
+  font-weight: 700;
+  border-radius: 10px;
+  font-size: 1rem;
+  border: none;
+  cursor: pointer;
+  margin-bottom: 8px;
+}
+
+#fetchOrdersBtn[disabled] {
+  background: #a1b8f5;
+  cursor: not-allowed;
+}
+
+#ordersResult {
+  max-height: 320px;
+  overflow-y: auto;
+  font-size: 0.9rem;
+  margin-top: 16px;
+}
+
+.order-item {
+  background: #f8fbff;
+  border: 1px solid #e1efff;
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 16px;
+  transition: all 0.2s ease;
+}
+
+.order-item:hover {
+  background: #f0f8ff;
+  border-color: #b3d9ff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.order-item:last-child {
+  margin-bottom: 0;
+}
+
+.order-id {
+  font-weight: 700;
+  color: #174197;
+  margin-bottom: 8px;
+  font-size: 1rem;
+  border-bottom: 1px solid #e1efff;
+  padding-bottom: 6px;
+}
+
+.order-detail {
+  margin: 6px 0;
+  font-size: 0.95rem;
+  color: #333;
+}
+
+.order-detail strong {
+  color: #174197;
+  font-weight: 600;
+}
+
+.order-status {
+  color: #ff8c00;
+  font-weight: 700;
+  background: #fff4e6;
+  padding: 2px 8px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+}
+
+.order-products {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid #e1efff;
+}
+
+.order-products-title {
+  font-weight: 600;
+  color: #174197;
+  margin-bottom: 8px;
+}
+
+.product-item {
+  background: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 10px;
+  margin: 6px 0;
+  font-size: 0.9rem;
+}
+
+.product-title {
+  font-weight: 600;
+  color: #2c5aa0;
+  margin-bottom: 4px;
+}
+
+.product-details {
+  color: #666;
+  font-size: 0.85rem;
+}
+
+/* Empty state styling */
+.no-orders-message {
+  text-align: center;
+  padding: 24px;
+  color: #666;
+  font-style: italic;
+}
+
+
+#closeOrderLookup {
+  position: absolute;
+  top: 10px;
+  right: 14px;
+  font-size: 28px;
+  background: transparent;
+  border: none;
+  color: #185dd5;
+  cursor: pointer;
+}
+
+.footer-contact {
+  background: #172a59;
+  color: #dde6f0;
+  padding: 30px 15px 20px;
+  text-align: center;
+  font-family: Arial, sans-serif;
+  user-select: none;
+  margin-top: 40px;
+  border-radius: 20px 20px 0 0;
+  width: 100%;
+  max-width: 100vw;
+}
+
+.contact-info {
+  max-width: 100%;
+  margin: 0 auto 20px auto;
+}
+
+.contact-info p {
+  margin: 8px 0;
+  font-size: 1rem;
+  color: #dde6f0;
+  line-height: 1.5;
+}
+
+.contact-info strong {
+  font-size: 1.1rem;
+  color: #fff;
+}
+
+.contact-info a {
+  color: #fff !important;
+  text-decoration: underline;
+}
+
+.social-icons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 20px;
+  flex-wrap: wrap;
+}
+
+.social-icons a {
+  display: inline-block;
+  padding: 0;
+  margin: 0 4px;
+  transition: transform 0.18s ease;
+  text-decoration: none;
+}
+
+.social-icons a:hover {
+  transform: scale(1.12);
+}
+
+.social-icons img {
+  width: 38px;
+  height: 38px;
+  object-fit: contain;
+  border-radius: 12px;
+  display: inline-block;
+  vertical-align: middle;
+  box-shadow: 0 2px 8px rgba(35, 77, 211, 0.3);
+  background: #fff;
+  padding: 4px;
+  transition: box-shadow 0.22s ease;
+}
+
+.social-icons a:hover img {
+  box-shadow: 0 4px 16px rgba(35, 77, 211, 0.45);
+}
+
+/* Responsive adjustments */
+@media (min-width: 768px) {
+  .footer-contact {
+    padding: 36px 20px 28px;
+    margin-top: 50px;
+    border-radius: 30px 30px 0 0;
+  }
+  
+  .contact-info p {
+    font-size: 1.05rem;
+  }
+  
+  .social-icons {
+    gap: 25px;
+    margin-top: 25px;
+  }
+  
+  .social-icons img {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer-contact {
+    padding: 20px 10px 15px;
+    margin-top: 30px;
+    border-radius: 15px 15px 0 0;
+  }
+  
+  .contact-info p {
+    font-size: 0.9rem;
+  }
+  
+  .social-icons {
+    gap: 15px;
+  }
+  
+  .social-icons img {
+    width: 32px;
+    height: 32px;
+  }
+}
   </style>
 </head>
 <body>
   <div class="header-bar" role="banner">
-    <a href="https://magpieartsinfo.github.io/magpie-arts-site/index.html" class="home-icon-link" title="Home" aria-label="Home">
-  <img src="https://raw.githubusercontent.com/magpieartsinfo/magpie-arts-site/main/SVG/home.svg" alt="Home Icon" style="width:44px; height:44px; display:block; margin:auto; pointer-events:none; user-select:none;" />
+    <a href="https://magpieartsinfo.github.io/Magpie-Arts/index.html" class="home-icon-link" title="Home" aria-label="Home">
+      <img src="https://raw.githubusercontent.com/magpieartsinfo/Magpie-Arts/main/SVG/home.svg" alt="Home Icon" />
     </a>
-
     <span class="menu-icon" role="button" aria-label="Menu" tabindex="0" title="Menu" onclick="openMenu()">
-  <img src="https://raw.githubusercontent.com/magpieartsinfo/magpie-arts-site/main/SVG/menu%20icon.svg" alt="Menu Icon" style="width:44px; height:44px; display:block; margin:auto; pointer-events:none; user-select:none;" />
+      <img src="https://raw.githubusercontent.com/magpieartsinfo/Magpie-Arts/main/SVG/menu%20icon.svg" alt="Menu Icon" />
     </span>
-
     <div class="pie-logo-center" aria-label="PIE Kits Logo">
-      <img src="https://raw.githubusercontent.com/magpieartsinfo/magpiearts-assets/main/magpie-arts-site/images/PIE-kits.png" alt="PIE Kits - Paint It Easily Logo" draggable="false" loading="lazy" />
+      <img src="https://raw.githubusercontent.com/magpieartsinfo/Magpie-Arts/main/images/PIE-kits.png" alt="PIE Kits - Paint It Easily Logo" draggable="false" loading="lazy" />
     </div>
   </div>
   <div class="categories" id="categoriesBar" role="radiogroup" aria-label="Filter product categories">
@@ -330,215 +680,410 @@
       <li><a href="#" onclick="menuFilter('Devotion/Spiritual');return false;">Devotion/Spiritual</a></li>
       <li><a href="#" onclick="menuFilter('Scenery/Wonders');return false;">Scenery/Wonders</a></li>
       <li><a href="#" onclick="closeMenu();">Cart</a></li>
+      <li><a href="#" id="menuOrderLookup" onclick="openOrderLookup(); return false;">My Orders</a></li>
       <li style="color:#7080a3;font-weight:400;font-size:.95rem;margin-top:30px;">&copy; 2025 Magpie Arts</li>
     </ul>
   </div>
-  <div id="menuOverlay" class="menu-overlay" tabindex="-1" aria-hidden="true"></div>
-  <footer class="footer-contact-shop">
-    <div class="contact-info">
-      <p><strong>Contact Us</strong></p>
-      <p>Phone: +91-8128136985 &nbsp;|&nbsp;
-        Email: <a href="mailto:magpieartsinfo@gmail.com" style="color:#fff;text-decoration:underline;">magpieartsinfo@gmail.com</a>
-      </p>
-      <p>Address: 285, Manmandir Residency, Ankleshwar, Gujarat-393001</p>
+
+<div id="orderLookupModal" aria-modal="true" role="dialog" aria-labelledby="orderLookupTitle" tabindex="-1" hidden>
+  <div class="modal-bg"></div>
+  <div class="modal-content" role="document">
+    <button id="closeOrderLookup" aria-label="Close order lookup" tabindex="0">&times;</button>
+    <h2 id="orderLookupTitle" style="font-size:1.45rem; font-family:'Montserrat', Arial, sans-serif; margin-top: 0;">Check Your Orders</h2>
+    <p style="margin-bottom: 8px; font-size:1.05rem;">Enter your phone number and city to view your orders:</p>
+    <div class="input-group">
+      <input id="orderLookupPhone" type="tel" placeholder="Your 10-digit phone" pattern="[0-9]{10}" aria-label="Phone number" />
     </div>
-    <nav class="social-icons" aria-label="Social media links" role="navigation">
-      <a href="https://api.whatsapp.com/send?phone=9181283685" target="_blank" aria-label="WhatsApp">
-        <img src="https://raw.githubusercontent.com/magpieartsinfo/magpiearts-assets/refs/heads/main/magpie-arts-site/images/whatsapp-icon.svg" alt="WhatsApp" width="38" height="38" />
-      </a>
-      <a href="https://www.linkedin.com/company/magpie-arts/?viewAsMember=true" target="_blank" aria-label="LinkedIn">
-        <img src="https://raw.githubusercontent.com/magpieartsinfo/magpiearts-assets/refs/heads/main/magpie-arts-site/images/linkedin-icon.svg" alt="LinkedIn" width="38" height="38" />
-      </a>
-      <a href="https://www.instagram.com/magpiearts27?igsh=cWMxZ2UydWV3ZHdy" target="_blank" aria-label="Instagram">
-        <img src="https://raw.githubusercontent.com/magpieartsinfo/magpiearts-assets/refs/heads/main/magpie-arts-site/images/instagram-icon.svg" alt="Instagram" width="38" height="38" />
-      </a>
-      <a href="https://www.facebook.com/share/1QVHnxCqRB/" target="_blank" aria-label="Facebook">
-        <img src="https://raw.githubusercontent.com/magpieartsinfo/magpiearts-assets/refs/heads/main/magpie-arts-site/images/facebook-icon.svg" alt="Facebook" width="38" height="38" />
-      </a>
-    </nav>
-  </footer>
-  <script>
-    let products = [];
-    let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
-    const productsGrid = document.getElementById('productsGrid');
-    const wishlistModal = document.getElementById('wishlistModal');
-    const wishlistItems = document.getElementById('wishlistItems');
-    const wishlistBtn = document.getElementById('wishlist-floating-btn');
-    const catBtns = Array.from(document.querySelectorAll('.category-btn'));
-    const sideMenu = document.getElementById('sideMenu');
-    const menuOverlay = document.getElementById('menuOverlay');
-    let currentCategory = 'All';
+    <div class="input-group">
+      <input id="orderLookupCity" type="text" placeholder="Your city" aria-label="City" />
+    </div>
+    <button id="fetchOrdersBtn" disabled>View Orders</button>
+    <div id="ordersResult"></div>
+  </div>
+</div>
 
-    async function loadProductsFromJson() {
-      try {
-        productsGrid.innerHTML = '<div class="loading-indicator">Loading products...</div>';
-        const response = await fetch('https://raw.githubusercontent.com/magpieartsinfo/magpie-arts-site/main/products.json');
-        if (!response.ok) throw new Error('Could not fetch products.json');
-        products = await response.json();
-        renderProducts();
-      } catch (error) {
-        productsGrid.innerHTML = `<div class="error-message">
-          Failed to load products.<br>
-          Please check your internet connection and try again.<br>
-          <button onclick="loadProductsFromJson()" style="padding: 10px 20px; border-radius: 8px; background:#3c59ff; color:white;">Retry</button>
-        </div>`;
-        console.error(error);
-      }
+  <div id="menuOverlay" class="menu-overlay" tabindex="-1" aria-hidden="true"></div>
+  <footer class="footer-contact" id="contact-section" aria-label="Footer">
+  <div class="contact-info">
+    <p><strong>Contact Us</strong></p>
+    <p>Phone: +91-8128136985 &nbsp;|&nbsp; Email: <a href="mailto:magpieartsinfo@gmail.com" style="color:#fff;text-decoration:underline;">magpieartsinfo@gmail.com</a></p>
+    <p>Address: 285, Manmandir Residency, Ankleshwar, Gujarat-393001</p>
+  </div>
+  <nav class="social-icons" aria-label="Social media links" role="navigation">
+    <a href="https://api.whatsapp.com/send?phone=918128136985" aria-label="WhatsApp" rel="noopener" target="_blank">
+      <img src="https://raw.githubusercontent.com/magpieartsinfo/Magpie-Arts/refs/heads/main/images/whatsapp-icon.svg" alt="WhatsApp" width="38" height="38" />
+    </a>
+    <a href="https://www.linkedin.com/company/magpie-arts/?viewAsMember=true" aria-label="LinkedIn" rel="noopener" target="_blank">
+      <img src="https://raw.githubusercontent.com/magpieartsinfo/Magpie-Arts/refs/heads/main/images/linkedin-icon.svg" alt="LinkedIn" width="38" height="38" />
+    </a>
+    <a href="https://www.instagram.com/magpiearts27?igsh=cWMxZ2UydWV3ZHdy" aria-label="Instagram" rel="noopener" target="_blank">
+      <img src="https://raw.githubusercontent.com/magpieartsinfo/Magpie-Arts/refs/heads/main/images/instagram-icon.svg" alt="Instagram" width="38" height="38" />
+    </a>
+    <a href="https://www.facebook.com/share/1QVHnxCqRB/" aria-label="Facebook" rel="noopener" target="_blank">
+      <img src="https://raw.githubusercontent.com/magpieartsinfo/Magpie-Arts/refs/heads/main/images/facebook-icon.svg" alt="Facebook" width="38" height="38" />
+    </a>
+  </nav>
+</footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  
+<script>
+// Initialize Supabase client
+const supabaseUrl = "https://rxtukfjjeruospodnkdz.supabase.co";
+const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ4dHVrZmpqZXJ1b3Nwb2Rua2R6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTc0ODc0NTQsImV4cCI6MjA3MzA2MzQ1NH0.-sgX4XjHiamnzyqDdlmBlrPgaPMgX8GbzdB1c2rnSc0";
+const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+
+let products = [];
+let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+const productsGrid = document.getElementById('productsGrid');
+const wishlistModal = document.getElementById('wishlistModal');
+const wishlistItems = document.getElementById('wishlistItems');
+const wishlistBtn = document.getElementById('wishlist-floating-btn');
+const catBtns = Array.from(document.querySelectorAll('.category-btn'));
+const sideMenu = document.getElementById('sideMenu');
+const menuOverlay = document.getElementById('menuOverlay');
+let currentCategory = 'All';
+
+function getRatingKey(product) {
+  return "review_" + (product.title || "").replace(/\s+/g, "_");
+}
+
+function loadRatings(product) {
+  const key = getRatingKey(product);
+  return JSON.parse(localStorage.getItem(key) || "[]");
+}
+
+function getAverageRating(product) {
+  const reviews = loadRatings(product);
+  if (reviews.length === 0) return { avg: 0, count: 0 };
+  const sum = reviews.reduce((acc, r) => acc + r.stars, 0);
+  return { avg: sum / reviews.length, count: reviews.length };
+}
+
+function renderStaticRating(container, avg, count) {
+  container.innerHTML = `
+    <div class="rating-stars-row">
+      ${Array.from({length: 5}, (_, i) =>
+        `<span style="color:${i < Math.round(avg) ? "#ffbc0a":"#bbb"};font-size:1.22rem;margin:0 2px;">★</span>`
+      ).join('')}
+    </div>
+    <div class="rating-review-row">
+      ${count > 0 ? `${count} review${count > 1 ? "s" : ""}` : "No reviews"}
+    </div>
+  `;
+}
+
+
+async function loadProductsFromJson() {
+  try {
+    productsGrid.innerHTML = '<div class="loading-indicator">Loading products...</div>';
+    const response = await fetch('https://raw.githubusercontent.com/magpieartsinfo/Magpie-Arts/main/products.json');
+    if (!response.ok) throw new Error('Could not fetch products.json');
+    products = await response.json();
+    renderProducts();
+  } catch (error) {
+    productsGrid.innerHTML = `<div class="error-message">
+      Failed to load products.<br>
+      Please check your internet connection and try again.<br>
+      <button onclick="loadProductsFromJson()" style="padding: 10px 20px; border-radius: 8px; background:#3c59ff; color:white;">Retry</button>
+    </div>`;
+    console.error(error);
+  }
+}
+
+async function getAverageRatingFromSupabase(product) {
+  const { data, error } = await supabase
+    .from('reviews')
+    .select('stars')
+    .eq('product_title', product.title); // Or use product.id if ID is used
+  if (error || !data) return { avg: 0, count: 0 };
+  const count = data.length;
+  const sum = data.reduce((acc, r) => acc + Number(r.stars || 0), 0);
+  return { avg: count > 0 ? sum / count : 0, count };
+}
+
+function renderProducts() {
+  productsGrid.innerHTML = '';
+  if (!products || products.length === 0) {
+    productsGrid.innerHTML = '<div class="error-message">No products available.</div>';
+    return;
+  }
+  let filteredProducts;
+  if (currentCategory === 'All') {
+    let customKitProduct = products.find(p => p.isCustomKit);
+    let notCustomKit = products.filter(p => !p.isCustomKit);
+    filteredProducts = [];
+    if(customKitProduct) filteredProducts.push(customKitProduct);
+    filteredProducts = filteredProducts.concat(notCustomKit);
+  } else {
+    filteredProducts = products.filter(p => p.category === currentCategory);
+  }
+  if (filteredProducts.length === 0) {
+    productsGrid.innerHTML = `<p style="text-align:center; font-size:1.3rem; width:100%;">No products found in this category.</p>`;
+    return;
+  }
+  filteredProducts.forEach(prod => {
+    const originalIndex = products.findIndex(p => p === prod);
+    const card = document.createElement('div');
+    card.className = 'product-card';
+    card.onclick = () => openProductPage(originalIndex);
+    card.innerHTML = `
+      <div class="product-img-window">
+        <img src="${prod.image}" alt="${prod.title}" class="product-img" loading="lazy"/>
+      </div>
+      <div class="product-title">${prod.title}</div>
+      <div class="product-price">Starting at Rs. ${getStartingPrice(prod).toLocaleString()}</div>
+     <span 
+title="Add to Wishlist"
+class="wishlist-heart"
+onclick="toggleWishlist(event, ${originalIndex})"
+>
+<img 
+  src="${wishlist.includes(originalIndex) 
+    ? 'https://raw.githubusercontent.com/magpieartsinfo/Magpie-Arts/refs/heads/main/SVG/wish.svg'
+    : 'https://raw.githubusercontent.com/magpieartsinfo/Magpie-Arts/refs/heads/main/SVG/wishoff.svg'}"
+  alt="Wishlist"
+  class="wishlist-icon"
+  width="28" height="28"
+  draggable="false"
+/>
+</span>
+    `;
+    productsGrid.appendChild(card);
+const ratingContainer = document.createElement('div');
+ratingContainer.className = 'product-rating';
+ratingContainer.id = 'rating_' + prod.title.replace(/\s+/g, "_");
+card.appendChild(ratingContainer);
+
+getAverageRatingFromSupabase(prod).then(({ avg, count }) => {
+  renderStaticRating(ratingContainer, avg, count);
+});
+
+  });
+}
+
+function getStartingPrice(prod) {
+  const prices = [prod.priceS1C16, prod.priceS1C20, prod.priceS2C20, prod.priceS2C24].filter(p => typeof p === 'number' && p > 0);
+  if (prices.length === 0) return "N/A";
+  return Math.min(...prices);
+}
+
+function openProductPage(index) {
+  window.location.href = `https://magpieartsinfo.github.io/Magpie-Arts/product.html?index=${index}`;
+}
+
+function filterCategory(cat, el) {
+  currentCategory = cat;
+  catBtns.forEach(cb => cb.classList.remove('active'));
+  if (el) el.classList.add('active');
+  renderProducts();
+  closeWishlistModal();
+}
+
+function saveWishlist() {
+  localStorage.setItem('wishlist', JSON.stringify(wishlist));
+}
+
+function toggleWishlist(e, index) {
+  e.stopPropagation();
+  if (wishlist.includes(index)) {
+    wishlist = wishlist.filter(i => i !== index);
+  } else {
+    wishlist.push(index);
+  }
+  saveWishlist();
+  renderProducts();
+  renderWishlist();
+}
+
+function toggleWishlistModal() {
+  if (wishlistModal.style.display === 'block') {
+    closeWishlistModal();
+  } else {
+    renderWishlist();
+    wishlistModal.style.display = 'block';
+  }
+}
+
+function closeWishlistModal() {
+  wishlistModal.style.display = 'none';
+}
+
+function removeFromWishlist(index) {
+  wishlist = wishlist.filter(i => i !== index);
+  saveWishlist();
+  renderProducts();
+  renderWishlist();
+}
+
+function renderWishlist() {
+  if (wishlist.length === 0) {
+    wishlistItems.innerHTML = '<p style="text-align:center; font-size:1.1rem; margin-top:1.2rem;">Your wishlist is empty.</p>';
+    return;
+  }
+  wishlistItems.innerHTML = '';
+  wishlist.forEach(index => {
+    const prod = products[index];
+    if (!prod) return;
+    const item = document.createElement('div');
+    item.className = 'wishlist-item';
+    item.onclick = () => openProductPage(index);
+    item.innerHTML = `
+      <img src="${prod.image}" alt="${prod.title}" />
+      <div class="wish-title">${prod.title}</div>
+      <div class="remove-wish" title="Remove from wishlist" onclick="removeFromWishlist(${index}); event.stopPropagation();">&times;</div>
+    `;
+    wishlistItems.appendChild(item);
+  });
+}
+
+function openMenu() {
+  sideMenu.classList.add('open');
+  menuOverlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeMenu() {
+  sideMenu.classList.remove('open');
+  menuOverlay.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function menuFilter(cat) {
+  closeMenu();
+  filterCategory(cat, catBtns.find(btn => btn.textContent.toLowerCase().includes(cat.toLowerCase())));
+}
+
+menuOverlay.addEventListener('click', closeMenu);
+
+document.addEventListener('click', function(event) {
+  if (wishlistModal.style.display === 'block' && !wishlistModal.contains(event.target) && event.target !== wishlistBtn) {
+    closeWishlistModal();
+  }
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+  const hash = window.location.hash.substring(1).toLowerCase();
+  const categoryMap = {
+    'paint': { btn: 'Paint By Number Kit', cat: 'All' },
+    'custom': { btn: 'Custom Kit', cat: 'Custom' },
+    'devotion': { btn: 'Devotion/Spiritual', cat: 'Devotion/Spiritual' },
+    'scenery': { btn: 'Scenery/Wonders', cat: 'Scenery/Wonders' }
+  };
+  const selection = categoryMap[hash] || { btn: 'Paint By Number Kit', cat: 'All' };
+  const targetBtn = catBtns.find(btn => btn.textContent.trim().toLowerCase() === selection.btn.toLowerCase());
+  catBtns.forEach(a => a.classList.remove('active'));
+  if (targetBtn) targetBtn.classList.add('active');
+  currentCategory = selection.cat;
+  loadProductsFromJson();
+});
+
+// Order Lookup Modal - FIXED VERSION
+const orderLookupModal = document.getElementById('orderLookupModal');
+const orderLookupBtn = document.getElementById('menuOrderLookup');
+const closeOrderLookupBtn = document.getElementById('closeOrderLookup');
+const fetchOrdersBtn = document.getElementById('fetchOrdersBtn');
+const phoneInput = document.getElementById('orderLookupPhone');
+const cityInput = document.getElementById('orderLookupCity');
+const ordersResult = document.getElementById('ordersResult');
+
+function validateInputs() {
+  const phoneValid = phoneInput.validity.valid && phoneInput.value.trim().length === 10;
+  const cityValid = cityInput.value.trim().length > 0;
+  fetchOrdersBtn.disabled = !(phoneValid && cityValid);
+}
+
+orderLookupBtn.addEventListener('click', function(e) {
+  e.preventDefault();
+  orderLookupModal.hidden = false;
+  phoneInput.value = '';
+  cityInput.value = '';
+  fetchOrdersBtn.disabled = true;
+  ordersResult.innerHTML = '';
+  phoneInput.focus();
+  
+  if (sideMenu.classList.contains('open')) {
+    closeMenu();
+  }
+});
+
+closeOrderLookupBtn.addEventListener('click', () => {
+  orderLookupModal.hidden = true;
+});
+
+orderLookupModal.querySelector('.modal-bg').addEventListener('click', () => {
+  orderLookupModal.hidden = true;
+});
+
+phoneInput.addEventListener('input', validateInputs);
+cityInput.addEventListener('input', validateInputs);
+
+fetchOrdersBtn.addEventListener('click', async () => {
+  const phone = phoneInput.value.trim();
+  const city = cityInput.value.trim();
+  
+  if (!phone || !city) return;
+  
+  console.log("Fetching orders for phone:", phone, "city:", city);
+  ordersResult.innerHTML = '<div style="text-align:center; padding:20px; color:#666;">Loading orders...</div>';
+  
+  try {
+    const { data: orders, error } = await supabase
+      .from('orders')
+      .select('id, customer_name, product_list, total_amount, status')
+      .eq('phone', phone)
+      .ilike('city', city)
+      .order('id', { ascending: false });
+      
+    console.log("Response - Data:", orders, "Error:", error);
+      
+    if (error) {
+      ordersResult.innerHTML = `<div style="color:red; text-align:center; padding:20px;">Error loading orders: ${error.message}</div>`;
+      return;
     }
-
-    function renderProducts() {
-      productsGrid.innerHTML = '';
-      if (!products || products.length === 0) {
-        productsGrid.innerHTML = '<div class="error-message">No products available.</div>';
-        return;
-      }
-      let filteredProducts;
-      if (currentCategory === 'All') {
-        let customKitProduct = products.find(p => p.isCustomKit);
-        let notCustomKit = products.filter(p => !p.isCustomKit);
-        filteredProducts = [];
-        if(customKitProduct) filteredProducts.push(customKitProduct);
-        filteredProducts = filteredProducts.concat(notCustomKit);
-      } else {
-        filteredProducts = products.filter(p => p.category === currentCategory);
-      }
-      if (filteredProducts.length === 0) {
-        productsGrid.innerHTML = `<p style="text-align:center; font-size:1.3rem; width:100%;">No products found in this category.</p>`;
-        return;
-      }
-      filteredProducts.forEach(prod => {
-        const originalIndex = products.findIndex(p => p === prod);
-        const card = document.createElement('div');
-        card.className = 'product-card';
-        card.onclick = () => openProductPage(originalIndex);
-        card.innerHTML = `
-          <div class="product-img-window">
-            <img src="${prod.image}" alt="${prod.title}" class="product-img" loading="lazy"/>
+    
+    if (!orders || orders.length === 0) {
+      ordersResult.innerHTML = '<div class="no-orders-message">No orders found for this phone and city.</div>';
+      return;
+    }
+    
+    // Render orders with improved styling
+    ordersResult.innerHTML = '';
+    orders.forEach(order => {
+      const products = JSON.parse(order.product_list || '[]');
+      
+      const productHtml = products.map(p => `
+        <div class="product-item">
+          <div class="product-title">${p.title}</div>
+          <div class="product-details">
+            ${p.size ? `Size: ${p.size}` : ''}
+            ${p.size && p.palette ? ' • ' : ''}
+            ${p.palette ? `Palette: ${p.palette}` : ''}
           </div>
-          <div class="product-title">${prod.title}</div>
-          <div class="product-price">Starting at Rs. ${getStartingPrice(prod).toLocaleString()}</div>
-          <span title="Add to Wishlist" class="wishlist-heart ${wishlist.includes(originalIndex) ? 'wishlisted' : ''}" onclick="toggleWishlist(event, ${originalIndex})">❤</span>
-        `;
-        productsGrid.appendChild(card);
-      });
-    }
-
-    function getStartingPrice(prod) {
-      const prices = [prod.priceS1C16, prod.priceS1C20, prod.priceS2C20, prod.priceS2C24].filter(p => typeof p === 'number' && p > 0);
-      if (prices.length === 0) return "N/A";
-      return Math.min(...prices);
-    }
-
-    function openProductPage(index) {
-      window.location.href = `https://magpieartsinfo.github.io/magpie-arts-site/product.html?index=${index}`;
-    }
-
-    function filterCategory(cat, el) {
-      currentCategory = cat;
-      catBtns.forEach(cb => cb.classList.remove('active'));
-      if (el) el.classList.add('active');
-      renderProducts();
-      closeWishlistModal();
-    }
-
-    function saveWishlist() {
-      localStorage.setItem('wishlist', JSON.stringify(wishlist));
-    }
-
-    function toggleWishlist(e, index) {
-      e.stopPropagation();
-      if (wishlist.includes(index)) {
-        wishlist = wishlist.filter(i => i !== index);
-      } else {
-        wishlist.push(index);
-      }
-      saveWishlist();
-      renderProducts();
-      renderWishlist();
-    }
-
-    function toggleWishlistModal() {
-      if (wishlistModal.style.display === 'block') {
-        closeWishlistModal();
-      } else {
-        renderWishlist();
-        wishlistModal.style.display = 'block';
-      }
-    }
-
-    function closeWishlistModal() {
-      wishlistModal.style.display = 'none';
-    }
-
-    function removeFromWishlist(index) {
-      wishlist = wishlist.filter(i => i !== index);
-      saveWishlist();
-      renderProducts();
-      renderWishlist();
-    }
-
-    function renderWishlist() {
-      if (wishlist.length === 0) {
-        wishlistItems.innerHTML = '<p style="text-align:center; font-size:1.1rem; margin-top:1.2rem;">Your wishlist is empty.</p>';
-        return;
-      }
-      wishlistItems.innerHTML = '';
-      wishlist.forEach(index => {
-        const prod = products[index];
-        if (!prod) return;
-        const item = document.createElement('div');
-        item.className = 'wishlist-item';
-        item.onclick = () => openProductPage(index);
-        item.innerHTML = `
-          <img src="${prod.image}" alt="${prod.title}" />
-          <div class="wish-title">${prod.title}</div>
-          <div class="remove-wish" title="Remove from wishlist" onclick="removeFromWishlist(${index}); event.stopPropagation();">&times;</div>
-        `;
-        wishlistItems.appendChild(item);
-      });
-    }
-
-    // Side menu toggle
-    function openMenu() {
-      sideMenu.classList.add('open');
-      menuOverlay.classList.add('open');
-      document.body.style.overflow = 'hidden';
-    }
-
-    function closeMenu() {
-      sideMenu.classList.remove('open');
-      menuOverlay.classList.remove('open');
-      document.body.style.overflow = '';
-    }
-
-    function menuFilter(cat) {
-      closeMenu();
-      filterCategory(cat, catBtns.find(btn => btn.textContent.toLowerCase().includes(cat.toLowerCase())));
-    }
-
-    menuOverlay.addEventListener('click', closeMenu);
-
-    document.addEventListener('click', function(event) {
-      if (wishlistModal.style.display === 'block' && !wishlistModal.contains(event.target) && event.target !== wishlistBtn) {
-        closeWishlistModal();
-      }
+        </div>
+      `).join('');
+      
+      const orderHtml = `
+        <div class="order-item" tabindex="0" aria-label="Order ${order.id}">
+          <div class="order-id">Order ID: ${order.id}</div>
+          <div class="order-detail"><strong>Customer:</strong> ${order.customer_name}</div>
+          <div class="order-detail"><strong>Amount:</strong> ₹${order.total_amount.toFixed(2)}</div>
+          <div class="order-detail"><strong>Status:</strong> <span class="order-status">${order.status || 'pending'}</span></div>
+          <div class="order-products">
+            <div class="order-products-title">Products:</div>
+            ${productHtml}
+          </div>
+        </div>
+      `;
+      ordersResult.insertAdjacentHTML('beforeend', orderHtml);
     });
+  } catch (err) {
+    console.error("Unexpected error:", err);
+    ordersResult.innerHTML = `<div style="color:red; text-align:center; padding:20px;">Unexpected error: ${err.message}</div>`;
+  }
+});
 
-    document.addEventListener('DOMContentLoaded', () => {
-      const hash = window.location.hash.substring(1).toLowerCase();
-      const categoryMap = {
-        'paint': { btn: 'Paint By Number Kit', cat: 'All' },
-        'custom': { btn: 'Custom Kit', cat: 'Custom' },
-        'devotion': { btn: 'Devotion/Spiritual', cat: 'Devotion/Spiritual' },
-        'scenery': { btn: 'Scenery/Wonders', cat: 'Scenery/Wonders' }
-      };
-      const selection = categoryMap[hash] || { btn: 'Paint By Number Kit', cat: 'All' };
-      const targetBtn = catBtns.find(btn => btn.textContent.trim().toLowerCase() === selection.btn.toLowerCase());
-      catBtns.forEach(a => a.classList.remove('active'));
-      if (targetBtn) targetBtn.classList.add('active');
-      currentCategory = selection.cat;
-      loadProductsFromJson();
-    });
-  </script>
+</script>
+
 </body>
 </html>
