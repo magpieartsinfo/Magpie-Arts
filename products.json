@@ -34,12 +34,34 @@
   },
   {
     "title": "Custom PIE Kit",
-    "desc": "' Turn Moments into Masterpiece'\n\n'Turn your favorite photo into a paintable masterpiece with our Custom PIE Kit. Whether it’s for a birthday, anniversary, or just to cherish a special memory, this D.I.Y (Do It Yourself) kit lets you create beautiful, personalized painting easily. Perfect as a gift, home décor, or a relaxing hobby. It’s designed for beginners, families, and paint enthusiasts alike — no experience needed, just the joy of painting. Upload your Photo below..'",
+    "desc": "' Turn Moments into Masterpiece'",
     "priceS1C16": 900,
     "priceS1C20": 1000,
     "priceS2C20": 1400,
     "priceS2C24": 1500,
     "image": "https://raw.githubusercontent.com/magpieartsinfo/magpiearts-assets/main/magpie-arts-site/images/Mummy-Ppa.png",
+    "category": "Custom",
+    "isCustomKit": true
+  },
+  {
+    "title": "Custom Cutie PIE Kit",
+    "desc": "\"Turn childhood magic into art! Create your own masterpiece with Magpie Arts’ PIE Kits, the DIY( Do It Yourself) kit that capture precious baby memories into Masterpiece.\"\n\nSimply upload your favorite baby photo, and receive a premium kit with a numbered canvas, vibrant acrylic paints, and quality brushes",
+    "priceS1C16": 900,
+    "priceS1C20": 1000,
+    "priceS2C20": 1400,
+    "priceS2C24": 1500,
+    "image": "https://github.com/magpieartsinfo/Magpie-Arts/raw/main/images/baby1.jpg",
+    "category": "Custom",
+    "isCustomKit": true
+  },
+  {
+    "title": "Custom Cuties PIE Kit",
+    "desc": "\"Turn childhood magic into art! Create your own masterpiece with Magpie Arts’ PIE Kits, the DIY( Do It Yourself) kit that capture precious baby memories into Masterpiece.\"\n\nSimply upload your favorite baby photo, and receive a premium kit with a numbered canvas, vibrant acrylic paints, and quality brushes",
+    "priceS1C16": 900,
+    "priceS1C20": 1000,
+    "priceS2C20": 1400,
+    "priceS2C24": 1500,
+    "image": "https://raw.githubusercontent.com/magpieartsinfo/Magpie-Arts/main/images/baby3.jpg",
     "category": "Custom",
     "isCustomKit": true
   }
