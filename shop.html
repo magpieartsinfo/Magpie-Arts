@@ -810,14 +810,11 @@ function renderProducts() {
   }
   let filteredProducts;
   if (currentCategory === 'All') {
-    let customKitProduct = products.find(p => p.isCustomKit);
-    let notCustomKit = products.filter(p => !p.isCustomKit);
-    filteredProducts = [];
-    if(customKitProduct) filteredProducts.push(customKitProduct);
-    filteredProducts = filteredProducts.concat(notCustomKit);
-  } else {
-    filteredProducts = products.filter(p => p.category === currentCategory);
-  }
+  filteredProducts = products;
+} else {
+  filteredProducts = products.filter(p => p.category === currentCategory);
+}
+
   if (filteredProducts.length === 0) {
     productsGrid.innerHTML = `<p style="text-align:center; font-size:1.3rem; width:100%;">No products found in this category.</p>`;
     return;
