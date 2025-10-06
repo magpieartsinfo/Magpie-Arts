@@ -810,10 +810,14 @@ function renderProducts() {
   }
   let filteredProducts;
   if (currentCategory === 'All') {
-  filteredProducts = products;
+  // Show all products but sort so custom kits come first
+  filteredProducts = products
+    .slice()  // clone so you don’t mutate original
+    .sort((a, b) => (b.isCustomKit === true) - (a.isCustomKit === true));
 } else {
   filteredProducts = products.filter(p => p.category === currentCategory);
 }
+
 
   if (filteredProducts.length === 0) {
     productsGrid.innerHTML = `<p style="text-align:center; font-size:1.3rem; width:100%;">No products found in this category.</p>`;
