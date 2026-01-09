@@ -811,7 +811,7 @@ async function loadProductsFromJson() {
   }
 }
 
-function renderProducts() {
+function renderProducts() 
   productsGrid.innerHTML = '';
   if (!products || products.length === 0) {
     productsGrid.innerHTML = '<div class="error-message">No products available.</div>';
