@@ -777,7 +777,7 @@ function renderStaticRating(container, avg, count) {
 async function loadProductsFromJson() {
   try {
     productsGrid.innerHTML = '<div class="loading-indicator">Loading products...</div>';
-    const response = await fetch('https://raw.githubusercontent.com/magpieartsinfo/Magpie-Arts/main/products.json');
+    const response = await fetch('https://raw.githubusercontent.com/magpieartsinfo/Magpie-Arts/main/products.json?v=' + Date.now());
     if (!response.ok) throw new Error('Could not fetch products.json');
     products = await response.json();
     renderProducts();
