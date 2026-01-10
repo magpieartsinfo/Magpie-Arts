@@ -1,0 +1,101 @@
+[
+  {
+    "title": "Custom PIE Kit",
+    "desc": "' Turn Moments into Masterpiece'",
+    "priceS1C16": 900,
+    "priceS1C20": 1000,
+    "priceS2C20": 1400,
+    "priceS2C24": 1500,
+    "image": "https://raw.githubusercontent.com/magpieartsinfo/magpiearts-assets/main/magpie-arts-site/images/Mummy-Ppa.png",
+    "category": "Custom",
+    "isCustomKit": true
+  },
+  {
+    "title": "Custom Cutie PIE Kit",
+    "desc": "Turn childhood magic into art! Create your own masterpiece with Magpie Arts’ PIE Kits, the DIY( Do It Yourself) kit that capture precious baby memories into Masterpiece.\\\"\\n\\nSimply upload your favorite baby photo, and receive a premium kit with a numbered canvas, vibrant acrylic paints, and quality brushes",
+    "priceS1C16": 900,
+    "priceS1C20": 1000,
+    "priceS2C20": 1400,
+    "priceS2C24": 1500,
+    "image": "https://github.com/magpieartsinfo/Magpie-Arts/raw/main/images/baby1.jpg",
+    "category": "Custom",
+    "isCustomKit": true
+  },
+  {
+    "title": "Krishna 1",
+    "desc": "PIE KIT - Krishna make divine blessing of Krishna through Paint by number kit",
+    "priceS1C16": 900,
+    "priceS1C20": 1000,
+    "priceS2C20": 1400,
+    "priceS2C24": 1500,
+    "image": "https://raw.githubusercontent.com/magpieartsinfo/magpiearts-assets/main/magpie-arts-site/images/Krishna.webp",
+    "category": "Devotion/Spiritual",
+    "isCustomKit": false
+  },
+  {
+    "title": "Radha Krishna",
+    "desc": "Radha Krishna PIE kit , Devotion with Love.",
+    "priceS1C16": 900,
+    "priceS1C20": 1000,
+    "priceS2C20": 1400,
+    "priceS2C24": 1500,
+    "image": "https://raw.githubusercontent.com/magpieartsinfo/magpiearts-assets/main/magpie-arts-site/images/radha%20krishna%202.webp",
+    "category": "Devotion/Spiritual",
+    "isCustomKit": false
+  },
+  {
+    "title": "Radha Krishna 2",
+    "desc": "Radha Krishna PIE Kit, Paint by Number Kit, Devotion with Love",
+    "priceS1C16": 900,
+    "priceS1C20": 1000,
+    "priceS2C20": 1400,
+    "priceS2C24": 1500,
+    "image": "https://raw.githubusercontent.com/magpieartsinfo/magpiearts-assets/main/magpie-arts-site/images/radha%20krishna.webp",
+    "category": "Devotion/Spiritual",
+    "isCustomKit": false
+  },
+  {
+    "title": "Ganesh JI",
+    "desc": "Ganpati Bappa Morya! Bring home this vibrant Ganesh Ji PIE Kit—perfect for beginners and devotees. This all-in-one DIY(Do It Yourself) kit includes a numbered canvas, premium acrylics, brushes, and step-by-step guide to create a stunning Ganpati portrait bursting with rich reds, oranges, and golds. Ideal for festive decorating or heartfelt gifting.",
+    "priceS1C16": 900,
+    "priceS1C20": 1000,
+    "priceS2C20": 1400,
+    "priceS2C24": 1500,
+    "image": "https://raw.githubusercontent.com/magpieartsinfo/Magpie-Arts/main/images/8275d2ed346b7829d5e0cbd054b7b2d1.jpg",
+    "category": "Devotion/Spiritual",
+    "isCustomKit": false
+  },
+  {
+    "title": "Ganeshji PIE kit",
+    "desc": "Bring home this vibrant Ganesh Ji PIE Kit—perfect for beginners and devotees. This all-in-one Paint-It-Easily kit includes a numbered canvas, premium acrylics, brushes, and step-by-step guide to create a stunning Ganpati portrait bursting with rich reds, oranges, and golds. Ideal for festive decorating or heartfelt gifting.",
+    "priceS1C16": 900,
+    "priceS1C20": 1000,
+    "priceS2C20": 1400,
+    "priceS2C24": 1500,
+    "image": "https://raw.githubusercontent.com/magpieartsinfo/Magpie-Arts/main/images/Ganesh%20painting.jpg",
+    "category": "Devotion/Spiritual",
+    "isCustomKit": false
+  },
+  {
+    "title": "Shivji PIE Kit",
+    "desc": "Har Har Mahadev! Discover the divine energy of Lord Shiva with this stunning Shiv Ji PIE Kit—perfect for both beginners and devotees. This Paint-It-Easily kit includes a high-quality numbered canvas, premium acrylic paints, three precision brushes, and a step-by-step guide. Bring home the serene power of Shiva—the cosmic dancer and destroyer of ignorance—in rich blues, golds, and warm earth tones. Ideal for home décor, meditation spaces, or heartfelt gifting.",
+    "priceS1C16": 900,
+    "priceS1C20": 1000,
+    "priceS2C20": 1400,
+    "priceS2C24": 1500,
+    "image": "https://raw.githubusercontent.com/magpieartsinfo/Magpie-Arts/main/images/shivji.jpg",
+    "category": "Devotion/Spiritual",
+    "isCustomKit": false
+  },
+  {
+    "title": "Shivji Divine PIE kit",
+    "desc": "Har Har Mahadev! Discover the divine energy of Lord Shiva with this stunning Shiva Ji PIE Kit—perfect for both beginners and devotees. This Paint-It-Easily kit includes a high-quality numbered canvas, premium acrylic paints, three precision brushes, and a step-by-step guide. Bring home the serene power of Shiva—the cosmic dancer and destroyer of ignorance—in rich blues, golds, and warm earth tones. Ideal for home décor, meditation spaces, or heartfelt gifting.",
+    "priceS1C16": 900,
+    "priceS1C20": 1000,
+    "priceS2C20": 1400,
+    "priceS2C24": 1500,
+    "image": "https://raw.githubusercontent.com/magpieartsinfo/Magpie-Arts/main/images/shivji 2.webp",
+    "category": "Devotion/Spiritual",
+    "isCustomKit": false
+  }
+]
