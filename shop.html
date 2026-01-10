@@ -803,6 +803,11 @@ async function getAverageRatingFromSupabase(product) {
 }
 
 function renderProducts() {
+  // 🔧 FIX: Convert 'desc' to 'description' for compatibility
+  products.forEach(product => {
+    if (product.desc && !product.description) {
+      product.description
+
   productsGrid.innerHTML = '';
   if (!products || products.length === 0) {
     productsGrid.innerHTML = '<div class="error-message">No products available.</div>';
