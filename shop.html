@@ -18,7 +18,7 @@
   background: hsl(var(--background));
   color: hsl(var(--foreground));
   min-height: 100vh;
-  padding-top: 200px;  /* Reduced from 250px to 180px */
+  padding-top: 200px;
   padding-bottom: 80px;
 }
 
@@ -29,7 +29,7 @@
   width: 100vw;
   z-index: 10000;
   background: linear-gradient(90deg, #b4d9f6 0%, #eaeefe 50%, #97d2f7 100%);
-  min-height: 110px;  /* Restored original height */
+  min-height: 110px;
   border-radius: 32px 0 32px 0;
   display: flex;
   align-items: center;
@@ -101,11 +101,11 @@
     }
     .categories {
   position: fixed;
-  top: 140px;  /* Changed to match header height exactly */
+  top: 140px;
   left: 0;
   right: 0;
   width: 100vw;
-  z-index: 9998;  /* Lower z-index than header */
+  z-index: 9998;
   background: hsl(var(--background));
   margin: 0;
   display: flex;
@@ -343,7 +343,7 @@
   justify-content: center; 
   align-items: center;
   background-color: rgba(0,0,0,0.35);
-  z-index: 100000; /* Increased from 3000 to 100000 */
+  z-index: 100000;
 }
 
 #orderLookupModal[hidden] {
@@ -508,14 +508,12 @@
   font-size: 0.85rem;
 }
 
-/* Empty state styling */
 .no-orders-message {
   text-align: center;
   padding: 24px;
   color: #666;
   font-style: italic;
 }
-
 
 #closeOrderLookup {
   position: absolute;
@@ -600,7 +598,6 @@
   box-shadow: 0 4px 16px rgba(35, 77, 211, 0.45);
 }
 
-/* Responsive adjustments */
 @media (min-width: 768px) {
   .footer-contact {
     padding: 36px 20px 28px;
@@ -805,7 +802,7 @@ async function loadProductsFromJson() {
     productsGrid.innerHTML = `<div class="error-message">
       Failed to load products.<br>
       Please check your internet connection and try again.<br>
-      <button onclick="loadProductsFromJson()" style="padding: 10px 20px; border-radius: 8px; background:#3c59ff; color:white;">Retry</button>
+      <button onclick="loadProductsFromJson()" style="padding: 10px 20px; border-radius: 8px; background:#3c59ff; color:white; border: none; cursor: pointer; font-weight: 700;">Retry</button>
     </div>`;
     console.error(error);
   }
@@ -855,11 +852,9 @@ function renderProducts()
     ratingContainer.id = 'rating_' + prod.title.replace(/\s+/g, "_");
     card.appendChild(ratingContainer);
 
-    // Show local ratings immediately, Supabase in background
     const localRating = getAverageRating(prod);
     renderStaticRating(ratingContainer, localRating.avg, localRating.count);
     
-    // Update with Supabase ratings (non-blocking)
     getAverageRatingFromSupabase(prod).then(({ avg, count }) => {
       renderStaticRating(ratingContainer, avg, count);
     });
@@ -970,7 +965,6 @@ function openOrderLookup() {
   }
 }
 
-// Order Lookup Modal handlers
 const orderLookupModal = document.getElementById('orderLookupModal');
 const orderLookupBtn = document.getElementById('menuOrderLookup');
 const closeOrderLookupBtn = document.getElementById('closeOrderLookup');
@@ -1059,7 +1053,6 @@ fetchOrdersBtn.addEventListener('click', async () => {
   }
 });
 
-// Initialize on page load
 document.addEventListener('DOMContentLoaded', () => {
   const hash = window.location.hash.substring(1).toLowerCase();
   const categoryMap = {
@@ -1076,7 +1069,6 @@ document.addEventListener('DOMContentLoaded', () => {
   loadProductsFromJson();
 });
 </script>
-
 
 </body>
 </html>
