@@ -190,13 +190,6 @@
       margin-left: 50px;
     }
     
-    nav #order-lookup-link {
-      color: #1b3a8d !important;
-      font-size: 1.1rem;
-      background: #e4f3ff;
-      margin-left: 20px;
-    }
-
     .shop-container {
       max-width: 1320px;
       margin: 32px auto 0 auto;
@@ -272,41 +265,28 @@
       font-size: 1.1rem;
       font-weight: 700;
       color: #1c3a92;
-      margin-bottom: 0.8rem;
+      margin-bottom: 0.5rem;
       text-align: center;
     }
-
-    /* RATING STYLES - BELOW PRICE */
+    
+    /* Product Rating Styles */
     .product-rating {
       display: flex;
+      flex-direction: column;
       align-items: center;
-      justify-content: center;
-      gap: 6px;
       margin-bottom: 0.5rem;
-      width: 100%;
     }
-
-    .product-rating .star {
-      color: #ffb400;
-      font-size: 1.1rem;
-      cursor: pointer;
-      transition: transform 0.2s;
-      user-select: none;
+    
+    .rating-stars-row {
+      display: flex;
+      align-items: center;
+      gap: 2px;
     }
-
-    .product-rating .star.empty {
-      color: #ddd;
-    }
-
-    .product-rating .star:hover {
-      transform: scale(1.15);
-    }
-
-    .product-rating .rating-count {
-      font-size: 0.85rem;
+    
+    .rating-review-row {
+      font-size: 0.9rem;
       color: #666;
-      margin-left: 4px;
-      font-weight: 600;
+      margin-top: 4px;
     }
     
     .wishlist-heart {
@@ -385,189 +365,6 @@
       padding-left: 15px;
       user-select: none;
     }
-
-    /* ORDER LOOKUP MODAL STYLES */
-    .modal-overlay {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.4);
-      z-index: 2500;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-    }
-
-    .modal-overlay.open {
-      display: flex;
-    }
-
-    .modal-content {
-      background: hsl(var(--card));
-      border-radius: 20px;
-      padding: 30px;
-      width: 100%;
-      max-width: 450px;
-      box-shadow: 0 10px 50px rgba(0, 0, 0, 0.2);
-      position: relative;
-    }
-
-    .modal-close {
-      position: absolute;
-      top: 16px;
-      right: 16px;
-      font-size: 28px;
-      cursor: pointer;
-      color: #666;
-      background: none;
-      border: none;
-      padding: 0;
-      width: 32px;
-      height: 32px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: color 0.3s;
-    }
-
-    .modal-close:hover {
-      color: #000;
-    }
-
-    .modal-content h2 {
-      margin: 0 0 12px 0;
-      font-size: 1.5rem;
-      color: #1b3a8d;
-      font-weight: 800;
-    }
-
-    .modal-content p {
-      margin: 0 0 20px 0;
-      font-size: 0.95rem;
-      color: #666;
-    }
-
-    .form-group {
-      margin-bottom: 16px;
-    }
-
-    .form-group label {
-      display: block;
-      font-size: 0.95rem;
-      font-weight: 600;
-      color: #333;
-      margin-bottom: 6px;
-    }
-
-    .form-group input {
-      width: 100%;
-      padding: 10px 12px;
-      border: 1.5px solid #ddd;
-      border-radius: 8px;
-      font-size: 0.95rem;
-      font-family: Arial, sans-serif;
-      transition: border-color 0.3s;
-    }
-
-    .form-group input:focus {
-      outline: none;
-      border-color: #2874f0;
-      box-shadow: 0 0 0 2px rgba(40, 116, 240, 0.1);
-    }
-
-    #fetchOrdersBtn {
-      width: 100%;
-      padding: 12px;
-      background: #2874f0;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      font-size: 1rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: background 0.3s;
-      margin-top: 8px;
-    }
-
-    #fetchOrdersBtn:hover:not(:disabled) {
-      background: #1956d2;
-    }
-
-    #fetchOrdersBtn:disabled {
-      background: #ccc;
-      cursor: not-allowed;
-    }
-
-    #ordersResult {
-      margin-top: 20px;
-      max-height: 350px;
-      overflow-y: auto;
-    }
-
-    .order-item {
-      background: #f9f9f9;
-      border-left: 4px solid #2874f0;
-      padding: 14px;
-      margin-bottom: 12px;
-      border-radius: 6px;
-      font-size: 0.9rem;
-    }
-
-    .order-id {
-      font-weight: 700;
-      color: #1b3a8d;
-      margin-bottom: 6px;
-    }
-
-    .order-detail {
-      color: #555;
-      margin-bottom: 4px;
-    }
-
-    .order-status {
-      background: #e8f5e9;
-      color: #2e7d32;
-      padding: 2px 8px;
-      border-radius: 4px;
-      font-weight: 600;
-      font-size: 0.85rem;
-    }
-
-    .order-products {
-      margin-top: 10px;
-      padding-top: 10px;
-      border-top: 1px solid #ddd;
-    }
-
-    .order-products-title {
-      font-weight: 600;
-      color: #333;
-      margin-bottom: 6px;
-    }
-
-    .product-item {
-      padding: 6px 0;
-      color: #555;
-    }
-
-    .product-title {
-      font-weight: 600;
-    }
-
-    .product-details {
-      font-size: 0.85rem;
-      color: #888;
-    }
-
-    .no-orders-message {
-      text-align: center;
-      padding: 20px;
-      color: #999;
-      font-size: 0.95rem;
-    }
     
     .footer-contact-shop {
       background: #172a59;
@@ -641,7 +438,6 @@
     .side-menu ul li a {
       color: inherit;
       text-decoration: none;
-      cursor: pointer;
     }
 
     .menu-overlay {
@@ -674,11 +470,168 @@
       color: #e84265;
     }
     
+    /* Order Lookup Modal Styles */
+    .order-lookup-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 3000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .order-lookup-modal .modal-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+    }
+    
+    .order-lookup-modal .modal-content {
+      position: relative;
+      background: #fff;
+      border-radius: 20px;
+      padding: 30px;
+      width: 90%;
+      max-width: 450px;
+      max-height: 80vh;
+      overflow-y: auto;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+    }
+    
+    .order-lookup-modal h2 {
+      margin: 0 0 20px 0;
+      color: #1f3e83;
+      text-align: center;
+      font-size: 1.5rem;
+    }
+    
+    .order-lookup-modal .close-btn {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: #666;
+    }
+    
+    .order-lookup-modal .close-btn:hover {
+      color: #e84265;
+    }
+    
+    .order-lookup-modal .form-group {
+      margin-bottom: 15px;
+    }
+    
+    .order-lookup-modal label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: 600;
+      color: #333;
+    }
+    
+    .order-lookup-modal input {
+      width: 100%;
+      padding: 12px;
+      border: 2px solid #ddd;
+      border-radius: 10px;
+      font-size: 1rem;
+    }
+    
+    .order-lookup-modal input:focus {
+      outline: none;
+      border-color: #3c59ff;
+    }
+    
+    .order-lookup-modal .fetch-btn {
+      width: 100%;
+      padding: 14px;
+      background: #3c59ff;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    
+    .order-lookup-modal .fetch-btn:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+    }
+    
+    .order-lookup-modal .fetch-btn:not(:disabled):hover {
+      background: #2a47e8;
+    }
+    
+    .order-item {
+      background: #f5f8ff;
+      border-radius: 12px;
+      padding: 15px;
+      margin-bottom: 12px;
+      border-left: 4px solid #3c59ff;
+    }
+    
+    .order-id {
+      font-weight: 700;
+      color: #3c59ff;
+      margin-bottom: 8px;
+    }
+    
+    .order-detail {
+      margin: 4px 0;
+      color: #333;
+    }
+    
+    .order-status {
+      display: inline-block;
+      padding: 2px 8px;
+      background: #e4f3ff;
+      border-radius: 4px;
+      color: #1f3e83;
+      font-weight: 600;
+    }
+    
+    .order-products {
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px solid #ddd;
+    }
+    
+    .order-products-title {
+      font-weight: 600;
+      color: #555;
+      margin-bottom: 5px;
+    }
+    
+    .product-item {
+      padding: 5px 0;
+    }
+    
+    .product-details {
+      font-size: 0.9rem;
+      color: #777;
+    }
+    
+    .no-orders-message {
+      text-align: center;
+      padding: 30px;
+      color: #666;
+      font-size: 1.1rem;
+    }
+    
     @media (max-width: 850px) {
       .side-logo { display: none; }
       .header-bar { margin-left: 0; border-radius: 0;}
       nav { margin-left: 0; flex-wrap: wrap; gap: 18px;}
-      nav #order-lookup-link { margin-left: 0; }
       .shop-container { margin-left: 0; padding: 0 10px;}
       .pie-logo-center { width: 210px; }
       .footer-contact-shop { margin-left: 2vw; margin-right: 2vw; }
@@ -691,8 +644,6 @@
       .pie-logo-center { width: 130px; }
       .footer-contact-shop { border-radius: 18px; padding: 15px 4vw; }
       .footer-contact-shop .contact-info p { font-size: 0.94rem; }
-      .modal-content { padding: 20px; }
-      .modal-content h2 { font-size: 1.3rem; }
     }
   </style>
 </head>
@@ -704,27 +655,53 @@
       <li><a href="#" onclick="menuFilter('Custom');return false;">Custom Kit</a></li>
       <li><a href="#" onclick="menuFilter('Devotion/Spiritual');return false;">Devotion/Spiritual</a></li>
       <li><a href="#" onclick="menuFilter('Scenery/Wonders');return false;">Scenery/Wonders</a></li>
-      <li><a href="#" onclick="openOrderLookup();return false;">Order Lookup</a></li>
+      <li><a href="#" id="menuOrderLookup">Order Lookup</a></li>
       <li><a href="#" onclick="closeMenu();">Cart</a></li>
       <li style="color:#7080a3;font-weight:400;font-size:.95rem;margin-top:30px;">&copy; 2025 Magpie Arts</li>
     </ul>
   </div>
   <div id="menuOverlay" class="menu-overlay"></div>
 
+  <!-- Order Lookup Modal -->
+  <div id="orderLookupModal" class="order-lookup-modal" hidden>
+    <div class="modal-bg"></div>
+    <div class="modal-content">
+      <button id="closeOrderLookup" class="close-btn">&times;</button>
+      <h2>🔍 Order Lookup</h2>
+      <div class="form-group">
+        <label for="orderLookupPhone">Phone Number (10 digits)</label>
+        <input type="tel" id="orderLookupPhone" pattern="[0-9]{10}" maxlength="10" placeholder="Enter your phone number" />
+      </div>
+      <div class="form-group">
+        <label for="orderLookupCity">City</label>
+        <input type="text" id="orderLookupCity" placeholder="Enter your city" />
+      </div>
+      <button id="fetchOrdersBtn" class="fetch-btn" disabled>Search Orders</button>
+      <div id="ordersResult"></div>
+    </div>
+  </div>
+
   <a href="https://magpieartsinfo.github.io/magpie-arts-site/index.html" title="Home">
     <img class="side-logo" src="https://raw.githubusercontent.com/magpieartsinfo/magpiearts-assets/main/magpie-arts-site/images/logo.png" alt="Magpie Arts Logo" />
   </a>
 
   <div class="header-bar">
-    <a href="https://magpieartsinfo.github.io/Magpie-Arts/index.html" class="home-icon-link" title="Home" aria-label="Home">
-      <img src="https://raw.githubusercontent.com/magpieartsinfo/Magpie-Arts/main/SVG/home.svg" alt="Home Icon" />
-    </a>
     <span class="menu-icon" role="button" aria-label="Menu" tabindex="0" title="Menu" onclick="openMenu()">
-      <img src="https://raw.githubusercontent.com/magpieartsinfo/Magpie-Arts/main/SVG/menu%20icon.svg" alt="Menu Icon" />
+      <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
+        <rect x="2" y="2" width="15" height="15" rx="6" fill="#285be8"/>
+        <rect x="19" y="2" width="15" height="15" rx="6" fill="#9ac1fc"/>
+        <rect x="2" y="19" width="15" height="15" rx="6" fill="#285be8"/>
+        <rect x="19" y="19" width="15" height="15" rx="6" fill="#285be8"/>
+      </svg>
     </span>
     <div class="pie-logo-center">
-      <img src="https://raw.githubusercontent.com/magpieartsinfo/Magpie-Arts/main/images/PIE-kits.png" alt="PIE Kits - Paint It Easily Logo" draggable="false" loading="lazy" />
+      <img src="https://raw.githubusercontent.com/magpieartsinfo/magpiearts-assets/main/magpie-arts-site/images/PIE-kits.png" alt="PIE Kits - Paint It Easily Logo" draggable="false" loading="lazy" />
     </div>
+    <a href="https://magpieartsinfo.github.io/magpie-arts-site/index.html" class="home-icon-link" title="Home" aria-label="Home">
+      <svg viewBox="0 0 24 24" fill="currentColor" role="img">
+        <path d="M12 3l10 9h-3v9h-6v-6h-2v6H5v-9H2z"/>
+      </svg>
+    </a>
   </div>
 
   <nav>
@@ -733,7 +710,6 @@
     <a href="#" onclick="filterCategory('Devotion/Spiritual', this)">Devotion/Spiritual</a>
     <a href="#" onclick="filterCategory('Scenery/Wonders', this)">Scenery/Wonders</a>
     <a id="wishlist-link" title="Wishlist" onclick="toggleWishlistModal()">❤ Wishlist</a>
-    <a id="order-lookup-link" title="Order Lookup" onclick="openOrderLookup()">📦 Order Lookup</a>
   </nav>
 
   <main class="shop-container">
@@ -745,29 +721,6 @@
   <div id="wishlistModal" role="dialog" aria-modal="true" aria-labelledby="wishlistTitle">
     <h2 id="wishlistTitle">Your Wishlist</h2>
     <div id="wishlistItems"></div>
-  </div>
-
-  <!-- ORDER LOOKUP MODAL -->
-  <div id="orderLookupModal" class="modal-overlay">
-    <div class="modal-content">
-      <button class="modal-close" onclick="closeOrderLookup()">&times;</button>
-      <h2>Order Lookup</h2>
-      <p>Enter your phone number and city to check your orders.</p>
-      
-      <div class="form-group">
-        <label for="orderLookupPhone">Phone Number (10 digits)</label>
-        <input type="tel" id="orderLookupPhone" placeholder="e.g., 9876543210" maxlength="10" />
-      </div>
-      
-      <div class="form-group">
-        <label for="orderLookupCity">City</label>
-        <input type="text" id="orderLookupCity" placeholder="e.g., Ahmedabad" />
-      </div>
-      
-      <button id="fetchOrdersBtn" disabled>Check Orders</button>
-      
-      <div id="ordersResult"></div>
-    </div>
   </div>
 
   <footer class="footer-contact-shop">
@@ -783,28 +736,21 @@
     </div>
     <nav class="social-icons" aria-label="Social media links" role="navigation">
       <a href="https://api.whatsapp.com/send?phone=9181283685" target="_blank" aria-label="WhatsApp">
-        <img src="https://raw.githubusercontent.com/magpieartsinfo/magpiearts-assets/refs/heads/main/magpie-arts-site/images/whatsapp-icon.svg" alt="WhatsApp" width="38" height="38" />
+        <img src="https://raw.githubusercontent.com/magpieartsinfo/magpiearts-assets/main/magpie-arts-site/images/whatsapp-icon.svg" alt="WhatsApp" width="38" height="38" />
       </a>
       <a href="https://www.linkedin.com/company/magpie-arts/?viewAsMember=true" target="_blank" aria-label="LinkedIn">
-        <img src="https://raw.githubusercontent.com/magpieartsinfo/magpiearts-assets/refs/heads/main/magpie-arts-site/images/linkedin-icon.svg" alt="LinkedIn" width="38" height="38" />
+        <img src="https://raw.githubusercontent.com/magpieartsinfo/magpiearts-assets/main/magpie-arts-site/images/linkedin-icon.svg" alt="LinkedIn" width="38" height="38" />
       </a>
       <a href="https://www.instagram.com/magpiearts27?igsh=cWMxZ2UydWV3ZHdy" target="_blank" aria-label="Instagram">
-        <img src="https://raw.githubusercontent.com/magpieartsinfo/magpiearts-assets/refs/heads/main/magpie-arts-site/images/instagram-icon.svg" alt="Instagram" width="38" height="38" />
+        <img src="https://raw.githubusercontent.com/magpieartsinfo/magpiearts-assets/main/magpie-arts-site/images/instagram-icon.svg" alt="Instagram" width="38" height="38" />
       </a>
       <a href="https://www.facebook.com/share/1QVHnxCqRB/" target="_blank" aria-label="Facebook">
-        <img src="https://raw.githubusercontent.com/magpieartsinfo/magpiearts-assets/refs/heads/main/magpie-arts-site/images/facebook-icon.svg" alt="Facebook" width="38" height="38" />
+        <img src="https://raw.githubusercontent.com/magpieartsinfo/magpiearts-assets/main/magpie-arts-site/images/facebook-icon.svg" alt="Facebook" width="38" height="38" />
       </a>
     </nav>
   </footer>
 
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
   <script>
-    // Initialize Supabase
-    const SUPABASE_URL = 'https://rxtukfjjeruospodnkdz.supabase.co';
-    const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ4dHVrZmpqZXJ1b3Nwb2Rua2R6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTc0ODc0NTQsImV4cCI6MjA3MzA2MzQ1NH0.-sgX4XjHiamnzyqDdlmBlrPgaPMgX8GbzdB1c2rnSc0';
-    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-
     // Product data - fetched from GitHub
     let products = [];
     let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
@@ -814,55 +760,34 @@
     const wishlistLink = document.getElementById('wishlist-link');
     let currentCategory = 'All';
 
-    // ====== RATING FUNCTIONS ======
-    function getRatingKey(productTitle) {
-      return "product_rating_" + (productTitle || "").toLowerCase().replace(/\s+/g, "_");
+    // Rating Functions - Using localStorage
+    function getRatingKey(product) {
+      return "review_" + (product.title || "").replace(/\s+/g, "_");
     }
 
-    function saveRating(productTitle, rating) {
-      const key = getRatingKey(productTitle);
-      localStorage.setItem(key, JSON.stringify(rating));
+    function loadRatings(product) {
+      const key = getRatingKey(product);
+      return JSON.parse(localStorage.getItem(key) || "[]");
     }
 
-    function getRating(productTitle) {
-      const key = getRatingKey(productTitle);
-      return JSON.parse(localStorage.getItem(key) || "null");
+    function getAverageRating(product) {
+      const reviews = loadRatings(product);
+      if (reviews.length === 0) return { avg: 0, count: 0 };
+      const sum = reviews.reduce((acc, r) => acc + r.stars, 0);
+      return { avg: sum / reviews.length, count: reviews.length };
     }
 
-    function renderProductRating(card, product) {
-      const ratingContainer = document.createElement('div');
-      ratingContainer.className = 'product-rating';
-      
-      const storedRating = getRating(product.title);
-      const rating = storedRating || 0;
-      
-      // Create 5 stars
-      for (let i = 1; i <= 5; i++) {
-        const star = document.createElement('span');
-        star.className = 'star' + (i <= rating ? '' : ' empty');
-        star.textContent = '★';
-        star.setAttribute('data-value', i);
-        star.onclick = (e) => {
-          e.stopPropagation();
-          saveRating(product.title, i);
-          renderProductRating(card, product);
-        };
-        ratingContainer.appendChild(star);
-      }
-      
-      // Add review count text
-      const reviewText = document.createElement('span');
-      reviewText.className = 'rating-count';
-      reviewText.textContent = rating > 0 ? `(${rating}★)` : '(No rating)';
-      ratingContainer.appendChild(reviewText);
-      
-      // Replace existing rating or append
-      const existingRating = card.querySelector('.product-rating');
-      if (existingRating) {
-        existingRating.replaceWith(ratingContainer);
-      } else {
-        card.appendChild(ratingContainer);
-      }
+    function renderStaticRating(container, avg, count) {
+      container.innerHTML = `
+        <div class="rating-stars-row">
+          ${Array.from({length: 5}, (_, i) =>
+            `<span style="color:${i < Math.round(avg) ? "#ffbc0a":"#bbb"};font-size:1.22rem;margin:0 2px;">★</span>`
+          ).join('')}
+        </div>
+        <div class="rating-review-row">
+          ${count > 0 ? `(${count} review${count > 1 ? "s" : ""})` : ""}
+        </div>
+      `;
     }
 
     // Fetch products from GitHub
@@ -915,18 +840,29 @@
         const card = document.createElement('div');
         card.className = 'product-card';
         card.onclick = () => openProductPage(originalIndex);
+        
+        // Get rating for this product from localStorage
+        const { avg, count } = getAverageRating(prod);
+        
         card.innerHTML = `
           <div class="product-img-window">
             <img src="${prod.image}" alt="${prod.title}" class="product-img" loading="lazy"/>
           </div>
           <div class="product-title">${prod.title}</div>
           <div class="product-price">Starting at Rs. ${getStartingPrice(prod).toLocaleString()}</div>
+          <div class="product-rating">
+            <div class="rating-stars-row">
+              ${Array.from({length: 5}, (_, i) =>
+                `<span style="color:${i < Math.round(avg) ? "#ffbc0a":"#bbb"};font-size:1.22rem;margin:0 2px;">★</span>`
+              ).join('')}
+            </div>
+            <div class="rating-review-row">
+              ${count > 0 ? `(${count} review${count > 1 ? "s" : ""})` : ""}
+            </div>
+          </div>
           <span title="Add to Wishlist" class="wishlist-heart ${wishlist.includes(originalIndex) ? 'wishlisted' : ''}" onclick="toggleWishlist(event, ${originalIndex})">❤</span>
         `;
         productsGrid.appendChild(card);
-        
-        // Add rating after price
-        renderProductRating(card, prod);
       });
     }
 
@@ -1005,105 +941,6 @@
       });
     }
 
-    // ====== ORDER LOOKUP FUNCTIONS ======
-    const orderLookupModal = document.getElementById('orderLookupModal');
-    const phoneInput = document.getElementById('orderLookupPhone');
-    const cityInput = document.getElementById('orderLookupCity');
-    const fetchOrdersBtn = document.getElementById('fetchOrdersBtn');
-    const ordersResult = document.getElementById('ordersResult');
-
-    function validateInputs() {
-      const phoneValid = phoneInput.value.trim().length === 10 && /^\d+$/.test(phoneInput.value);
-      const cityValid = cityInput.value.trim().length > 0;
-      fetchOrdersBtn.disabled = !(phoneValid && cityValid);
-    }
-
-    function openOrderLookup() {
-      orderLookupModal.classList.add('open');
-      phoneInput.value = '';
-      cityInput.value = '';
-      fetchOrdersBtn.disabled = true;
-      ordersResult.innerHTML = '';
-      phoneInput.focus();
-      
-      const sideMenu = document.getElementById('sideMenu');
-      if (sideMenu.classList.contains('open')) {
-        closeMenu();
-      }
-    }
-
-    function closeOrderLookup() {
-      orderLookupModal.classList.remove('open');
-    }
-
-    phoneInput.addEventListener('input', validateInputs);
-    cityInput.addEventListener('input', validateInputs);
-
-    fetchOrdersBtn.addEventListener('click', async () => {
-      const phone = phoneInput.value.trim();
-      const city = cityInput.value.trim();
-      
-      if (!phone || !city) return;
-      
-      ordersResult.innerHTML = '<div style="text-align:center; padding:20px; color:#666;">Loading orders...</div>';
-      
-      try {
-        const { data: orders, error } = await supabase
-          .from('orders')
-          .select('id, customer_name, product_list, total_amount, status, created_at')
-          .eq('phone', phone)
-          .ilike('city', `%${city}%`)
-          .order('created_at', { ascending: false });
-          
-        if (error) {
-          ordersResult.innerHTML = `<div style="color:red; text-align:center; padding:20px;">Error: ${error.message}</div>`;
-          return;
-        }
-        
-        if (!orders || orders.length === 0) {
-          ordersResult.innerHTML = '<div class="no-orders-message">No orders found. Please check your phone number and city.</div>';
-          return;
-        }
-        
-        // Render orders
-        ordersResult.innerHTML = '';
-        orders.forEach(order => {
-          let productsHtml = '';
-          try {
-            const products = JSON.parse(order.product_list || '[]');
-            productsHtml = products.map(p => `
-              <div class="product-item">
-                <div class="product-title">${p.title || 'Unknown Product'}</div>
-                <div class="product-details">
-                  ${p.size ? `Size: ${p.size}` : ''}
-                  ${p.size && p.palette ? ' • ' : ''}
-                  ${p.palette ? `Palette: ${p.palette}` : ''}
-                </div>
-              </div>
-            `).join('');
-          } catch (e) {
-            productsHtml = '<div class="product-item">Products: ' + order.product_list + '</div>';
-          }
-          
-          const orderHtml = `
-            <div class="order-item">
-              <div class="order-id">Order #${order.id}</div>
-              <div class="order-detail"><strong>Name:</strong> ${order.customer_name || 'N/A'}</div>
-              <div class="order-detail"><strong>Amount:</strong> ₹${(order.total_amount || 0).toFixed(2)}</div>
-              <div class="order-detail"><strong>Status:</strong> <span class="order-status">${(order.status || 'Processing').toUpperCase()}</span></div>
-              <div class="order-products">
-                <div class="order-products-title">Items:</div>
-                ${productsHtml}
-              </div>
-            </div>
-          `;
-          ordersResult.insertAdjacentHTML('beforeend', orderHtml);
-        });
-      } catch (err) {
-        ordersResult.innerHTML = `<div style="color:red; text-align:center; padding:20px;">Error: ${err.message}</div>`;
-      }
-    });
-
     // Side menu functionality
     const sideMenu = document.getElementById('sideMenu');
     const menuOverlay = document.getElementById('menuOverlay');
@@ -1132,11 +969,6 @@
 
     // Event listeners
     menuOverlay.addEventListener('click', closeMenu);
-    orderLookupModal.addEventListener('click', (e) => {
-      if (e.target === orderLookupModal) {
-        closeOrderLookup();
-      }
-    });
 
     document.addEventListener('click', function (event) {
       if (wishlistModal.style.display === 'block') {
@@ -1148,8 +980,68 @@
       }
     });
 
+    // Order Lookup Modal
+    const orderLookupModal = document.getElementById('orderLookupModal');
+    const orderLookupBtn = document.getElementById('menuOrderLookup');
+    const closeOrderLookupBtn = document.getElementById('closeOrderLookup');
+    const fetchOrdersBtn = document.getElementById('fetchOrdersBtn');
+    const phoneInput = document.getElementById('orderLookupPhone');
+    const cityInput = document.getElementById('orderLookupCity');
+    const ordersResult = document.getElementById('ordersResult');
+
+    function validateInputs() {
+      const phoneValid = phoneInput.value.trim().length === 10 && /^[0-9]{10}$/.test(phoneInput.value.trim());
+      const cityValid = cityInput.value.trim().length > 0;
+      fetchOrdersBtn.disabled = !(phoneValid && cityValid);
+    }
+
+    orderLookupBtn.addEventListener('click', function(e) {
+      e.preventDefault();
+      orderLookupModal.hidden = false;
+      phoneInput.value = '';
+      cityInput.value = '';
+      fetchOrdersBtn.disabled = true;
+      ordersResult.innerHTML = '';
+      phoneInput.focus();
+      
+      if (sideMenu.classList.contains('open')) {
+        closeMenu();
+      }
+    });
+
+    closeOrderLookupBtn.addEventListener('click', () => {
+      orderLookupModal.hidden = true;
+    });
+
+    orderLookupModal.querySelector('.modal-bg').addEventListener('click', () => {
+      orderLookupModal.hidden = true;
+    });
+
+    phoneInput.addEventListener('input', validateInputs);
+    cityInput.addEventListener('input', validateInputs);
+
+    fetchOrdersBtn.addEventListener('click', async () => {
+      const phone = phoneInput.value.trim();
+      const city = cityInput.value.trim();
+      
+      if (!phone || !city) return;
+      
+      console.log("Fetching orders for phone:", phone, "city:", city);
+      ordersResult.innerHTML = '<div style="text-align:center; padding:20px; color:#666;">Loading orders...</div>';
+      
+      // For now, show a message that order lookup requires backend integration
+      // You can replace this with actual Supabase integration when ready
+      ordersResult.innerHTML = `
+        <div class="no-orders-message">
+          <p>Order lookup is currently being set up.</p>
+          <p style="font-size:0.9rem; color:#888; margin-top:10px;">Please contact us at <a href="mailto:magpieartsinfo@gmail.com" style="color:#3c59ff;">magpieartsinfo@gmail.com</a> or call +91-8128136985 to check your order status.</p>
+        </div>
+      `;
+    });
+
     // Initialize the page
     document.addEventListener('DOMContentLoaded', () => {
+      // Set up navigation based on URL hash
       const hash = window.location.hash.substring(1).toLowerCase();
       const categoryMap = {
         'paint': { nav: 'Paint By Number Kit', cat: 'All' },
@@ -1160,7 +1052,8 @@
       
       const selection = categoryMap[hash] || { nav: 'Paint By Number Kit', cat: 'All' };
       
-      document.querySelectorAll('nav a:not([id])').forEach(link => {
+      // Highlight nav
+      document.querySelectorAll('nav a').forEach(link => {
         if (link.textContent.trim().toLowerCase() === selection.nav.toLowerCase()) {
           link.classList.add('active');
         } else {
@@ -1168,6 +1061,7 @@
         }
       });
       
+      // Fetch and render products from GitHub
       currentCategory = selection.cat;
       loadProductsFromGitHub();
     });
