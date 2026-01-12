@@ -77,44 +77,35 @@
       padding: 0 80px;
     }
     
-   .menu-icon, .home-icon-link {
+    .menu-icon {
       position: absolute;
-      width: auto;
-      height: auto;
-      background: none;
-      border: none;
-      border-radius: 0;
-      padding: 0;
+      right: 24px;
+      left: auto;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 52px;
+      height: 52px;
+      background: #e6f0ff;
+      border-radius: 50%;
+      box-shadow: 0 4px 15px rgba(18, 68, 170, 0.14);
+      cursor: pointer;
+      z-index: 12;
       display: flex;
       align-items: center;
       justify-content: center;
-      z-index: 10002;
-      top: 50%;
-      transform: translateY(-50%);
-      cursor: pointer;
-      outline: none;
-      transition: filter 0.2s;
+      transition: background 0.3s;
+      padding: 7px;
     }
-    .menu-icon { right: 24px; left: auto; }
-    .home-icon-link { left: 24px; right: auto; }
-    .menu-icon svg, .menu-icon img, .home-icon-link svg, .home-icon-link img {
-      width: 50px;
-      height: 50px;
+    
+    .menu-icon:hover {
+      background: #c6ddff;
+    }
+    
+    .menu-icon svg {
+      width: 36px;
+      height: 36px;
       display: block;
-      background: none;
-      border: none;
-      border-radius: 0;
-      user-select: none;
-      pointer-events: none;
-      filter: drop-shadow(0 7px 24px rgba(80,108,210,0.29)) 
-              drop-shadow(0 3px 10px rgba(50,50,100,0.13)) 
-              drop-shadow(0 15px 30px rgba(85,125,240,0.16));
     }
-    .menu-icon:hover svg, .menu-icon:hover img, 
-    .home-icon-link:hover svg, .home-icon-link:hover img {
-      filter: drop-shadow(0 10px 36px rgba(80,108,210,0.38)) 
-              drop-shadow(0 5px 16px rgba(50,50,100,0.16)) 
-              drop-shadow(0 20px 40px rgba(85,125,240,0.21));
     
     .pie-logo-center {
       margin: 0 auto;
