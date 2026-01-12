@@ -478,9 +478,13 @@
       width: 100vw;
       height: 100vh;
       z-index: 3000;
-      display: flex;
+      display: none;
       align-items: center;
       justify-content: center;
+    }
+    
+    .order-lookup-modal.open {
+      display: flex;
     }
     
     .order-lookup-modal .modal-bg {
@@ -663,7 +667,7 @@
   <div id="menuOverlay" class="menu-overlay"></div>
 
   <!-- Order Lookup Modal -->
-  <div id="orderLookupModal" class="order-lookup-modal" hidden>
+  <div id="orderLookupModal" class="order-lookup-modal">
     <div class="modal-bg"></div>
     <div class="modal-content">
       <button id="closeOrderLookup" class="close-btn">&times;</button>
@@ -997,24 +1001,21 @@
 
     orderLookupBtn.addEventListener('click', function(e) {
       e.preventDefault();
-      orderLookupModal.hidden = false;
+      closeMenu();
+      orderLookupModal.classList.add('open');
       phoneInput.value = '';
       cityInput.value = '';
       fetchOrdersBtn.disabled = true;
       ordersResult.innerHTML = '';
       phoneInput.focus();
-      
-      if (sideMenu.classList.contains('open')) {
-        closeMenu();
-      }
     });
 
     closeOrderLookupBtn.addEventListener('click', () => {
-      orderLookupModal.hidden = true;
+      orderLookupModal.classList.remove('open');
     });
 
     orderLookupModal.querySelector('.modal-bg').addEventListener('click', () => {
-      orderLookupModal.hidden = true;
+      orderLookupModal.classList.remove('open');
     });
 
     phoneInput.addEventListener('input', validateInputs);
