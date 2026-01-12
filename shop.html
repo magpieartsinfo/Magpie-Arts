@@ -562,6 +562,35 @@
     const wishlistLink = document.getElementById('wishlist-link');
     let currentCategory = 'All';
 
+function getRatingKey(product) {
+  return "review_" + (product.title || "").replace(/\s+/g, "_");
+}
+
+function loadRatings(product) {
+  const key = getRatingKey(product);
+  return JSON.parse(localStorage.getItem(key) || "[]");
+}
+
+function getAverageRating(product) {
+  const reviews = loadRatings(product);
+  if (reviews.length === 0) return { avg: 0, count: 0 };
+  const sum = reviews.reduce((acc, r) => acc + r.stars, 0);
+  return { avg: sum / reviews.length, count: reviews.length };
+}
+
+function renderStaticRating(container, avg, count) {
+  container.innerHTML = `
+    <div class="rating-stars-row">
+      ${Array.from({length: 5}, (_, i) =>
+        `<span style="color:${i < Math.round(avg) ? "#ffbc0a":"#bbb"};font-size:1.22rem;margin:0 2px;">★</span>`
+      ).join('')}
+    </div>
+    <div class="rating-review-row">
+      ${count > 0 ? `${count} review${count > 1 ? "s" : ""}` : "No reviews"}
+    </div>
+  `;
+}
+
     // Fetch products from GitHub
     async function loadProductsFromGitHub() {
       try {
@@ -580,6 +609,17 @@
         </div>`;
       }
     }
+
+async function getAverageRatingFromSupabase(product) {
+  const { data, error } = await supabase
+    .from('reviews')
+    .select('stars')
+    .eq('product_title', product.title); // Or use product.id if ID is used
+  if (error || !data) return { avg: 0, count: 0 };
+  const count = data.length;
+  const sum = data.reduce((acc, r) => acc + Number(r.stars || 0), 0);
+  return { avg: count > 0 ? sum / count : 0, count };
+}
 
     // Render products to the grid
     function renderProducts() {
@@ -621,6 +661,14 @@
           <span title="Add to Wishlist" class="wishlist-heart ${wishlist.includes(originalIndex) ? 'wishlisted' : ''}" onclick="toggleWishlist(event, ${originalIndex})">❤</span>
         `;
         productsGrid.appendChild(card);
+const ratingContainer = document.createElement('div');
+ratingContainer.className = 'product-rating';
+ratingContainer.id = 'rating_' + prod.title.replace(/\s+/g, "_");
+card.appendChild(ratingContainer);
+
+getAverageRatingFromSupabase(prod).then(({ avg, count }) => {
+  renderStaticRating(ratingContainer, avg, count);
+});
       });
     }
 
@@ -631,7 +679,7 @@
     }
 
     function openProductPage(index) {
-      window.location.href = `https://magpieartsinfo.github.io/magpie-arts-site/product.html?index=${index}`;
+      window.location.href = `https://magpieartsinfo.github.io/Magpie-Arts/product.html?index=${index}`;
     }
 
     function filterCategory(cat, el) {
@@ -764,6 +812,111 @@
       currentCategory = selection.cat;
       loadProductsFromGitHub();
     });
+
+// Order Lookup Modal - FIXED VERSION
+const orderLookupModal = document.getElementById('orderLookupModal');
+const orderLookupBtn = document.getElementById('menuOrderLookup');
+const closeOrderLookupBtn = document.getElementById('closeOrderLookup');
+const fetchOrdersBtn = document.getElementById('fetchOrdersBtn');
+const phoneInput = document.getElementById('orderLookupPhone');
+const cityInput = document.getElementById('orderLookupCity');
+const ordersResult = document.getElementById('ordersResult');
+
+function validateInputs() {
+  const phoneValid = phoneInput.validity.valid && phoneInput.value.trim().length === 10;
+  const cityValid = cityInput.value.trim().length > 0;
+  fetchOrdersBtn.disabled = !(phoneValid && cityValid);
+}
+
+orderLookupBtn.addEventListener('click', function(e) {
+  e.preventDefault();
+  orderLookupModal.hidden = false;
+  phoneInput.value = '';
+  cityInput.value = '';
+  fetchOrdersBtn.disabled = true;
+  ordersResult.innerHTML = '';
+  phoneInput.focus();
+  
+  if (sideMenu.classList.contains('open')) {
+    closeMenu();
+  }
+});
+
+closeOrderLookupBtn.addEventListener('click', () => {
+  orderLookupModal.hidden = true;
+});
+
+orderLookupModal.querySelector('.modal-bg').addEventListener('click', () => {
+  orderLookupModal.hidden = true;
+});
+
+phoneInput.addEventListener('input', validateInputs);
+cityInput.addEventListener('input', validateInputs);
+
+fetchOrdersBtn.addEventListener('click', async () => {
+  const phone = phoneInput.value.trim();
+  const city = cityInput.value.trim();
+  
+  if (!phone || !city) return;
+  
+  console.log("Fetching orders for phone:", phone, "city:", city);
+  ordersResult.innerHTML = '<div style="text-align:center; padding:20px; color:#666;">Loading orders...</div>';
+  
+  try {
+    const { data: orders, error } = await supabase
+      .from('orders')
+      .select('id, customer_name, product_list, total_amount, status')
+      .eq('phone', phone)
+      .ilike('city', city)
+      .order('id', { ascending: false });
+      
+    console.log("Response - Data:", orders, "Error:", error);
+      
+    if (error) {
+      ordersResult.innerHTML = `<div style="color:red; text-align:center; padding:20px;">Error loading orders: ${error.message}</div>`;
+      return;
+    }
+    
+    if (!orders || orders.length === 0) {
+      ordersResult.innerHTML = '<div class="no-orders-message">No orders found for this phone and city.</div>';
+      return;
+    }
+    
+    // Render orders with improved styling
+    ordersResult.innerHTML = '';
+    orders.forEach(order => {
+      const products = JSON.parse(order.product_list || '[]');
+      
+      const productHtml = products.map(p => `
+        <div class="product-item">
+          <div class="product-title">${p.title}</div>
+          <div class="product-details">
+            ${p.size ? `Size: ${p.size}` : ''}
+            ${p.size && p.palette ? ' • ' : ''}
+            ${p.palette ? `Palette: ${p.palette}` : ''}
+          </div>
+        </div>
+      `).join('');
+      
+      const orderHtml = `
+        <div class="order-item" tabindex="0" aria-label="Order ${order.id}">
+          <div class="order-id">Order ID: ${order.id}</div>
+          <div class="order-detail"><strong>Customer:</strong> ${order.customer_name}</div>
+          <div class="order-detail"><strong>Amount:</strong> ₹${order.total_amount.toFixed(2)}</div>
+          <div class="order-detail"><strong>Status:</strong> <span class="order-status">${order.status || 'pending'}</span></div>
+          <div class="order-products">
+            <div class="order-products-title">Products:</div>
+            ${productHtml}
+          </div>
+        </div>
+      `;
+      ordersResult.insertAdjacentHTML('beforeend', orderHtml);
+    });
+  } catch (err) {
+    console.error("Unexpected error:", err);
+    ordersResult.innerHTML = `<div style="color:red; text-align:center; padding:20px;">Unexpected error: ${err.message}</div>`;
+  }
+});
   </script>
 </body>
 </html>
