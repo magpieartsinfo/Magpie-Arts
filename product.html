@@ -448,7 +448,7 @@ function goToCart() {
 
 async function fetchProducts() {
   try {
-    const response = await fetch('https://raw.githubusercontent.com/magpieartsinfo/Magpie-Arts/main/products.json');
+    const response = await fetch('https://raw.githubusercontent.com/magpieartsinfo/Magpie-Arts/main/products.json?v=' + Date.now());
     if (!response.ok) throw new Error('Could not fetch products');
     products = await response.json();
     loadProduct();
